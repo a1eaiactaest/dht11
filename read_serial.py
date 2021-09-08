@@ -3,7 +3,7 @@
 import serial
 import time
 import sys
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 
@@ -15,18 +15,17 @@ s.reset_input_buffer()
 def hello():
   return render_template('index.html')
 
+@app.route('/info', methods=['GET'])
 def info():
-  while (1):
-    try: 
-      s_bytes = s.readline()
-      decoded = s_bytes[0:len(s_bytes)-2].decode("utf-8")
-      v = [float(x) for x in decoded.split(' ')]
-      print(v)
-
-    except Exception as e:
-      print(e)
-      break
-
+  try: 
+    s_bytes = s.readline()
+    decoded = s_bytes[0:len(s_bytes)-2].decode("utf-8")
+    v = [float(x) for x in decoded.split(' ')]
+    ret = {'humidity': v[0], 'temp': v[1], 'hic': v[2]}
+    return jsonify(ret)
+  except Exception as e:
+    print(e)
+    return 400
 
 if __name__ == "__main__":
   app.run(debug=True)

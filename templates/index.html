@@ -1,8 +1,28 @@
 <html>
 <head>
 <title>rere</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+<style>
+table, th, td {
+  border: 1px solid black; 
+}
+</style>
 <body>
+<script type="text/javascript" src="static/index.js"></script>
 <h1>rere</h1>
+<table>
+  <tr style="width: 100%">
+    <th>humidity</th>
+    <th>temperature</th>
+    <th>heat index</th>
+  </tr>
+  <tr>
+    <td id="humidity">0</td>
+    <td id="temp">0</td>
+    <td id="heat_index">0</td>
+  </tr>
+</table>
+<p id="acc">0</p>
 </body>
 </html>
