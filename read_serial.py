@@ -22,6 +22,7 @@ def info():
     decoded = s_bytes[0:len(s_bytes)-2].decode("utf-8")
     v = [float(x) for x in decoded.split(' ')]
     ret = {'humidity': v[0], 'temp': v[1], 'hic': v[2]}
+    print(ret)
     return jsonify(ret)
   except Exception as e:
     print(e)
