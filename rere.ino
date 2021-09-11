@@ -12,7 +12,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  delay(1000);
+  delay(2000);
   float h  = dht.readHumidity();
   float t = dht.readTemperature();
   //float f = dht.readTemperature(true); < for fahrenheit
