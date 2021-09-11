@@ -1,18 +1,18 @@
 # dht11
 
-## Usage
+## usage
 
-### Circuit
+### circuit
 
 Recreate arduino circuit given below:
 
 <img src="docs/circuit.png">
 
-### Code
+### ode
 
-Burn `dht11.ino` to your arduino uno.  
+burn `dht11.ino` to your arduino.
 
-Finally:
+finally:
 
 ```
 ./run.sh /dev/ttyACM0
