@@ -8,7 +8,7 @@ Recreate arduino circuit given below:
 
 <img src="docs/circuit.png">
 
-### ode
+### code
 
 burn `dht11.ino` to your arduino.
 
