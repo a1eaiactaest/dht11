@@ -14,4 +14,4 @@ var intervalId = window.setInterval(function(){
     });
     acc += 1;
     document.getElementById("acc").innerHTML = acc;
-}, 5000); // it'd be the best if this value is the same as the one in rere.ino.
+}, 5000); // it'd be the best if this value is the same or bigger than the one in dht11.ino.
