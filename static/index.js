@@ -7,6 +7,7 @@ var intervalId = window.setInterval(function(){
     .then(function(response) {
       return response.json();
     }).then(function(text) {
+      document.getElementById("time").innerHTML = text.time;
       document.getElementById("humidity").innerHTML = text.humidity;
       document.getElementById("temp").innerHTML = text.temp;
       document.getElementById("heat_index").innerHTML = text.hic;
