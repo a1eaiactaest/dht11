@@ -18,12 +18,15 @@ class Connection:
 
     self.f = open('data.json', 'a')
 
+    self.x = []
+
   def write(self, data):
     self.f.write(data) 
-    self.f.write('\n')
+    self.f.write(',\n')
 
   def serialize(self, d):
     packed = json.dumps(d)
+    print(packed)
     return packed 
 
   def read(self, DEBUG=False):
@@ -31,11 +34,12 @@ class Connection:
     bytes_decoded = s_bytes[0:len(s_bytes)-2].decode("utf-8")
     val = [float(v) for v in bytes_decoded.split(" ")]
     ct = str(datetime.datetime.now())
-    print(ct)
+    #print(ct)
     try:
       ret = {'time': ct, 'humidity': val[0], 'temp': val[1], 'hic': val[2]}
       if DEBUG:
-        print(ret)
+        #print(ret)
+        print()
     except IndexError:
       print('error occured running again')
       return self.read() # don't know if works

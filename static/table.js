@@ -8,28 +8,14 @@ function fetch_data(){
 }
 */
 var json_data, ret;
-const fetch_data = async () => {
-  const response = await fetch('/data');
-  const json = await response.text();
-  return json;
-  //console.log(json_data);
+
+function fetch_data(){
+  console.log('kupa');
+  $.getJSON('http://localhost:5000/data', function(data){
+    return data.text();
+  }); 
 }
 
-var getJSON = function(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      var status = xhr.status;
-      if (status === 200) {
-        callback(null, xhr.response);
-      } else {
-        callback(status, xhr.response);
-      }
-    };
-    xhr.send();
-};
-  
 
 //https://stackoverflow.com/questions/5180382/convert-json-data-to-a-html-table
 function addheaders(list, selector){
@@ -50,8 +36,8 @@ function addheaders(list, selector){
 
 }
 function build(selector){
-  var json_data = fetch_data();
-  console.log(json_data);
+  var x = fetch_data()
+  console.log(x);
   var columns = addheaders(json_data,selector);
 
   for (var i=0; i < json_data.length; i++){

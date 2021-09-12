@@ -32,3 +32,7 @@ output in format:
 is written every 5 seconds to `data.json` file. if it doesn't exist it's created.  
 you can easily convert json file to csv or excel with online converters.
 
+
+## todo
+
+* add [] to json, it formats better (serialization function)
