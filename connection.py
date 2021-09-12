@@ -31,6 +31,7 @@ class Connection:
     bytes_decoded = s_bytes[0:len(s_bytes)-2].decode("utf-8")
     val = [float(v) for v in bytes_decoded.split(" ")]
     ct = str(datetime.datetime.now())
+    print(ct)
     try:
       ret = {'time': ct, 'humidity': val[0], 'temp': val[1], 'hic': val[2]}
       if DEBUG:
@@ -40,8 +41,6 @@ class Connection:
       return self.read() # don't know if works
     self.write(self.serialize(ret))
     return ret
-
-
 
 if __name__ == "__main__":
   c = Connection('/dev/ttyACM0')

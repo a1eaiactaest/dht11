@@ -4,7 +4,7 @@
 
 ### circuit
 
-Recreate arduino circuit given below:
+recreate arduino circuit given below:
 
 <img src="docs/circuit.png">
 
@@ -21,7 +21,7 @@ finally:
 
 `/dev/ttyACM0` can replaced by any port your arduino is on.
 
-bash script gives required privileges to arduino, so you'll probably need to pass a sudo password.
+bash script gives required privileges to arduino, so it'll probably ask you for sudo password.
 
 
 output in format:
