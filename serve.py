@@ -3,18 +3,14 @@
 import os
 TABLE = os.getenv('TABLE', None) is not None
 
-import serial
-import time
 import sys
-import csv
 import json
-import datetime
 from flask import Flask, render_template, jsonify, request
 from connection import Connection
 
 app = Flask(__name__)
 
-#c = Connection(sys.argv[1])
+c = Connection(sys.argv[1])
 
 def serialize(t, hum, tem, hic):
   ret = json.dumps({'time': t, 'humidity': hum, 'temperature': tem, 'heat index': hic})

@@ -17,7 +17,10 @@ class Connection:
     self.s.reset_input_buffer()
 
     self.f = open('data.json', 'a')
+    self.x = []
 
+
+  def reset(self):
     self.x = []
 
   def write(self, data):
@@ -25,8 +28,9 @@ class Connection:
     self.f.write(',\n')
 
   def serialize(self, d):
-    packed = json.dumps(d)
-    print(packed)
+    self.x.append(d)
+    packed = json.dumps(self.x)
+    #print(packed)
     return packed 
 
   def read(self, DEBUG=False):
@@ -34,16 +38,13 @@ class Connection:
     bytes_decoded = s_bytes[0:len(s_bytes)-2].decode("utf-8")
     val = [float(v) for v in bytes_decoded.split(" ")]
     ct = str(datetime.datetime.now())
-    #print(ct)
     try:
       ret = {'time': ct, 'humidity': val[0], 'temp': val[1], 'hic': val[2]}
-      if DEBUG:
-        #print(ret)
-        print()
     except IndexError:
       print('error occured running again')
       return self.read() # don't know if works
     self.write(self.serialize(ret))
+    self.reset()
     return ret
 
 if __name__ == "__main__":
