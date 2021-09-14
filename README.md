@@ -35,4 +35,4 @@ you can easily convert json file to csv or excel with online converters.
 
 ## todo
 
-* add [] to json, it formats better (serialization function)
+* ~~add [] to json, it formats better (serialization function)~~
