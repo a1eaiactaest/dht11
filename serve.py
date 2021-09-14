@@ -23,7 +23,8 @@ def write(dest, data):
 def hello():
   if TABLE:
     return render_template('table.html')
-  return render_template('index.html')
+  else:
+    return render_template('index.html')
 
 @app.route('/info', methods=['GET'])
 def info():

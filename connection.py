@@ -2,13 +2,11 @@
 
 import os
 DEBUG = os.getenv("DEBUG", None) is not None
-
 import serial
 import time
 import sys
 import datetime
 import json
-
 
 class Connection:
   def __init__(self, port):
@@ -19,13 +17,12 @@ class Connection:
     self.f = open('data.json', 'a')
     self.x = []
 
-
   def reset(self):
     self.x = []
 
   def write(self, data):
     self.f.write(data) 
-    self.f.write(',\n')
+    self.f.write('\n')
 
   def serialize(self, d):
     self.x.append(d)
@@ -48,7 +45,7 @@ class Connection:
     return ret
 
 if __name__ == "__main__":
-  c = Connection('/dev/ttyACM0')
+  c = Connection(sys.argv[1])
   while(1):
     time.sleep(1)
     c.read(True) 
