@@ -4,7 +4,7 @@ function fetch_data(){
   fetch('/info').then(function(response){
     return response.json();
   }).then(function(text){
-    var table = document.getElementById("datatable");
+    let table = document.getElementById("datatable");
     let row = table.insertRow(1);
     let time_cell = row.insertCell();
     let hum_cell = row.insertCell();

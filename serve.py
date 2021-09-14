@@ -21,10 +21,11 @@ def write(dest, data):
 
 @app.route('/')
 def hello():
-  if TABLE:
-    return render_template('table.html')
-  else:
-    return render_template('index.html')
+  return render_template('index.html')
+
+@app.route('/table')
+def hello_table():
+  return render_template('table.html')
 
 @app.route('/info', methods=['GET'])
 def info():
