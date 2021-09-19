@@ -36,7 +36,7 @@ class Connection:
     #print(packed)
     return packed 
 
-  def read(self, DEBUG=False):
+  def read(self, DEBUG=False, SIM=True):
     s_bytes = self.s.readline()
     if SIM:
       bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
@@ -77,5 +77,5 @@ if __name__ == "__main__":
     c = Connection(sys.argv[1])
   while(1):
     time.sleep(1)
-    c.read(True) 
+    c.read(True, SIM) 
 

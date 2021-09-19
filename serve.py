@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-TABLE = os.getenv('TABLE', None) is not None
-
+SIM = os.getenv("SIM", None) is not None
 import sys
 import json
 from flask import Flask, render_template, jsonify, request
