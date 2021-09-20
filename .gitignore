@@ -3,4 +3,5 @@ __pycache__
 .*.swo
 *.json
 *.csv
-rethinkdb_data
+databases
+
