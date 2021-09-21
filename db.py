@@ -39,27 +39,14 @@ class Database:
 
   def append_td(self, data: dict):
     sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
-    sql_data = [data['time'],
-                data['id'],
-                data['pres'],
-                data['gas_res'],
-                data['a_temp'],
-                data['a_hum'],
-                data['gd_temp'],
-                data['gd_hum'],
-                data['gps_lat'],
-                data['gps_lon'],
-                data['gps_angle'],
-                data['gps_speed']]
+    sql_data = [v for k,v in data.items()]
     self.cur.execute(sql, sql_data)
     self.conn.commit()
 
   def read_db(self, n):
     acc = []
     for row in self.cur.execute('SELECT * FROM serial_data'):
-      #print(row)
       acc.append(row)
-    # last 5
     if n == 0:
       for dataset in acc:
         print(dataset)
@@ -74,7 +61,7 @@ class Database:
       time.sleep(5)
       x = self.serial_connection.read(False, True) 
       self.append_td(x)
-      print("%s - data has been written to the database" % x['time'])
+      print("\n%s - data has been written to the database" % x['time'])
     except Exception as e:
       print(e)
 
@@ -88,4 +75,6 @@ if __name__ == "__main__":
     # usage:
     # n -> returns last n elements
     # 0 -> returns whole database
-    db.read_db(5)
+    import sys  
+    n = int(sys.argv[-1])
+    db.read_db(n)
