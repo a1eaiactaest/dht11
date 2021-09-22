@@ -11,9 +11,10 @@ WRITE = os.getenv('WRITE', None) is not None
 class Database:
   def __init__(self):
     self.serial_connection = Connection('/dev/ttyACM0')
-    self.conn = sqlite3.connect('serial_archive.db')
+    self.conn = sqlite3.connect('serial_archive.db', check_same_thread=False)
     self.cur = self.conn.cursor() 
     self.init_db()
+    self.write_db(0.1)
 
   def create_table(self, table):
     try:
@@ -48,15 +49,12 @@ class Database:
     for row in self.cur.execute('SELECT * FROM serial_data'):
       acc.append(row)
     if n == 0:
-      for dataset in acc:
-        print(dataset)
+      return acc
     else:
-      for dataset in acc[len(acc)-n:len(acc)]:
-        print(dataset)
-      
+      return acc[len(acc)-n:len(acc)]
 
-  def write_db(self):
-    time.sleep(5)
+  def write_db(self, delay_minutes): 
+    time.sleep(delay_minutes*60)
     x = self.serial_connection.read(False, True) 
     self.append_td(x)
     print("\n%s - data has been written to the database" % x['time'])
@@ -66,11 +64,11 @@ if __name__ == "__main__":
   db = Database()
   if WRITE:
     while (1):
-      db.write_db() 
+      db.write_db(0.1) 
   if READ:
     # usage:
     # n -> returns last n elements
     # 0 -> returns whole database
     import sys  
     n = int(sys.argv[-1])
-    db.read_db(n)
+    print(db.read_db(n))

@@ -38,10 +38,13 @@ class Connection:
 
   def read(self, DEBUG=False, SIM=True):
     s_bytes = self.s.readline()
-    if SIM:
-      bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
-    else:
-      bytes_decoded = s_bytes[0:len(s_bytes)-2].decode("utf-8")
+    try:
+      if SIM:
+        bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
+      else:
+        bytes_decoded = s_bytes[0:len(s_bytes)-2].decode("utf-8")
+    except ValueError as e:
+      print(e)
     val = [float(v) for v in bytes_decoded.split(" ")]
     ct = str(datetime.datetime.now())
     try:
