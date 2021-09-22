@@ -11,9 +11,9 @@ WRITE = os.getenv('WRITE', None) is not None
 class Database:
   def __init__(self):
     self.serial_connection = Connection('/dev/ttyACM0')
-    self.conn = sqlite3.connect('databases/values.db')
-    self.init_db()
+    self.conn = sqlite3.connect('serial_archive.db')
     self.cur = self.conn.cursor() 
+    self.init_db()
 
   def create_table(self, table):
     try:
@@ -56,14 +56,10 @@ class Database:
       
 
   def write_db(self):
-    try:
-      # true for SIM mode
-      time.sleep(5)
-      x = self.serial_connection.read(False, True) 
-      self.append_td(x)
-      print("\n%s - data has been written to the database" % x['time'])
-    except Exception as e:
-      print(e)
+    time.sleep(5)
+    x = self.serial_connection.read(False, True) 
+    self.append_td(x)
+    print("\n%s - data has been written to the database" % x['time'])
 
 
 if __name__ == "__main__":

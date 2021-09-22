@@ -20,7 +20,7 @@ class Connection:
 
     time.sleep(2) # sleep 2 seconds before reading, otherwise it bugs
 
-    self.f = open('data.json', 'a')
+    self.f = open('data.json', 'a') # remove this in future
     self.x = []
 
   def reset(self):

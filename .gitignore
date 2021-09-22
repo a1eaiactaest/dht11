@@ -4,4 +4,4 @@ __pycache__
 *.json
 *.csv
 databases
-
+*.db
