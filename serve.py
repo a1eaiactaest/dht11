@@ -4,12 +4,27 @@ import os
 SIM = os.getenv("SIM", None) is not None
 import sys
 import json
+import threading
+import time
 from flask import Flask, render_template, jsonify, request
 from db import Database
 
-app = Flask(__name__)
-
 d = Database()
+
+class Thread(object):
+  def __init__(self, delay=1):
+    self.delay = delay
+    t = threading.Thread(target=self.run, args=())
+    t.daemon = True
+    t.start()
+
+  def run(self):
+    while(1):
+      d.write_db(self.delay/10)
+
+app = Flask(__name__)
+tr = Thread()
+
 
 @app.route('/')
 def hello():
@@ -23,7 +38,7 @@ def hello_table():
 def info():
   try: 
     values = d.read_db(1)
-    print(values)
+    print('new values:', values)
     return jsonify(values)
   except Exception as e:
     print(e)

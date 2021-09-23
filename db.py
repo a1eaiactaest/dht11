@@ -14,7 +14,6 @@ class Database:
     self.conn = sqlite3.connect('serial_archive.db', check_same_thread=False)
     self.cur = self.conn.cursor() 
     self.init_db()
-    self.write_db(0.1)
 
   def create_table(self, table):
     try:
