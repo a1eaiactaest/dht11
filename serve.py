@@ -29,10 +29,6 @@ tr = Thread()
 def hello():
   return render_template('index.html')
 
-@app.route('/table')
-def hello_table():
-  return render_template('table.html')
-
 @app.route('/info', methods=['GET'])
 def info():
   try: 
