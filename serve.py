@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-SIM = os.getenv("SIM", None) is not None
 import sys
 import json
 import threading
@@ -46,7 +45,7 @@ def info():
 
 @app.route('/data')
 def data():
-  return open('data.json').read()
+  return d.execute("SELECT * FROM serial_data")
 
 if __name__ == "__main__":
   app.run(debug=True)

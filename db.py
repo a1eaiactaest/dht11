@@ -54,9 +54,13 @@ class Database:
 
   def write_db(self, delay_minutes): 
     time.sleep(delay_minutes*60)
-    x = self.serial_connection.read(False, True) 
+    x = self.serial_connection.read()
     self.append_td(x)
     print("\n%s - data has been written to the database" % x['time'])
+
+  def execute(self, q):
+    #ret = [] 
+    return str([row for row in self.cur.execute(q)])
 
 
 if __name__ == "__main__":
