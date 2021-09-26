@@ -17,7 +17,7 @@ function fetch_data(){
   fetch('/info').then(function(response){
     return response.json();
   }).then(function(text){
-    let data = text[0]
+    let data = text[0];
     write_to_table(data);
   });
 
