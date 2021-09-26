@@ -53,10 +53,11 @@ class Database:
     else:
       return acc[len(acc)-n:len(acc)]
 
-  def write_db(self, delay_minutes): 
+  def write_db(self, delay_minutes, debug=False): 
     x = self.serial_connection.read()
     self.append_td(x)
-    print("\n%s - data has been written to the database" % x['time'])
+    if debug:
+      print("\n%s - data has been written to the database" % x['time'])
     time.sleep(delay_minutes)
 
   def execute(self, q):
@@ -68,7 +69,7 @@ if __name__ == "__main__":
   if WRITE:
     while (1):
       #db.write_db(300) # every 5 minutes 
-      db.write_db(20)
+      db.write_db(20, True)
   if READ:
     # usage:
     # n -> returns last n elements

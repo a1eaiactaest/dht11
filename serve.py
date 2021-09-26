@@ -39,6 +39,7 @@ def init_values():
 def info():
   try: 
     values = d.read_db(1)
+    print(values)
     return jsonify(values)
   except Exception as e:
     print(e)

@@ -2,17 +2,14 @@ var $SCRIPT_ROOT = "";
 
 // init archive data
 $.get("/init", function(data){
-  /*for (let i=0; i < data.length; i++){
-    console.log(data[i]);
-  }*/ 
   for (const value_set of data){
     write_to_table(value_set);
-    /*(for (const value of value_set){
+    for (const value of value_set){
       console.log(value);
-    }*/
+    }
   }
 });
-
+/*
 function fetch_data(){
   fetch('/info').then(function(response){
     return response.json();
@@ -21,6 +18,16 @@ function fetch_data(){
     write_to_table(data);
   });
 
+}
+*/
+
+function fetch_data(){
+  $.get('/info', function(response){
+    let data = response[0];
+    write_to_table(data);
+    console.log(data); // duplicates?
+
+  })
 }
 
 function write_to_table(values_arr){
