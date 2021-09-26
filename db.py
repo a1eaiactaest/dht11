@@ -60,7 +60,7 @@ class Database:
 
   def execute(self, q):
     #ret = [] 
-    return str([row for row in self.cur.execute(q)])
+    return [row for row in self.cur.execute(q)]
 
 
 if __name__ == "__main__":

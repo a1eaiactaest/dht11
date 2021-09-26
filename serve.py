@@ -29,6 +29,13 @@ tr = Thread()
 def hello():
   return render_template('index.html')
 
+@app.route('/init')
+def init_values():
+  archive_data = d.execute("SELECT * FROM serial_data")
+  return jsonify(archive_data)
+  
+  
+
 @app.route('/info', methods=['GET'])
 def info():
   try: 
@@ -41,7 +48,7 @@ def info():
 
 @app.route('/data')
 def data():
-  return d.execute("SELECT * FROM serial_data")
+  return str(d.execute("SELECT * FROM serial_data"))
 
 if __name__ == "__main__":
   app.run(debug=True)
