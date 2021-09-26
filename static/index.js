@@ -42,5 +42,5 @@ function write_to_table(values_arr){
 
 var intervalId = window.setInterval(function(){
   fetch_data();
-}, 3000);
+}, 10000); // 25 seconds
 

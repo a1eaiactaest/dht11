@@ -19,7 +19,7 @@ class Thread(object):
 
   def run(self):
     while(1):
-      d.write_db(self.delay/10)
+      d.write_db(10)
 
 app = Flask(__name__)
 tr = Thread()
@@ -33,14 +33,12 @@ def hello():
 def init_values():
   archive_data = d.execute("SELECT * FROM serial_data")
   return jsonify(archive_data)
-  
-  
+
 
 @app.route('/info', methods=['GET'])
 def info():
   try: 
     values = d.read_db(1)
-    print('new values:', values)
     return jsonify(values)
   except Exception as e:
     print(e)

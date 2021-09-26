@@ -7,6 +7,7 @@ import os
 
 READ = os.getenv('READ', None) is not None
 WRITE = os.getenv('WRITE', None) is not None
+CLEAR = os.getenv('CLEAR', None) is not None
 
 class Database:
   def __init__(self):
@@ -53,13 +54,12 @@ class Database:
       return acc[len(acc)-n:len(acc)]
 
   def write_db(self, delay_minutes): 
-    time.sleep(delay_minutes*60)
     x = self.serial_connection.read()
     self.append_td(x)
     print("\n%s - data has been written to the database" % x['time'])
+    time.sleep(delay_minutes)
 
   def execute(self, q):
-    #ret = [] 
     return [row for row in self.cur.execute(q)]
 
 
@@ -67,11 +67,17 @@ if __name__ == "__main__":
   db = Database()
   if WRITE:
     while (1):
-      db.write_db(0.1) 
+      #db.write_db(300) # every 5 minutes 
+      db.write_db(20)
   if READ:
     # usage:
     # n -> returns last n elements
     # 0 -> returns whole database
     import sys  
     n = int(sys.argv[-1])
-    print(db.read_db(n))
+    for x in db.read_db(n):
+      print(x, end='\n')
+  if CLEAR:
+    db.execute("DELETE FROM serial_data;") # doesn't work
+
+
