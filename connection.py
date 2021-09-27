@@ -34,8 +34,8 @@ class Connection:
     try:
       bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
       val = [float(v) for v in bytes_decoded.split(" ")]
-    except ValueError:
-      return
+    except ValueError as e:
+      print(e)
     ct = str(datetime.datetime.now())
     try:
       ret = {"time": ct,
@@ -52,8 +52,8 @@ class Connection:
              "gps_speed": val[10]}
       if DEBUG:
         print(ret)
-    except IndexError:
-      print('error occured running again')
+    except (IndexError, UnboundLocalError) as e:
+      print(e)
       return self.read() # don't know if works
     self.reset()
     return ret

@@ -1,0 +1,3 @@
+this is an arduino sketch for the simulation values to be sent to the api
+
+you can compile it in command line with ./compile.sh, assuming arduino is connected on /dev/ttyACM0
