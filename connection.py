@@ -33,9 +33,9 @@ class Connection:
     s_bytes = self.s.readline()
     try:
       bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
-    except ValueError as e:
-      print(e)
-    val = [float(v) for v in bytes_decoded.split(" ")]
+      val = [float(v) for v in bytes_decoded.split(" ")]
+    except ValueError:
+      pass
     ct = str(datetime.datetime.now())
     try:
       ret = {"time": ct,

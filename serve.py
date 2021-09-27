@@ -8,10 +8,10 @@ import time
 from flask import Flask, render_template, jsonify, request
 from db import Database
 
-d = Database()
 
 class Thread(object):
-  def __init__(self, delay=1):
+  def __init__(self, delay=100000):
+    self.acc = 0
     self.delay = delay
     t = threading.Thread(target=self.run, args=())
     t.daemon = True
@@ -19,11 +19,11 @@ class Thread(object):
 
   def run(self):
     while(1):
-      d.write_db(10)
+      d.write_db(5, True)
 
+d = Database()
 app = Flask(__name__)
-tr = Thread()
-
+#tr = Thread()
 
 @app.route('/')
 def hello():
@@ -33,7 +33,6 @@ def hello():
 def init_values():
   archive_data = d.execute("SELECT * FROM serial_data")
   return jsonify(archive_data)
-
 
 @app.route('/info', methods=['GET'])
 def info():
