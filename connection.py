@@ -35,7 +35,7 @@ class Connection:
       bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
       val = [float(v) for v in bytes_decoded.split(" ")]
     except ValueError:
-      pass
+      return
     ct = str(datetime.datetime.now())
     try:
       ret = {"time": ct,
