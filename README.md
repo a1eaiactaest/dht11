@@ -15,7 +15,7 @@ Then browse to `localhost:5000`.
 ## Connection
 
 
-**ALL OF THIS IS NOW COVERED IN STARTUP SCRIPT**
+**!ALL OF THIS IS NOW COVERED IN STARTUP SCRIPT!**
 
 Connect arduino via USB B. Find out which port arduino is on. Should be `/dev/tty*`, usually `ttyACM0` or `ttyUSB0`.  
 
