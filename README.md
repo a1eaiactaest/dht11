@@ -12,8 +12,9 @@ First, run the startup script and supply arduino port as the argument.
 
 Then browse to `localhost:5000`.
 
-## Connection
+Date will be written do the db every 15 minutes.
 
+## Connection
 
 **!ALL OF THIS IS NOW COVERED IN STARTUP SCRIPT!**
 
