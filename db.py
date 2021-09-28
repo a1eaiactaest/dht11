@@ -69,7 +69,7 @@ if __name__ == "__main__":
   if WRITE:
     while (1):
       #db.write_db(300) # every 5 minutes 
-      db.write_db(5, True)
+      db.write_db(900)
   if READ:
     # usage:
     # n -> returns last n elements

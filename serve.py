@@ -19,7 +19,7 @@ class Thread(object):
 
   def run(self):
     while(1):
-      d.write_db(5, True)
+      d.write_db(900, True)
 
 d = Database()
 app = Flask(__name__)
