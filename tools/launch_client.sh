@@ -1,3 +1,6 @@
 #!/bin/bash
 
-(cd .. && ./run.sh /dev/ttyACM0)
+# find port, may be prone to bugs, will see
+PORT=$(readlink -f /dev/serial/by-id/*)
+
+(cd .. && ./run.sh $PORT)
