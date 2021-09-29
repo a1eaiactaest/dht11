@@ -1,4 +1,9 @@
-#!/bin/bash
+#!/bin/bash 
+
+if [ "$1" == "kill" ]; then
+  tmux kill-session -t rere-monitor
+  exit
+fi
 
 # check whether session already exists
 tmux has-session -t rere-monitor 2>/dev/null
