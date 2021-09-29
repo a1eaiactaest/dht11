@@ -7,7 +7,7 @@ There's no need to run separate python scripts now.
 
 First, run the startup script and supply arduino port as the argument.
 ```
-./run.sh /dev/ttyACM0
+./run.sh /dev/ttyUSB0
 ```
 
 Then browse to `localhost:5000`.
@@ -18,7 +18,7 @@ Date will be written do the db every 15 minutes.
 
 **!ALL OF THIS IS NOW COVERED IN STARTUP SCRIPT!**
 
-Connect arduino via USB B. Find out which port arduino is on. Should be `/dev/tty*`, usually `ttyACM0` or `ttyUSB0`.  
+Connect arduino via USB B. Find out which port arduino is on. Should be `/dev/tty*`, usually `ttyUSB0` or `ttyACM0`.  
 
 In order to read serial port device needs proper privileges.
 

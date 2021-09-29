@@ -10,5 +10,9 @@ Made for better experience.
 
 Launches the tmux session with tools needed to monitor the performace of the Flask server and database writer.
 
+It's worth remembering that exiting tmux session won't kill it. It is still running in the background. 
+
+Run this script again to attach back to it.
+
 If not familiar with tmux read [man pages](https://man7.org/linux/man-pages/man1/tmux.1.html).
 
