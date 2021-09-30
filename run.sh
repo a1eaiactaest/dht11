@@ -8,14 +8,16 @@ function ctrl_c() {
 
 trap ctrl_c 2 # 2 for SIGINT
 
-if [ -z "$1" ]; then
+PORT=readlink -f /dev/serial/by-id/*
+
+if [ -z "$PORT" ]; then
   echo "please supply device port as argument"
   exit
 fi
 
-if  [ "`stat -c '%a' $1`" == "660" ] ; then
-  echo changing permissions of $1 to 660
-  sudo chmod a+rw $1
+if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
+  echo changing permissions of $PORT to 660
+  sudo chmod a+rw $PORT
 fi
   
 WRITE=1 ./db.py & 

@@ -23,6 +23,7 @@ class Database:
       pass
 
   def init_db(self):
+    '''
     data_table = """CREATE TABLE IF NOT EXISTS serial_data (
                     time      text,
                     id        integer, 
@@ -36,10 +37,20 @@ class Database:
                     gps_lon   real,
                     gps_angle real,
                     gps_speed real);"""
+    '''
+    data_table = """CREATE TABLE IF NOT EXISTS serial_data (
+                    time      text,
+                    id        integer, 
+                    pres      real,
+                    gas_res   real,
+                    a_temp    real,
+                    a_hum     real,
+                    gd_temp   real,
+                    gd_hum    real);"""
     self.create_table(data_table)
 
   def append_td(self, data: dict):
-    sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
+    sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
     sql_data = [v for k,v in data.items()]
     self.cur.execute(sql, sql_data)
     self.conn.commit()
@@ -69,7 +80,7 @@ if __name__ == "__main__":
   if WRITE:
     while (1):
       #db.write_db(300) # every 5 minutes 
-      db.write_db(900)
+      db.write_db(10)
   if READ:
     # usage:
     # n -> returns last n elements
