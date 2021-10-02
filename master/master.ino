@@ -1,4 +1,4 @@
-// rf95_server.pde
+  // rf95_server.pde
 // -*- mode: C++ -*-
 // Example sketch showing how to create a simple messageing server
 // with the RH_RF95 class. RH_RF95 class does not provide for addressing or
@@ -19,7 +19,7 @@ RH_RF95 rf95(8, 3); // Adafruit Feather M0 with RFM95
 // Need this on Arduino Zero with SerialUSB port (eg RocketScream Mini Ultra Pro)
 //#define Serial SerialUSB
 
-int led = 9;
+int led = 9; 
 
 float p, voc, ta, ha, tg, hg;
 int id;
@@ -74,15 +74,17 @@ void setup()
 {
   pinMode(led, OUTPUT);     
   Serial.begin(9600);
-  Serial.println('init');
   if (!rf95.init())
     Serial.println("init failed");  
 }
 
 void loop()
 {
+  Serial.println("tu dziala");
+  Serial.println(rf95.available());
   if (rf95.available())
   {
+    Serial.println("tu nie");
     // Should be a message for us now   
     uint8_t m[RH_RF95_MAX_MESSAGE_LEN];
     uint8_t len = sizeof(m);
@@ -95,29 +97,10 @@ void loop()
       }
       de(ar);
       
-      Serial.print(id);
-      Serial.print(" ");
-  
-      Serial.print(p);
-      Serial.print(" ");
-  
-      Serial.print(voc);
-      Serial.print(" ");
-  
-      Serial.print(ta);
-      Serial.print(" ");
-  
-      Serial.print(" ");
-      Serial.print(ha);
-  
-      Serial.print(tg);
-      Serial.print(" ");
-  
-      Serial.print(hg);
-      Serial.println(" ");
 
-//      Serial.print("RSSI: ");
-//      Serial.println(rf95.lastRssi(), DEC);
+      char buf[40];
+      sprintf(buf, "%d %f %f %f %f %f %f", id, p, voc, ta, ha, tg, hg);
+      Serial.println(buf);
       
       // Send a reply
       uint8_t d[] = "OK";
@@ -130,5 +113,5 @@ void loop()
       Serial.println("recv failed");
     }
   }
-  delay(2000);
+  delay(1);
 }
