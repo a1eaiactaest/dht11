@@ -19,6 +19,11 @@ RH_RF95 rf95(8, 3); // Adafruit Feather M0 with RFM95
 // Need this on Arduino Zero with SerialUSB port (eg RocketScream Mini Ultra Pro)
 //#define Serial SerialUSB
 
+#if defined(ARDUINO_SAMD_ZERO) && defined(SERIAL_PORT_USBVIRTUAL)
+  // Required for Serial on Zero based boards
+  #define Serial SERIAL_PORT_USBVIRTUAL
+#endif
+
 int led = 9; 
 
 float p, voc, ta, ha, tg, hg;
