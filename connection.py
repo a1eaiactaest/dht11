@@ -38,18 +38,28 @@ class Connection:
       print(e)
     ct = str(datetime.datetime.now())
     try:
-      ret = {"time": ct,
-             "id": val[0],
-             "pres": val[1],
-             "gas_res": val[2],
-             "a_temp": val[3],
-             "a_hum": val[4],
-             "gd_temp": val[5],
-             "gd_hum": val[6],
-             "gps_lat": val[7],
-             "gps_lon": val[8],
-             "gps_angle": val[9],
-             "gps_speed": val[10]}
+      if SIM:
+        ret = {"time": ct,
+               "id": val[0],
+               "pres": val[1],
+               "gas_res": val[2],
+               "a_temp": val[3],
+               "a_hum": val[4],
+               "gd_temp": val[5],
+               "gd_hum": val[6],
+               "gps_lat": val[7],
+               "gps_lon": val[8],
+               "gps_angle": val[9],
+               "gps_speed": val[10]}
+      else:
+        ret = {"time": ct,
+               "id": val[0],
+               "pres": val[1],
+               "gas_res": val[2],
+               "a_temp": val[3],
+               "a_hum": val[4],
+               "gd_temp": val[5],
+               "gd_hum": val[6]}
       if DEBUG:
         print(ret)
     except (IndexError, UnboundLocalError) as e:
