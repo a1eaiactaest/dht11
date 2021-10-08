@@ -77,7 +77,7 @@ class Database:
 
 
 if __name__ == "__main__":
-  db = Database()
+  db = Database('SIM')
   if WRITE:
     while (1):
       #db.write_db(300) # every 5 minutes 

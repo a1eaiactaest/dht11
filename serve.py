@@ -8,6 +8,7 @@ import time
 from flask import Flask, render_template, jsonify, request
 from db import Database
 
+SIM = os.getenv('SIM', None) is not None
 
 class Thread(object):
   def __init__(self, delay=100000):
@@ -21,9 +22,12 @@ class Thread(object):
     while(1):
       d.write_db(900, True)
 
-d = Database()
+if SIM:
+  d = Database('SIM')
+else:
+  d = Database()
+
 app = Flask(__name__)
-#tr = Thread()
 
 @app.route('/')
 def hello():
