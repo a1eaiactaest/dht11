@@ -8,7 +8,7 @@ function ctrl_c() {
 
 trap ctrl_c 2 # 2 for SIGINT
 
-PORT=readlink -f /dev/serial/by-id/*
+PORT=$(readlink -f /dev/serial/by-id/*)
 
 if [ -z "$PORT" ]; then
   echo "please supply device port as argument"
@@ -20,6 +20,12 @@ if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
   sudo chmod a+rw $PORT
 fi
   
-WRITE=1 ./db.py & 
-pid=$!
-./serve.py 
+if [[ -n $1 ]] && [[ $1 == "SIM" ]]; then
+  SIM=1 WRITE=1 ./db.py & 
+  pid=$!
+  SIM=1 ./serve.py 
+else
+  WRITE=1 ./db.py & 
+  pid=$!
+  ./serve.py 
+fi

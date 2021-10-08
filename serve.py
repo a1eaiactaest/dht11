@@ -10,28 +10,19 @@ from db import Database
 
 SIM = os.getenv('SIM', None) is not None
 
-class Thread(object):
-  def __init__(self, delay=100000):
-    self.acc = 0
-    self.delay = delay
-    t = threading.Thread(target=self.run, args=())
-    t.daemon = True
-    t.start()
-
-  def run(self):
-    while(1):
-      d.write_db(900, True)
-
 if SIM:
-  d = Database('SIM')
+  d = Database(True)
 else:
-  d = Database()
+  d = Database(True)
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-  return render_template('index.html')
+  if SIM:
+    return render_template('sim.html')
+  else:
+    return render_template('notsim.html')
 
 @app.route('/init')
 def init_values():

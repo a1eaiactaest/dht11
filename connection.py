@@ -5,6 +5,7 @@
 
 import os
 DEBUG = os.getenv("DEBUG", None) is not None
+SIM = os.getenv("DEBUG", None) is not None
 import serial
 import time
 import sys
@@ -12,7 +13,8 @@ import datetime
 import json
 
 class Connection:
-  def __init__(self, port):
+  def __init__(self, port, sim_mode):
+    self.sim_mode = sim_mode is not None
     self.port = port #/dev/tty*
     self.s = serial.Serial(port, 9600)
     self.s.reset_input_buffer()
@@ -38,7 +40,7 @@ class Connection:
       print(e)
     ct = str(datetime.datetime.now())
     try:
-      if SIM:
+      if self.sim_mode:
         ret = {"time": ct,
                "id": val[0],
                "pres": val[1],
@@ -64,15 +66,21 @@ class Connection:
         print(ret)
     except (IndexError, UnboundLocalError) as e:
       print(e)
-      return self.read() # don't know if works
+      return self.read() 
     self.reset()
     return ret
 
 if __name__ == "__main__":
   if len(sys.argv) < 2:
-    c = Connection('/dev/ttyACM0')
+    if SIM:
+      c = Connection('/dev/ttyACM0', True)
+    else:
+      c = Connection('/dev/ttyACM0')
   else:
-    c = Connection(sys.argv[1])
+    if SIM:
+      c = Connection(sys.argv[1], True)
+    else:
+      c = Connection(sys.argv[1])
   while(1):
     time.sleep(1)
     c.read(True) 
