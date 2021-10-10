@@ -4,9 +4,9 @@ import sqlite3
 from connection import Connection
 import time
 import os
+import sys  
 
 SIM = os.getenv('SIM', None) is not None
-
 READ = os.getenv('READ', None) is not None
 WRITE = os.getenv('WRITE', None) is not None
 CLEAR = os.getenv('CLEAR', None) is not None
@@ -26,8 +26,9 @@ class Database:
       pass
 
   def init_db(self): 
+    # two tables in the db
     if SIM:
-      data_table = """CREATE TABLE IF NOT EXISTS serial_data (
+      data_table = """CREATE TABLE IF NOT EXISTS sim_data (
                       time      text,
                       id        integer, 
                       pres      real,
@@ -54,22 +55,31 @@ class Database:
     self.create_table(data_table)
 
   def append_td(self, data: dict):
+    x = [v for k,v in data.items()]
     if SIM:
-      sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
+      sql = "INSERT INTO sim_data VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
     else:
       sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
-    sql_data = [v for k,v in data.items()]
     try:
-      self.cur.execute(sql, sql_data)
+      self.cur.execute(sql, x)
     except sqlite3.OperationalError as e:
       print(__file__, e)
-      return 
+      sql = "INSERT INTO sim_data VALUES (?,?,?,?,?,?,?,?)"
+      sql_data = (x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7])
+      self.cur.execute(sql, sql_data)
     self.conn.commit()
-    print('commited: ', sql_data)
+    print('commited: ', x)
 
-  def read_db(self, n):
+  def read_db(self, n, table=None):
     acc = []
-    for row in self.cur.execute('SELECT * FROM serial_data'):
+    if table == None:
+      if SIM:
+        sql = "SELECT * FROM sim_data"
+      else:
+        sql = "SELECT * FROM serial_data"
+    else:
+      sql = "SELECT * FROM %s" % table
+    for row in self.cur.execute(sql):
       acc.append(row)
     if n == 0:
       return acc
@@ -101,7 +111,6 @@ if __name__ == "__main__":
     # n -> returns last n elements
     # 0 -> returns whole database
     # ./db.py f 10 -> loop, 10 seconds of delay
-    import sys  
     if len(sys.argv) > 2:
       a = sys.argv[-2]
       if a == 'f':
@@ -114,6 +123,10 @@ if __name__ == "__main__":
       for x in db.read_db(int(a)):
         print(x, end='\n')
   if CLEAR:
-    db.execute("DELETE FROM serial_data;") # doesn't work
-
+    # usage:
+    # ./db.py {table}
+    # ./db.py sim_data
+    table = sys.argv[1]
+    db.execute("DELETE FROM %s;" % table) # doesn't work
+    print(db.read_db(0, table))
 
