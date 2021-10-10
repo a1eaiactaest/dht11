@@ -14,10 +14,7 @@ CLEAR = os.getenv('CLEAR', None) is not None
 class Database:
   def __init__(self, sim_mode=None):
     self.sim_mode = sim_mode is not None 
-    if self.sim_mode:
-      self.serial_connection = Connection('/dev/ttyACM0', True)
-    else:
-      self.serial_connection = Connection('/dev/ttyACM0', False)
+    self.serial_connection = Connection('/dev/ttyACM0', self.sim_mode)
     self.conn = sqlite3.connect('serial_archive.db', check_same_thread=False)
     self.cur = self.conn.cursor() 
     self.init_db()
