@@ -12,7 +12,7 @@ WRITE = os.getenv('WRITE', None) is not None
 CLEAR = os.getenv('CLEAR', None) is not None
 
 class Database:
-  def __init__(self, sim_mode):
+  def __init__(self, sim_mode=None):
     self.sim_mode = sim_mode is not None 
     if self.sim_mode:
       self.serial_connection = Connection('/dev/ttyACM0', True)
@@ -28,7 +28,7 @@ class Database:
     except AttributeError:
       pass
 
-  def init_db(self):
+  def init_db(self): 
     if SIM:
       data_table = """CREATE TABLE IF NOT EXISTS serial_data (
                       time      text,
@@ -62,9 +62,13 @@ class Database:
     else:
       sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
     sql_data = [v for k,v in data.items()]
-    print(sql_data)
-    self.cur.execute(sql, sql_data)
+    try:
+      self.cur.execute(sql, sql_data)
+    except sqlite3.OperationalError as e:
+      print(__file__, e)
+      return 
     self.conn.commit()
+    print('commited: ', sql_data)
 
   def read_db(self, n):
     acc = []
@@ -99,10 +103,19 @@ if __name__ == "__main__":
     # usage:
     # n -> returns last n elements
     # 0 -> returns whole database
+    # ./db.py f 10 -> loop, 10 seconds of delay
     import sys  
-    n = int(sys.argv[-1])
-    for x in db.read_db(n):
-      print(x, end='\n')
+    if len(sys.argv) > 2:
+      a = sys.argv[-2]
+      if a == 'f':
+        d = sys.argv[-1]
+        while(1): 
+          print(db.read_db(1)) 
+          time.sleep(10)
+    else:
+      a = sys.argv[-1]
+      for x in db.read_db(int(a)):
+        print(x, end='\n')
   if CLEAR:
     db.execute("DELETE FROM serial_data;") # doesn't work
 
