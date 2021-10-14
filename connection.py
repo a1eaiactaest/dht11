@@ -34,35 +34,39 @@ class Connection:
   def read(self, DEBUG=False):
     s_bytes = self.s.readline()
     try:
-      bytes_decoded = s_bytes[0:len(s_bytes)].decode("utf-8")
+      bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
       val = [float(v) for v in bytes_decoded.split(" ")]
     except ValueError as e:
       print(e)
     ct = str(datetime.datetime.now())
-    if self.sim_mode:
-      ret = {"time": ct,
-             "id": val[0],
-             "pres": val[1],
-             "gas_res": val[2],
-             "a_temp": val[3],
-             "a_hum": val[4],
-             "gd_temp": val[5],
-             "gd_hum": val[6],
-             "gps_lat": val[7],
-             "gps_lon": val[8],
-             "gps_angle": val[9],
-             "gps_speed": val[10]}
-    else:
-      ret = {"time": ct,
-             "id": val[0],
-             "pres": val[1],
-             "gas_res": val[2],
-             "a_temp": val[3],
-             "a_hum": val[4],
-             "gd_temp": val[5],
-             "gd_hum": val[6]}
-    if DEBUG:
-      print(ret)
+    try:
+      if self.sim_mode:
+        ret = {"time": ct,
+               "id": int(val[0]),
+               "pres": val[1],
+               "gas_res": val[2],
+               "a_temp": val[3],
+               "a_hum": val[4],
+               "gd_temp": val[5],
+               "gd_hum": val[6],
+               "gps_lat": val[7],
+               "gps_lon": val[8],
+               "gps_angle": val[9],
+               "gps_speed": val[10]}
+      else:
+        ret = {"time": ct,
+               "id": int(val[0]),
+               "pres": val[1],
+               "gas_res": val[2],
+               "a_temp": val[3],
+               "a_hum": val[4],
+               "gd_temp": val[5],
+               "gd_hum": val[6]}
+      if DEBUG:
+        print(ret)
+    except Exception as e:
+      print(e)
+      return self.read()
     self.reset()
     return ret
 
@@ -80,5 +84,5 @@ if __name__ == "__main__":
   while(1):
     time.sleep(1)
     c.read(True) 
-    c.s.reset_output
+    c.s.reset_output_buffer()
 

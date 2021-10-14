@@ -43,10 +43,6 @@ def info():
 def hello_stations():
   return render_template('stations.html')
 
-@app.route('/stations')
-def hello_stations():
-  return render_template('stations.html')
-
 @app.route('/data')
 def data():
   return str(d.execute("SELECT * FROM serial_data"))
