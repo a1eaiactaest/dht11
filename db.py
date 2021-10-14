@@ -117,7 +117,7 @@ if __name__ == "__main__":
         d = sys.argv[-1]
         while(1): 
           print(db.read_db(1)) 
-          time.sleep(10)
+          time.sleep(5)
     else:
       a = sys.argv[-1]
       for x in db.read_db(int(a)):
