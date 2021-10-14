@@ -16,5 +16,5 @@ function fetch_data(){
 
 var intervalId = window.setInterval(function(){
   fetch_data();
-}, 10000);
+}, 5000);
 
