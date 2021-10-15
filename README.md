@@ -15,6 +15,6 @@ Then browse to `localhost:5000`.
 
 ## Goals
 
-* every station has it's own table.
+* every station has it's own table. 
 * dashboard (plots etc.)
 * cleaner db and connection. 

@@ -11,15 +11,11 @@ from db import Database
 SIM = os.getenv('SIM', None) is not None
 
 d = Database(SIM)
-
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-  if SIM:
-    return render_template('sim.html')
-  else:
-    return render_template('notsim.html')
+  return render_template('index.html', SIM=SIM)
 
 @app.route('/init')
 def init_values():
