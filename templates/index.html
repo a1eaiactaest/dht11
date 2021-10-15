@@ -10,12 +10,35 @@
   }
 </style>
 <body>
-  <script type="text/javascript" src="static/index.js"></script>
+  <p id="station" hidden>{{ station }}</p>
+  <!--
+  https://jinja.palletsprojects.com/en/3.0.x/templates/#html-escaping
+  -->
+  <script type="text/javascript" src="/static/index.js"></script>
   {% if SIM %}
-    <script type="text/javascript" src="static/sim.js"></script>
+  <script type="text/javascript" src="/static/sim.js"></script>
   {% else %}
-    <script type="text/javascript" src="static/notsim.js"></script>
+  <script type="text/javascript" src="/static/notsim.js"></script>
   {% endif %}
+  <script>
+    if (location.pathname == '/'){
+      var station = 0;
+    } else {
+      var station = document.getElementById('station').innerHTML;
+    }
+    console.log(station);
+
+    // init archive data
+    $.get("/init/" + station, function(data){
+      for (const value_set of data){
+        write_to_table(value_set);
+      }
+    });
+
+    var intervalId = window.setInterval(function(){
+      fetch_data(station);
+    }, 15000);
+  </script>
   <h1>rere</h1>
   <a href="/stations">stations</a>
   <table id="datatable"> 
@@ -29,10 +52,10 @@
       <th>gd_temp</th>
       <th>gd_hum</th>
       {% if SIM %}
-        <th>gps_lat</th>
-        <th>gps_lon</th>
-        <th>gps_angle</th>
-        <th>gps_speed</th>
+      <th>gps_lat</th>
+      <th>gps_lon</th>
+      <th>gps_angle</th>
+      <th>gps_speed</th>
       {% endif %}
     </tr>
     <tr>
@@ -45,10 +68,10 @@
       <td id="gd_temp"></td>
       <td id="gd_hum"></td>
       {% if SIM %}
-        <td id="gps_lat"></td>
-        <td id="gps_lon"></td>
-        <td id="gps_angle"></td>
-        <td id="gps_speed"></td>
+      <td id="gps_lat"></td>
+      <td id="gps_lon"></td>
+      <td id="gps_angle"></td>
+      <td id="gps_speed"></td>
       {% endif %}
     </tr>
   </table>

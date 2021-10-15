@@ -17,16 +17,19 @@ app = Flask(__name__)
 def hello():
   return render_template('index.html', SIM=SIM)
 
-@app.route('/init')
-def init_values():
-  archive_data = d.execute("SELECT * FROM serial_data")
+@app.route('/init/<int:station>')
+def init_values(station):
+  if station == 0:
+    archive_data = d.execute("SELECT * FROM serial_data")
+  else:
+    archive_data = d.execute("SELECT * FROM serial_data WHERE id = %d" % station)
   return jsonify(archive_data)
 
-@app.route('/info', methods=['GET'])
-def info():
+@app.route('/info/<int:station>', methods=['GET'])
+def info(station):
   try: 
-    values = d.read_db(1)
-    print('from db:', values)
+    values = d.read_db(1, station)
+    #print('from db:', values)
     return jsonify(values)
   except Exception as e:
     print(e)
@@ -35,6 +38,11 @@ def info():
 @app.route('/stations')
 def hello_stations():
   return render_template('stations.html')
+
+@app.route('/stations/<int:station>')
+def station_table(station):
+  #print('station %d' % station)
+  return render_template('index.html', SIM=SIM, station=station)
 
 @app.route('/data')
 def data():

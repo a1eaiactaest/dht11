@@ -70,15 +70,21 @@ class Database:
     self.conn.commit()
     print('commited: ', x)
 
-  def read_db(self, n, table=None):
+  def read_db(self, n, station, table=None):
     acc = []
     if table == None:
       if SIM:
         sql = "SELECT * FROM sim_data"
       else:
-        sql = "SELECT * FROM serial_data"
+        if station == 0: # station 0 for all stations
+          sql = "SELECT * FROM serial_data"
+        else:
+          sql = "SELECT * FROM serial_data WHERE id = %d" % station
     else:
-      sql = "SELECT * FROM %s" % table
+      if station == 0: # station 0 for all stations
+        sql = "SELECT * FROM %s" % table
+      else:
+        sql = "SELECT * FROM %s WHERE id = %d" % (table, station)
     for row in self.cur.execute(sql):
       acc.append(row)
     if n == 0:
