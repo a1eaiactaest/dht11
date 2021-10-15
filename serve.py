@@ -10,10 +10,7 @@ from db import Database
 
 SIM = os.getenv('SIM', None) is not None
 
-if SIM:
-  d = Database(True)
-else:
-  d = Database(True)
+d = Database(SIM)
 
 app = Flask(__name__)
 
