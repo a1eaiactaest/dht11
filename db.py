@@ -70,7 +70,7 @@ class Database:
     self.conn.commit()
     print('commited: ', x)
 
-  def read_db(self, n, station, table=None):
+  def read_db(self, station, n, table=None):
     acc = []
     if table == None:
       if SIM:
@@ -84,7 +84,7 @@ class Database:
       if station == 0: # station 0 for all stations
         sql = "SELECT * FROM %s" % table
       else:
-        sql = "SELECT * FROM %s WHERE id = %d" % (table, station)
+        sql = "SELECT * FROM %s WHERE id = %d" % (table, int(station))
     for row in self.cur.execute(sql):
       acc.append(row)
     if n == 0:
@@ -99,9 +99,11 @@ class Database:
       print("\n%s - data has been written to the database" % (x['time']))
     time.sleep(delay_minutes)
 
-  def execute(self, q):
-    return [row for row in self.cur.execute(q)]
-
+  def execute(self, query):
+    ret = [row for row in self.cur.execute(query)]
+    self.conn.commit()
+    return ret
+  
 
 if __name__ == "__main__":
   if SIM:
@@ -114,19 +116,23 @@ if __name__ == "__main__":
       db.write_db(5)
   if READ:
     # usage:
-    # n -> returns last n elements
-    # 0 -> returns whole database
-    # ./db.py f 10 -> loop, 10 seconds of delay
-    if len(sys.argv) > 2:
+    # x -> which station, 0 for all stations w/o filtering
+    # n -> returns last n elements, 0 for all elements
+    # 'f' -> reading loop
+    # READ=1 ./db.py x n 
+    # READ=1 ./db.py 3 f 10 -> loop, 10 seconds of delay, read only from station 3
+    station = int(sys.argv[1])
+    if len(sys.argv) > 3:
       a = sys.argv[-2]
       if a == 'f':
         d = sys.argv[-1]
         while(1): 
-          print(db.read_db(1)) 
+          print(db.read_db(station, 1)) 
           time.sleep(5)
     else:
-      a = sys.argv[-1]
-      for x in db.read_db(int(a)):
+      a = int(sys.argv[-1])
+      ret = db.read_db(station, a)
+      for x in ret:
         print(x, end='\n')
   if CLEAR:
     # usage:
@@ -135,4 +141,3 @@ if __name__ == "__main__":
     table = sys.argv[1]
     db.execute("DELETE FROM %s;" % table) # doesn't work
     print(db.read_db(0, 0, table)) # 0 for whole db, 0 for filtering off
-
