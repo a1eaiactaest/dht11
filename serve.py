@@ -17,18 +17,19 @@ app = Flask(__name__)
 def hello():
   return render_template('index.html', SIM=SIM)
 
-@app.route('/init/<int:station>')
+@app.route('/init/<int:station>', methods=['GET', 'POST'])
 def init_values(station):
+  # by default showing data from past 24h
   if station == 0:
     archive_data = d.execute("SELECT * FROM serial_data")
   else:
     archive_data = d.execute("SELECT * FROM serial_data WHERE id = %d" % station)
   return jsonify(archive_data)
 
-@app.route('/info/<int:station>', methods=['GET'])
+@app.route('/info/<int:station>', methods=['GET', 'POST'])
 def info(station):
   try: 
-    values = d.read_db(1, station)
+    values = d.read_db(station, 1)
     #print('from db:', values)
     return jsonify(values)
   except Exception as e:
@@ -47,6 +48,10 @@ def station_table(station):
 @app.route('/data')
 def data():
   return str(d.execute("SELECT * FROM serial_data"))
+
+@app.route('/chart')
+def chart():
+  return render_template('chart_demo.html')
 
 if __name__ == "__main__":
   app.run(debug=True)

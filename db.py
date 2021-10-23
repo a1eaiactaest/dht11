@@ -113,7 +113,7 @@ if __name__ == "__main__":
   if WRITE:
     while (1):
       #db.write_db(300) # every 5 minutes 
-      db.write_db(5)
+      db.write_db(60)
   if READ:
     # usage:
     # x -> which station, 0 for all stations w/o filtering
@@ -128,7 +128,7 @@ if __name__ == "__main__":
         d = sys.argv[-1]
         while(1): 
           print(db.read_db(station, 1)) 
-          time.sleep(5)
+          time.sleep(15)
     else:
       a = int(sys.argv[-1])
       ret = db.read_db(station, a)

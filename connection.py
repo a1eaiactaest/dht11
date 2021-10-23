@@ -38,7 +38,7 @@ class Connection:
       val = [float(v) for v in bytes_decoded.split(" ")]
     except ValueError as e:
       print(e)
-    ct = str(datetime.datetime.now())
+    ct = str(datetime.datetime.now())[:-7]
     try:
       if self.sim_mode:
         ret = {"time": ct,
