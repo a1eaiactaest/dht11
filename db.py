@@ -134,5 +134,5 @@ if __name__ == "__main__":
     # ./db.py sim_data
     table = sys.argv[1]
     db.execute("DELETE FROM %s;" % table) # doesn't work
-    print(db.read_db(0, table))
+    print(db.read_db(0, 0, table)) # 0 for whole db, 0 for filtering off
 
