@@ -10,7 +10,7 @@ function get_initial_data(){
     success: function(fetched){
       fetched.forEach((element, index) => {
         dates.push(element[0]);
-        temps.push(element[3]);
+        temps.push(element[4]);
       });
     }
   });
