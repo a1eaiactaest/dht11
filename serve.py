@@ -19,7 +19,6 @@ def hello():
 
 @app.route('/init/<int:station>', methods=['GET', 'POST'])
 def init_values(station):
-  # by default showing data from past 24h
   if station == 0:
     archive_data = d.execute("SELECT * FROM serial_data")
   else:
