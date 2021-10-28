@@ -8,7 +8,8 @@ function ctrl_c() {
 
 trap ctrl_c 2 # 2 for SIGINT
 
-PORT=$(readlink -f /dev/serial/by-id/*)
+#PORT=$(readlink -f /dev/serial/by-id/*) # this wont work for mac
+PORT=$1
 
 if [ -z "$PORT" ]; then
   echo "please supply device port as argument"
