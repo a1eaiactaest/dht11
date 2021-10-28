@@ -1,5 +1,9 @@
 #!/bin/bash
 
 
-SERIAL=`ls /dev/tty.usb*`
-echo $SERIAL
+SERIAL=`ls -f /dev/tty.usb*`
+if ls /dev/tty.usb* 1> /dev/null 2>&1; then
+  echo $SERIAL
+else 
+  echo "no serial ports detected"
+fi
