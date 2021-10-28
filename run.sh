@@ -21,7 +21,7 @@ if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
   sudo chmod a+rw $PORT
 fi
   
-if [[ -n $1 ]] && [[ $1 == "SIM" ]]; then
+if [[ -n $2 ]] && [[ $2 == "SIM" ]]; then
   SIM=1 WRITE=1 ./db.py & 
   pid=$!
   SIM=1 ./serve.py 
