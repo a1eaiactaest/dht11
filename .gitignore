@@ -5,3 +5,4 @@ __pycache__
 *.csv
 databases
 *.db
+.DS_store
