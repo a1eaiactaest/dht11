@@ -1,17 +1,15 @@
 # rere-api
 -------------------------------------------------------------
 
-## Running the simulator
+## Usage
 
-There's no need to run separate python scripts now.
+Setup your preferences in `config.py` directly.
+Or pass right arugments in `db.py` and `connection.py` when calling the `Configuration` class.
 
-First, run the startup script and supply arduino port as the argument.
+Then run the startup shell script:
 ```
-./run.sh 
+./run.sh PORT
 ```
-
-Then browse to `localhost:5000`.
-
 
 ## Goals
 

@@ -12,6 +12,8 @@ class Configuration:
 
   port on linux should be something like /dev/ttyACM0
   on mac: /dev/tty.usbmodem101
+
+  use "find" as argv[1] to automatically find a port
   
   - MODE:
 
@@ -31,7 +33,7 @@ class Configuration:
         self.mode = "real-dummy"
     else:
       # change this if you want different values
-      self.port = "/dev/ttyACM0"
+      self.port = self.find_port()
       self.mode = "real-dummy"
 
     self.set_env()
