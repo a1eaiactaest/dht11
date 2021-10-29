@@ -23,6 +23,15 @@ class Configuration:
 
   """
   def __init__(self, arr):
+    # config file is for default settings
+    # check if config file exists
+    if os.path.exists('rere.conf'):
+      conf_file = open('rere.conf', 'r').read() 
+      if not conf_file:
+        self.write_file('rere.conf')
+    else:
+      self.write_file('rere.conf')
+    
     if len(arr) > 0:
       self.port = arr[0] 
       if self.port == 'find':
@@ -38,6 +47,13 @@ class Configuration:
 
     self.set_env()
 
+  def write_file(self, name):
+    conf_file = open(name, 'w')
+    conf_file.write('PORT=\n')
+    conf_file.write('MODE=\n')
+    conf_file.close()
+    print('please edit %s/rere.conf' % os.getcwd())
+
   def set_env(self):
     os.environ['RERE-PORT'] = self.port
     if self.mode is not None:
@@ -48,9 +64,5 @@ class Configuration:
 
 if __name__ == "__main__":
   arguments = sys.argv[1::]
-  print(arguments)
   config = Configuration(arguments)
-  print(os.environ)
-  for e,v in os.environ.items():
-    print(e,v)
-  
+  print(config)
