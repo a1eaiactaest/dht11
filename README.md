@@ -11,6 +11,8 @@ Then run the startup shell script:
 ./run.sh PORT
 ```
 
+browse to `localhost:5000`
+
 ## Goals
 
 * ~~every station has it's own table.~~ 
