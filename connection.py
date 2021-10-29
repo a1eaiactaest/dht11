@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # example:
-# [1.0, 1000.3, 124.23, 24.34, 61.57, 15.12, 71.3, 69.42, 42.07, 45.65, 0.0]
+# [1.0, 1000.3, 124.23, 24.34, 61.57, 15.12, 71.3]
 
 import os
 DEBUG = os.getenv("DEBUG", None) is not None
