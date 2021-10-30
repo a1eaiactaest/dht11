@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+
+# NOTE
+# this script is not used by any other at the moment
+
 import sys
 import os
 
