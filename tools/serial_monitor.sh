@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-PORT=$(readlink -f /dev/serial/by-id/*)
+PORT=$(./find_port.sh)
 if ls $PORT 2> /dev/null; then
   sudo screen $PORT 9600
 fi

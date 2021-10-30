@@ -2,7 +2,7 @@
 
 Made for better experience.
 
-## Usage
+## tmux_monitor
 
 ```
 ./tmux_monitor.sh
@@ -20,4 +20,28 @@ In order to kill the tmux session detach and do:
 ```
 
 If not familiar with tmux read [man pages](https://man7.org/linux/man-pages/man1/tmux.1.html).
+
+
+# find_port
+
+Don't know what serial port master station is on?
+
+```
+./find_port.sh
+```
+
+Should return you `/dev/tty.usb*` on Macs and  
+`/dev/tty*` on linux.
+
+
+# serial_monitor
+
+Want to see whats sent to specific serial port?
+
+```
+./serial_monitor.sh
+```
+
+This will make screen session with serial outputs on it.
+
 

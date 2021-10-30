@@ -5,6 +5,9 @@ if [ "$1" == "kill" ]; then
   exit
 fi
 
+MY_PATH=$(dirname $PWD)
+RUN_PATH=$MY_PATH"/run.sh"
+
 # check whether session already exists
 tmux has-session -t rere-monitor 2>/dev/null
 if [ $? != 0 ]; then
@@ -18,7 +21,7 @@ if [ $? != 0 ]; then
   tmux send-keys "htop" ENTER
 
   tmux neww
-  tmux send-keys "./launch_client.sh" ENTER
+  tmux send-keys "$RUN_PATH" ENTER
 fi
 
 # attach to the session
