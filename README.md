@@ -1,6 +1,8 @@
 # rere-api
 -------------------------------------------------------------
 
+<img src='docs/frog.jpg'>
+
 ## Usage
 
 Setup your preferences in `config.py` directly.
