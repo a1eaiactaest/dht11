@@ -5,15 +5,21 @@
 
 ## Usage
 
-Setup your preferences in `config.py` directly.
-Or pass right arugments in `db.py` and `connection.py` when calling the `Configuration` class.
+Find out what port master ((rx) with feather m0) station is on.
+```
+./tools/find_port.sh
+```
+It should return `/dev/tty*` on linux nad `/dev/tty.usb*` on mac.
 
-Then run the startup shell script:
+Run `run.sh` script and pass port path as an argument. 
+This will start `db.py` to write a line from serial to database every `n` seconds and    
+a flask server to serve a website that displays database contents and plots dynamically.
+
 ```
 ./run.sh PORT
 ```
 
-browse to `localhost:5000`
+Browse to `localhost:5000`.
 
 ## Goals
 
