@@ -28,4 +28,4 @@ Browse to `localhost:5000`.
 * dashboard (plots etc.)
 * cleaner db and connection. 
 * unit tests
-* interprate config.py from environment variables in db and serve
+* ~~interprate config.py from environment variables in db and serve~~
