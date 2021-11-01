@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash 
 
 function ctrl_c() {
   echo "*** stopping all started jobs ***"
@@ -18,9 +18,11 @@ fi
 export RERE_PORT=$PORT # check if this works later
 
 # required on linux
-if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
-  echo changing permissions of $PORT to 660
-  sudo chmod a+rw $PORT
+if [ `uname` == "Linux" ]; then
+  if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
+    echo changing permissions of $PORT to 660
+    sudo chmod a+rw $PORT
+  fi
 fi
 
 WRITE=1 ./db.py & 

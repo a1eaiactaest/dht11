@@ -14,10 +14,10 @@ import json
 class Connection:
   def __init__(self, port=None):
     if port == None:
-      self.port = os.eviron['RERE_PORT']
+      self.port = os.environ['RERE_PORT']
     else:
       self.port = port #/dev/tty*
-    self.s = serial.Serial(port, 9600)
+    self.s = serial.Serial(self.port, 9600)
     self.s.reset_input_buffer()
 
     time.sleep(2) # sleep 2 seconds before reading, otherwise it bugs
