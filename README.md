@@ -3,6 +3,8 @@
 
 <img src='docs/frog.jpg'>
 
+<a href="http://forthebadge.com/"><img src="https://forthebadge.com/images/badges/built-with-swag.svg"></a>
+
 ## Usage
 
 Find out what port master ((rx) with feather m0) station is on.
