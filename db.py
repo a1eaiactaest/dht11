@@ -86,7 +86,7 @@ if __name__ == "__main__":
   if WRITE:
     while (1):
       #db.write_db(300) # every 5 minutes 
-      db.write_db(60)
+      db.write_db(10)
   if READ:
     # usage:
     # x -> which station, 0 for all stations w/o filtering
