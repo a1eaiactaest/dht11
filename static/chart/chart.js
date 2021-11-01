@@ -1,5 +1,9 @@
+// using this later in chart config
+var min_arxiv = 0;
+var max_arxiv = 0;
 
 arxiv_data = get_initial_data();
+
 /*
 n = arxiv_data[0].length;
 for (let i=0; i<n; i++){
@@ -26,7 +30,14 @@ const data = {
 const config = {
   type: 'line',
   data: data,
-  options: {}
+  options: {
+    scales: {
+      y: {
+        max: max_arxiv+5,
+        min: min_arxiv-5
+      }
+    }
+  }
 };
 
 var myChart = new Chart(
@@ -49,6 +60,8 @@ function get_initial_data(){
       });
     }
   });
+  min_arxiv = Math.min(...ret[1]); 
+  max_arxiv = Math.max(...ret[1]);
   return ret;
 }
 
@@ -66,7 +79,22 @@ function add_data(chart, label, data){
   chart.data.datasets.forEach((dataset) => {
     dataset.data.push(data);
   });
-  chart.update();
+
+  if (data > max_arxiv){
+    updateScale(myChart, min_arxiv, data); 
+  }
+
+  if (data < max_arxiv){
+    updateScale(myChart, data, max_arxiv);
+  }
+}
+
+function updateScale(chart, min, max){
+  chart.options.scales.y = {
+    max: max+5,
+    min: min-5
+  };
+  chart.update()
 }
 
 var intervalId = window.setInterval(function(){
