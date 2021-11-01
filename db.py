@@ -6,14 +6,12 @@ import time
 import os
 import sys  
 
-SIM = os.getenv('SIM', None) is not None
 READ = os.getenv('READ', None) is not None
 WRITE = os.getenv('WRITE', None) is not None
 CLEAR = os.getenv('CLEAR', None) is not None
 
 class Database:
-  def __init__(self, sim_mode=None):
-    self.sim_mode = sim_mode is not None 
+  def __init__(self):
     self.serial_connection = Connection('/dev/ttyACM0', self.sim_mode)
     self.conn = sqlite3.connect('serial_archive.db', check_same_thread=False)
     self.cur = self.conn.cursor() 
@@ -26,40 +24,21 @@ class Database:
       pass
 
   def init_db(self): 
-    # two tables in the db
-    if SIM:
-      data_table = """CREATE TABLE IF NOT EXISTS sim_data (
-                      time      text,
-                      id        integer, 
-                      pres      real,
-                      gas_res   real,
-                      a_temp    real,
-                      a_hum     real,
-                      gd_temp   real,
-                      gd_hum    real,
-                      gps_lat   real,
-                      gps_lon   real,
-                      gps_angle real,
-                      gps_speed real);"""
-    else:
-      data_table = """CREATE TABLE IF NOT EXISTS serial_data (
-                      time      text,
-                      id        integer, 
-                      pres      real,
-                      gas_res   real,
-                      a_temp    real,
-                      a_hum     real,
-                      gd_temp   real,
-                      gd_hum    real);"""
+    data_table = """CREATE TABLE IF NOT EXISTS serial_data (
+                    time      text,
+                    id        integer, 
+                    pres      real,
+                    gas_res   real,
+                    a_temp    real,
+                    a_hum     real,
+                    gd_temp   real,
+                    gd_hum    real);"""
 
     self.create_table(data_table)
 
   def append_td(self, data: dict):
     x = [v for k,v in data.items()]
-    if SIM:
-      sql = "INSERT INTO sim_data VALUES (?,?,?,?,?,?,?,?,?,?,?,?)"
-    else:
-      sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
+    sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
     try:
       self.cur.execute(sql, x)
     except sqlite3.OperationalError as e:
@@ -73,13 +52,10 @@ class Database:
   def read_db(self, station, n, table=None):
     acc = []
     if table == None:
-      if SIM:
-        sql = "SELECT * FROM sim_data"
+      if station == 0: # station 0 for all stations
+        sql = "SELECT * FROM serial_data"
       else:
-        if station == 0: # station 0 for all stations
-          sql = "SELECT * FROM serial_data"
-        else:
-          sql = "SELECT * FROM serial_data WHERE id = %d" % station
+        sql = "SELECT * FROM serial_data WHERE id = %d" % station
     else:
       if station == 0: # station 0 for all stations
         sql = "SELECT * FROM %s" % table
@@ -106,10 +82,7 @@ class Database:
   
 
 if __name__ == "__main__":
-  if SIM:
-    db = Database(True)
-  else:
-    db = Database()
+  db = Database()
   if WRITE:
     while (1):
       #db.write_db(300) # every 5 minutes 
