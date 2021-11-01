@@ -12,7 +12,7 @@ CLEAR = os.getenv('CLEAR', None) is not None
 
 class Database:
   def __init__(self):
-    self.serial_connection = Connection('/dev/ttyACM0', self.sim_mode)
+    self.serial_connection = Connection()
     self.conn = sqlite3.connect('serial_archive.db', check_same_thread=False)
     self.cur = self.conn.cursor() 
     self.init_db()
@@ -43,7 +43,7 @@ class Database:
       self.cur.execute(sql, x)
     except sqlite3.OperationalError as e:
       print(__file__, e)
-      sql = "INSERT INTO sim_data VALUES (?,?,?,?,?,?,?,?)"
+      sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
       sql_data = (x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7])
       self.cur.execute(sql, sql_data)
     self.conn.commit()
@@ -110,7 +110,6 @@ if __name__ == "__main__":
   if CLEAR:
     # usage:
     # ./db.py {table}
-    # ./db.py sim_data
     table = sys.argv[1]
     db.execute("DELETE FROM %s;" % table) # doesn't work
     print(db.read_db(0, 0, table)) # 0 for whole db, 0 for filtering off

@@ -8,14 +8,13 @@ import time
 from flask import Flask, render_template, jsonify, request
 from db import Database
 
-SIM = os.getenv('SIM', None) is not None
 
-d = Database(SIM)
+d = Database()
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-  return render_template('index.html', SIM=SIM)
+  return render_template('index.html')
 
 @app.route('/init/<int:station>', methods=['GET', 'POST'])
 def init_values(station):
@@ -42,7 +41,7 @@ def hello_stations():
 @app.route('/stations/<int:station>')
 def station_table(station):
   #print('station %d' % station)
-  return render_template('index.html', SIM=SIM, station=station)
+  return render_template('index.html', station=station)
 
 @app.route('/data')
 def data():
