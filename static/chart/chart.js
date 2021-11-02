@@ -69,7 +69,6 @@ function fetch_data(station){
   let url = '/info/' + station;
   $.post(url, function(response){
     let data = response[0];
-    console.log(data);
     add_data(myChart, data[0], data[4]);
   });
 }
@@ -80,13 +79,15 @@ function add_data(chart, label, data){
     dataset.data.push(data);
   });
 
+  console.log(data);
   if (data > max_arxiv){
-    updateScale(myChart, min_arxiv, data); 
+    max_arxiv = data;
   }
 
-  if (data < max_arxiv){
-    updateScale(myChart, data, max_arxiv);
+  if (data < min_arxiv){
+    min_arxiv = data;
   }
+  updateScale(myChart, min_arxiv, max_arxiv);
 }
 
 function updateScale(chart, min, max){
