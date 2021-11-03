@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;600&display=swap');
+
+body {
+  font-family: 'Mukta', sans-serif;
+  height: 100%;
+  margin: 0;
+}
+
+.parallax {
+  background-image: url('/static/img/chris-a-unsplash.jpg');
+
+  height: 40%;
+
+  /* actuall parallax */
+  object-fit: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.home_title {
+  position: absolute;
+  color: white;
+  font-size: 100px;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.root {
+  margin: 8px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+

@@ -10,7 +10,8 @@ from db import Database
 
 
 d = Database()
-app = Flask(__name__)
+website_src = os.path.abspath('website')
+app = Flask(__name__, root_path=website_src)
 
 @app.route('/')
 def hello():
