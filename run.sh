@@ -9,8 +9,9 @@ function ctrl_c() {
 trap ctrl_c 2 # 2 for SIGINT
 
 if [ -z "$1" ]; then
-  echo "please supply reciever serial port as an argument"
-  exit
+  echo "searching for open serial port..."
+  PORT=`./tools/find_port.sh`
+  echo "port found -> $PORT"
 else
   PORT=$1
 fi
@@ -25,6 +26,9 @@ if [ `uname` == "Linux" ]; then
   fi
 fi
 
+
+echo "starting db.py in WRITE mode"
 WRITE=1 ./db.py & 
 pid=$!
+echo "starting flask server"
 ./serve.py 
