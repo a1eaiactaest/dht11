@@ -29,3 +29,10 @@ Browse to `localhost:5000`.
 * cleaner db and connection. 
 * unit tests
 * ~~interprate config.py from environment variables in db and serve~~
+* 4.11
+  * front end
+    * home page -> green, some stock pictures
+  * charts
+    * home page
+    * station's pages
+    
