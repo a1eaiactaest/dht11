@@ -35,7 +35,10 @@ Browse to `http://localhost:5000`.
 * ~~interprate config.py from environment variables in db and serve~~
 * 4.11
   * front end
-    * home page -> green, some stock pictures
+    * ~~home page -> green, some stock pictures~~
+    * table looks
+  * station sites
+    * show station number instead of `RERE`.
   * charts
     * home page
     * station's pages
