@@ -34,6 +34,7 @@ Browse to `http://localhost:5000`.
 * unit tests
 * ~~interprate config.py from environment variables in db and serve~~
 * 4.11
+  * install npm, try this https://www.npmjs.com/package/chartjs-plugin-downsample
   * front end
     * ~~home page -> green, some stock pictures~~
     * table looks
