@@ -1,5 +1,6 @@
 <html>
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>rere</title>
 
@@ -21,18 +22,23 @@
   </div>
   <div class="root">
 
-    <a href="/stations">stations</a>
+    <a href="/stations" class="menu">Index</a>
+      
+    <img src="/static/img/envira-brands.svg" class="menu-separator">
 
-    <table id="datatable"> 
+    <a href="/stations" class="menu">O nas</a>
+
+  </div>
+    <table id="datatable" class="center"> 
       <tr style="width: 100%">
-        <th>time</th>
-        <th>id</th>
-        <th>pres</th>
+        <th>Data</th>
+        <th>Stacja</th>
+        <th>Ciśnienie</th>
         <th>gas_res</th>
-        <th>a_temp</th>
-        <th>a_hum</th>
-        <th>gd_temp</th>
-        <th>gd_hum</th>
+        <th>Temp. powietrza</th>
+        <th>Wilg. powietrza</th>
+        <th>Temp. ziemi</th>
+        <th>Wilg. ziemi</th>
       </tr>
       <tr>
         <td id="time"></td>
@@ -45,6 +51,5 @@
         <td id="gd_hum"></td>
       </tr>
     </table>
-  </div>
 </body>
 </html>
