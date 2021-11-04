@@ -2,7 +2,8 @@
 var min_arxiv = 0;
 var max_arxiv = 0;
 
-arxiv_data = get_initial_data();
+station = document.getElementById('station').innerHTML;
+arxiv_data = get_initial_data(station);
 
 /*
 n = arxiv_data[0].length;
@@ -73,13 +74,13 @@ var myChart = new Chart(
   config
 );
 
-function get_initial_data(){
+function get_initial_data(station){
   // change from 0 to variable later
   ret = [[],[]]
 
   $.ajax({
     type: 'GET',
-    url: '/init/0',
+    url: '/init/'+station,
     async: false,
     success: function(fetched){
       fetched.forEach((element, index) => {
@@ -109,7 +110,6 @@ function add_data(chart, label, data){
     dataset.data.push(data);
   });
 
-  console.log(data);
   if (data > max_arxiv){
     max_arxiv = data;
   }
