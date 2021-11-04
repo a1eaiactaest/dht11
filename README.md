@@ -37,10 +37,13 @@ Browse to `http://localhost:5000`.
   * install npm, try this https://www.npmjs.com/package/chartjs-plugin-downsample
   * front end
     * ~~home page -> green, some stock pictures~~
-    * table looks
+    * ~~table looks~~
   * station sites
     * show station number instead of `RERE`.
   * charts
     * home page
     * station's pages
+  * index page
+  * about us page
+  * frogs walking on website
     
