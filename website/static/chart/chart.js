@@ -15,6 +15,24 @@ for (let i=0; i<n; i++){
 // dates -> x axis
 const labels = arxiv_data[0]; 
 
+// make less points on a chart
+const decimation = {
+  enabled: true,
+  algorithm: 'lttb',
+};
+
+const actions = [
+  {
+  name: 'lttb',
+  handler(chart) {
+    chart.options.plugins.decimation.algorithm = 'lttb',
+    chart.options.plugins.decimation.enabled = true,  
+    chart.options.plugins.decimation.samples = 50,  
+    chart.update()
+  }
+  }
+];
+
 const data = {
   labels: labels,
   datasets: [{
@@ -31,10 +49,20 @@ const config = {
   type: 'line',
   data: data,
   options: {
+    plugins: {
+      deecimation: decimation,
+    },
+    spanGaps: true,
     scales: {
       y: {
         max: max_arxiv+5,
         min: min_arxiv-5
+      },
+      xAxes: {
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 10
+        }
       }
     }
   }
