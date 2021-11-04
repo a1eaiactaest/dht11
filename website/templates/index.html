@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>rere</title>
 
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <!-- Style -->
@@ -17,6 +18,26 @@
   -->
   <script type="text/javascript" src="/static/js/index.js"></script>
 
+  <script>
+    function fetch_data(station){
+      let url = $SCRIPT_ROOT + '/info/' + station;
+      $.post(url, function(response){
+        let data = response[0];
+        write_to_table(data);
+        add_data(myChart, data[0], data[4]);
+      });
+    }
+    if (location.pathname == '/'){
+      var station = 0;
+    } else {
+      var station = document.getElementById('station').innerHTML;
+    }
+
+    var intervalId = window.setInterval(function(){
+      fetch_data(station);
+    }, 10000);
+  </script>
+
   <div class="parallax">
     <h1 class="home_title"><span>RERE</span></h1>
   </div>
@@ -28,6 +49,11 @@
 
     <a href="/stations" class="menu">O nas</a>
 
+    <div class="chart-container">
+      <canvas id="chart"></canvas>
+    </div>
+
+    <script type="text/javascript" src="/static/chart/chart.js"></script>
   </div>
     <table id="datatable" class="center"> 
       <tr style="width: 100%">

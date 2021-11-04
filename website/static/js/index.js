@@ -1,12 +1,15 @@
 var $SCRIPT_ROOT = "";
 
+/*
 function fetch_data(station){
   let url = $SCRIPT_ROOT + '/info/' + station;
   $.post(url, function(response){
     let data = response[0];
     write_to_table(data);
+    add_data(myChart, data[0], data[4]);
   });
 }
+*/
 
 function write_to_table(values_arr){
     let table = document.getElementById("datatable");
@@ -37,8 +40,9 @@ $.get("/init/" + station, function(data){
 	}
 });
 
+/*
 var intervalId = window.setInterval(function(){
 	fetch_data(station);
 }, 10000);
 
-
+*/

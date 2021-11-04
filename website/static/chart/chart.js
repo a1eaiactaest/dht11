@@ -93,6 +93,7 @@ function get_initial_data(){
   return ret;
 }
 
+/*
 function fetch_data(station){
   let url = '/info/' + station;
   $.post(url, function(response){
@@ -100,6 +101,7 @@ function fetch_data(station){
     add_data(myChart, data[0], data[4]);
   });
 }
+*/
 
 function add_data(chart, label, data){
   chart.data.labels.push(label);
@@ -126,7 +128,8 @@ function updateScale(chart, min, max){
   chart.update()
 }
 
+/*
 var intervalId = window.setInterval(function(){
   fetch_data(0);
 }, 10000);
-
+*/

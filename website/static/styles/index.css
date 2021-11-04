@@ -53,8 +53,9 @@ body {
 .menu-separator {
   width: 16px;
   height: 16px;
-  fill: rgba(126. 165, 116, 0.5);
+  color: rgba(126. 165, 116, 0.5); /* doesnt work */
 }
+
 
 
 /* table properities */
