@@ -1,17 +1,5 @@
-// using this later in chart config
-var min_arxiv = 0;
-var max_arxiv = 0;
-
 station = document.getElementById('station').innerHTML;
 arxiv_data = get_initial_data(station);
-
-/*
-n = arxiv_data[0].length;
-for (let i=0; i<n; i++){
-  console.log([arxiv_data[0][i], arxiv_data[1][i]]);
-  //console.log(arxiv_data[1][i]);
-}
-*/
 
 // dates -> x axis
 const labels = arxiv_data[0]; 
@@ -56,8 +44,7 @@ const config = {
     spanGaps: true,
     scales: {
       y: {
-        max: max_arxiv+5,
-        min: min_arxiv-5
+        grace: '5'
       },
       xAxes: {
         ticks: {
@@ -94,42 +81,11 @@ function get_initial_data(station){
   return ret;
 }
 
-/*
-function fetch_data(station){
-  let url = '/info/' + station;
-  $.post(url, function(response){
-    let data = response[0];
-    add_data(myChart, data[0], data[4]);
-  });
-}
-*/
-
 function add_data(chart, label, data){
   chart.data.labels.push(label);
   chart.data.datasets.forEach((dataset) => {
     dataset.data.push(data);
   });
-
-  if (data > max_arxiv){
-    max_arxiv = data;
-  }
-
-  if (data < min_arxiv){
-    min_arxiv = data;
-  }
-  updateScale(myChart, min_arxiv, max_arxiv);
-}
-
-function updateScale(chart, min, max){
-  chart.options.scales.y = {
-    max: max+5,
-    min: min-5
-  };
   chart.update()
 }
 
-/*
-var intervalId = window.setInterval(function(){
-  fetch_data(0);
-}, 10000);
-*/
