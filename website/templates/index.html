@@ -34,6 +34,13 @@
 
     <script type="text/javascript" src="/static/chart/chart.js"></script>
   </div>
+
+    <select name="amount" id="amount">
+      <option value="100">50</option>
+      <option value="100" selected>100</option>
+      <option value="100">150</option>
+      <option value="100">200</option>
+    </select> 
     <table id="datatable" class="center"> 
       <tr style="width: 100%">
         <th>Data</th>
@@ -84,7 +91,9 @@
       document.getElementById("title").innerHTML = "Stacja " + station;
     }
 
-    $.get('/init/' + station, function(data){
+    var select = document.getElementById("amount");
+    var rowAmount = select.options[select.selectedIndex].value;
+    $.get('/init/' + station + '/' + rowAmount, function(data){
       for (const value_set of data){
         add_data(myChart, value_set[0], value_set[4]);
         write_to_table(value_set);

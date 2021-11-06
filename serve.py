@@ -8,7 +8,6 @@ import time
 from flask import Flask, render_template, jsonify, request
 from db import Database
 
-
 d = Database()
 website_src = os.path.abspath('website')
 app = Flask(__name__, root_path=website_src)
@@ -17,10 +16,10 @@ app = Flask(__name__, root_path=website_src)
 def hello():
   return render_template('index.html')
 
-@app.route('/init/<int:station>', methods=['GET', 'POST'])
-def init_values(station):
+@app.route('/init/<int:station>/<int:rowAmount>', methods=['GET', 'POST'])
+def init_values(station, rowAmount):
   if station == 0:
-    archive_data = d.execute("SELECT * FROM serial_data")
+    archive_data = d.execute("SELECT * FROM serial_data LIMIT %d " % rowAmount)
   else:
     archive_data = d.execute("SELECT * FROM serial_data WHERE id = %d" % station)
   return jsonify(archive_data)
