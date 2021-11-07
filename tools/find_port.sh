@@ -8,6 +8,6 @@ if [ `uname` == "Darwin" ]; then
     echo "no serial ports detected"
   fi
 elif [ `uname` == "Linux" ]; then
-  SERIAL=`readlink /dev/serial/by-id/*`
+  SERIAL=`readlink -f /dev/serial/by-id/*`
   echo $SERIAL
 fi
