@@ -7,3 +7,4 @@ databases
 *.db
 .DS_store
 *.conf
+.pytest_cache
