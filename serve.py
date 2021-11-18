@@ -19,9 +19,28 @@ def hello():
 @app.route('/init/<int:station>/<int:rowAmount>', methods=['GET', 'POST'])
 def init_values(station, rowAmount):
   if station == 0:
-    archive_data = d.execute("SELECT * FROM serial_data LIMIT %d " % rowAmount)
+    sql = """
+    SELECT onlyN.*
+    FROM (SELECT *
+          FROM serial_data
+          ORDER BY time
+          DESC
+          ) onlyN
+    LIMIT %d
+    """ % rowAmount
+    archive_data = d.execute(sql)[::-1] # reverse
   else:
-    archive_data = d.execute("SELECT * FROM serial_data WHERE id = %d" % station)
+    sql = """
+    SELECT onlyN.*
+    FROM (SELECT *
+          FROM serial_data
+          WHERE id = %d
+          ORDER BY time 
+          DESC
+          ) onlyN
+    LIMIT %d
+    """ % (station, rowAmount)
+    archive_data = d.execute(sql)[::-1] # reverse
   return jsonify(archive_data)
 
 @app.route('/info/<int:station>', methods=['GET', 'POST'])

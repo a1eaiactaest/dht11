@@ -9,6 +9,7 @@ import sys
 READ = os.getenv('READ', None) is not None
 WRITE = os.getenv('WRITE', None) is not None
 CLEAR = os.getenv('CLEAR', None) is not None
+EXEC = os.getenv('EXEC', None) is not None
 
 class Database:
   def __init__(self):
@@ -25,7 +26,7 @@ class Database:
 
   def init_db(self): 
     data_table = """CREATE TABLE IF NOT EXISTS serial_data (
-                    time      text,
+                    time      integer,
                     id        integer, 
                     pres      real,
                     gas_res   real,
@@ -113,3 +114,6 @@ if __name__ == "__main__":
     table = sys.argv[1]
     db.execute("DELETE FROM %s;" % table) # doesn't work
     print(db.read_db(0, 0, table)) # 0 for whole db, 0 for filtering off
+  if EXEC:
+    command = "SELECT * FROM serial_data ORDER BY time DESC LIMIT 10"
+    print(db.execute(command))
