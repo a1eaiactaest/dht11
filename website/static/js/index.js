@@ -3,7 +3,7 @@ var $SCRIPT_ROOT = "";
 function write_to_table(values_arr){
   let table = document.getElementById("datatable");
   let row = table.insertRow(1);
-  let time_cell = row.insertCell(); time_cell.innerHTML = values_arr[0];
+  let time_cell = row.insertCell(); time_cell.innerHTML = parse_unix_date(values_arr[0]);
   let id_cell = row.insertCell(); id_cell.innerHTML = values_arr[1];
   let pres_cell = row.insertCell(); pres_cell.innerHTML = values_arr[2] + " hPa";
   let gas_res_cell = row.insertCell(); gas_res_cell.innerHTML = values_arr[3];
@@ -26,9 +26,14 @@ if (location.pathname == '/'){
 	var station = document.getElementById('station').innerHTML;
 }
 
-// init archive data
-$.get("/init/" + station, function(data){
-	for (const value_set of data){
-		write_to_table(value_set);
-	}
-});
+function parse_unix_date(unix_seconds){
+  var date = new Date(unix_seconds * 1000);
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  var day = date.getDate();
+  var hour = date.getHours();
+  var minutes = "0" + date.getMinutes();
+  var seconds = "0" + date.getSeconds();
+  var formatted_time = year + "-" + month + "-" + day + " " + hour + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+  return formatted_time
+}
