@@ -67,7 +67,7 @@ function get_initial_data(station){
 
   $.ajax({
     type: 'GET',
-    url: '/init/'+station,
+    url: '/init/'+station ,
     async: false,
     success: function(fetched){
       fetched.forEach((element, index) => {
@@ -76,8 +76,6 @@ function get_initial_data(station){
       });
     }
   });
-  min_arxiv = Math.min(...ret[1]); 
-  max_arxiv = Math.max(...ret[1]);
   return ret;
 }
 

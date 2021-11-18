@@ -51,5 +51,11 @@ def data():
 def chart():
   return render_template('chart_demo.html')
 
+# only for external use in `test/` directory
+def test_main():
+  app.run(debug=True) 
+
+  
+
 if __name__ == "__main__":
   app.run(debug=True)
