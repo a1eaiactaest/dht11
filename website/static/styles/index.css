@@ -29,6 +29,7 @@ body {
   position: absolute;
   color: white;
   font-size: 100px;
+  margin-bottom: 50%;
   margin-top: 10%;
   margin-left: auto;
   margin-right: auto;
@@ -51,8 +52,8 @@ body {
 }
 
 .menu-separator {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   color: rgba(126. 165, 116, 0.5); /* doesnt work */
 }
 
@@ -81,3 +82,19 @@ tr:hover {
   background-color: rgba(126, 165, 116, 0.5);
 }
 
+
+/* GLOBAL CLASSES */
+
+a:link {
+  text-decoration: none;
+  color: black;
+}
+
+a.visited {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  padding:0;
+}

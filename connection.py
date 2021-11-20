@@ -39,7 +39,8 @@ class Connection:
       val = [float(v) for v in bytes_decoded.split(" ")]
     except ValueError as e:
       print(e)
-    ct = str(datetime.datetime.now())[:-7]
+    #ct = str(datetime.datetime.now())[:-7]
+    ct = int(time.time())
     try:
       ret = {"time": ct,
              "id": int(val[0]),

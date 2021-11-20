@@ -67,7 +67,7 @@ function get_initial_data(station){
 
   $.ajax({
     type: 'GET',
-    url: '/init/'+station ,
+    url: '/init/'+ station + '/' + '100',
     async: false,
     success: function(fetched){
       fetched.forEach((element, index) => {

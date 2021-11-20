@@ -1,16 +1,32 @@
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Stations</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/static/styles/index.css">
 </head>
 <body>
-  <a href='/'>home</a>
-  <h1>Stations</h1>
-  <ul>
-    <li><a href='/stations/0'>All</a></li>
-    <li><a href='/stations/3'>Station 3</a></li>
-    <li><a href='/stations/5'>Station 5</a></li>
-    <li><a href='/stations/11'>Station 11</a></li>
-  </ul>
+
+  <div class="parallax">
+    <h1 class="home_title"><span id="title">INDEX</span></h1>
+  </div>
+  <div class="root">
+    <div class="center">
+      <div class="menu">
+        <ul>
+          <li style="display:inline"><a href='/'>All Stations</a></li>
+          <img class="menu-separator" src="/static/img/leaf-solid.svg"/>
+          <li style="display:inline"><a href='/stations/3'>Station 3</a></li>
+          <img class="menu-separator" src="/static/img/leaf-solid.svg"/>
+          <li style="display:inline"><a href='/stations/5'>Station 5</a></li>
+          <img class="menu-separator" src="/static/img/leaf-solid.svg"/>
+          <li style="display:inline"><a href='/stations/11'>Station 11</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
