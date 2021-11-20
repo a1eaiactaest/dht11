@@ -4,16 +4,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>rere</title>
 
-  <!-- Libs -->
+  <!-- External Libs -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <!--
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
--->
+  <!-- Internal Libs -->
 
-  <!-- Style, bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- Main JavaScript file
+  <script type="text/javascript" src="/static/js/index.js"></script>-->
+  <script type="module" src="/static/js/index.js"></script>
+
+  <!-- Style -->
   <link rel="stylesheet" type="text/css" href="/static/styles/index.css">
 
 
@@ -23,7 +23,6 @@
   <!--
   https://jinja.palletsprojects.com/en/3.0.x/templates/#html-escaping
   -->
-  <script type="text/javascript" src="/static/js/index.js"></script>
 
   <div class="parallax">
     <h1 class="home_title"><span id="title">RERE</span></h1>
@@ -40,7 +39,7 @@
       <canvas id="chart"></canvas>
     </div>
 
-    <script type="text/javascript" src="/static/chart/chart.js"></script>
+    <script type="module" src="/static/js/chart.js"></script>
   </div>
 
     <select name="amount" id="amount">
@@ -73,46 +72,5 @@
       </tr>
     </table>
 
-  <script>
-    var recent = [];
-    function fetch_data(station){
-      let url = $SCRIPT_ROOT + '/info/' + station;
-      $.post(url, function(response){
-        let data = Object.values(response[0]);
-        if (!areEqual(data, recent)){
-          write_to_table(data);
-          add_data(myChart, parse_unix_date(data[0]), data[4]);
-        } else {
-          console.log('element has been already requested: ' + data);
-        }
-        recent = data;
-      });
-    }
-
-    if (location.pathname == '/'){
-      var station = 0;
-    } else {
-      var station = document.getElementById('station').innerHTML;
-    }
-
-    if (station != 0){
-      console.log(document.getElementById("title").innerHTML);
-      document.getElementById("title").innerHTML = "Stacja " + station;
-    }
-
-    var select = document.getElementById("amount");
-    var rowAmount = select.options[select.selectedIndex].value;
-    $.get('/init/' + station + '/' + rowAmount, function(data){
-      for (const value_set of data){
-        add_data(myChart, parse_unix_date(value_set[0]), value_set[4]);
-        write_to_table(value_set);
-        recent = value_set;
-      }
-    });
-
-    var intervalId = window.setInterval(function(){
-      fetch_data(station);
-    }, 10000);
-  </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 function ctrl_c() {
   echo "*** stopping all started jobs ***"
-  kill $pid
+  kill $db_pid
   exit 
 }
 
@@ -29,6 +29,6 @@ fi
 
 echo "starting db.py in WRITE mode"
 WRITE=1 ./db.py & 
-pid=$!
+db_pid=$!
 echo "starting flask server"
 ./serve.py 

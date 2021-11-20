@@ -1,5 +1,13 @@
-station = document.getElementById('station').innerHTML;
-arxiv_data = get_initial_data(station);
+// make it global variable
+if (location.pathname == '/'){
+  var station = 0;
+} else {
+  var station = document.getElementById('station').innerHTML;
+}
+
+var NUM_POINTS;
+var station = document.getElementById('station').innerHTML;
+var arxiv_data = get_initial_data(station);
 
 // dates -> x axis
 const labels = arxiv_data[0]; 
@@ -9,6 +17,7 @@ const decimation = {
   enabled: true,
   algorithm: 'lttb',
 };
+
 
 const actions = [
   {
@@ -38,8 +47,10 @@ const config = {
   type: 'line',
   data: data,
   options: {
+    normalized: true,
+    animation: false,
     plugins: {
-      deecimation: decimation,
+      decimation: decimation,
     },
     spanGaps: true,
     scales: {
@@ -63,7 +74,7 @@ var myChart = new Chart(
 
 function get_initial_data(station){
   // change from 0 to variable later
-  ret = [[],[]]
+  var ret = [[],[]]
 
   $.ajax({
     type: 'GET',
@@ -76,6 +87,7 @@ function get_initial_data(station){
       });
     }
   });
+  NUM_POINTS = ret.length;
   return ret;
 }
 
@@ -87,3 +99,4 @@ function add_data(chart, label, data){
   chart.update()
 }
 
+export {myChart, add_data};
