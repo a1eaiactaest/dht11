@@ -55,12 +55,12 @@ def info(station):
 
 @app.route('/stations')
 def hello_stations():
-  return render_template('stations.html')
+  return render_template('index.html')
 
 @app.route('/stations/<int:station>')
 def station_table(station):
   #print('station %d' % station)
-  return render_template('index.html', station=station)
+  return render_template('station.html', station=station)
 
 @app.route('/data')
 def data():

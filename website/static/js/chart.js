@@ -1,3 +1,4 @@
+import {parse_unix_time} from './utils.js';
 // make it global variable
 if (location.pathname == '/'){
   var station = 0;
@@ -82,7 +83,7 @@ function get_initial_data(station){
     async: false,
     success: function(fetched){
       fetched.forEach((element, index) => {
-        ret[0].push(element[0]);
+        ret[0].push(parse_unix_time(element[0]));
         ret[1].push(element[4]);
       });
     }

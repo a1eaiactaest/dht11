@@ -11,3 +11,4 @@ export function write_to_table(values_arr){
   let gd_temp_cell = row.insertCell(); gd_temp_cell.innerHTML = values_arr[6] + " °C";
   let gd_hum_cell = row.insertCell(); gd_hum_cell.innerHTML = values_arr[7] + "%";
 }
+

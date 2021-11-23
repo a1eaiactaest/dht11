@@ -51,6 +51,10 @@ body {
   margin-right: 10px;
 }
 
+.menu:hover {
+  color: rgba(126, 165, 116, 0.5);
+}
+
 .menu-separator {
   width: 15px;
   height: 15px;

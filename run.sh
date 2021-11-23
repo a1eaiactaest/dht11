@@ -26,7 +26,6 @@ if [ `uname` == "Linux" ]; then
   fi
 fi
 
-
 echo "starting db.py in WRITE mode"
 WRITE=1 ./db.py & 
 db_pid=$!
