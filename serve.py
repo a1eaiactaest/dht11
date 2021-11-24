@@ -66,15 +66,9 @@ def station_table(station):
 def data():
   return str(d.execute("SELECT * FROM serial_data"))
 
-@app.route('/chart')
-def chart():
-  return render_template('chart_demo.html')
-
 # only for external use in `test/` directory
 def test_main():
   app.run(debug=True) 
-
-  
 
 if __name__ == "__main__":
   app.run(debug=True)
