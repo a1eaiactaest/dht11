@@ -34,17 +34,17 @@ Browse to `http://localhost:5000`.
 * unit tests
 * ~~interprate config.py from environment variables in db and serve~~
 * 4.11
-  * install npm, try this https://www.npmjs.com/package/chartjs-plugin-downsample
+  * ~~install npm, try this https://www.npmjs.com/package/chartjs-plugin-downsample~~
   * ~~refuse adding duplicates to the table~~
   * front end
     * ~~home page -> green, some stock pictures~~
     * ~~table looks~~
-  * station sites
+  * ~~station sites~~
     * show station number instead of `RERE`.
-  * charts
+  * ~~charts~~
     * home page
     * station's pages
-  * index page
+  * ~~index page~~
   * about us page
-  * frogs walking on website
+  * ~~frogs walking on website~~ NOT HAPPENING
     
