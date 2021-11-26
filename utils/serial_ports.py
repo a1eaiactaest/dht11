@@ -1,5 +1,10 @@
 import os
 import platform
+from subprocess import Popen, check_call, STDOUT
+from shutil import which
+import atexit
+import signal
+
 
 def find_serial_port():
   """
@@ -17,5 +22,57 @@ def find_serial_port():
     return
   else: return ports[0]
 
+class VirtualSerial:
+  """
+  This creates a pseudo-terminal with serial port open.
+  See https://en.wikipedia.org/wiki/Pseudoterminal
+  Created terminal won't be visible for `find_serial_port` function above.
+  """
+
+  def __init__(self):
+    self.create_pty()
+    atexit.register(self.kill_process, self.socat_ptys_pid) # function, functions paramter
+
+  def create_pty(self):
+    self.DEVNULL = open(os.devnull, "wb")
+    # Run background socat
+    if self.is_installed("socat"):
+      # suppres socat output
+      try:
+        socat_ptys = Popen("socat -d -d pty,raw,echo=0 pty,raw,echo=0".split(" "), stdout=self.DEVNULL, stderr=STDOUT)
+        # save pid, kill later
+        self.socat_ptys_pid = socat_ptys.pid
+        print(f"pty's PID: {self.socat_ptys_pid}")
+      finally:
+        self.DEVNULL.close()
+    else:
+      print("please install socat")
+  
+  def is_installed(self, programs_name):
+    """
+    Check whether given program is installed and added to $PATH
+    """
+    return which(programs_name) is not None
+
+  def kill_process(self, pid):
+    """
+    Takes process PID as a paramter.
+    Terminates program under PID with SIGKILL, SIGTERM can be handled.
+
+    Note: The functions registered via this module are not called when 
+    the program is killed by a signal not handled by Python, 
+    when a Python fatal internal error is detected, or when os._exit() is called.
+
+    https://docs.python.org/3/library/atexit.html#module-atexit
+    """
+    os.kill(pid, signal.SIGKILL)
+    print(f"SIGKILL {pid}")
+  
+
 if __name__ == "__main__":
-  print(find_serial_port())
+  #print(find_serial_port())
+  import time
+  vs = VirtualSerial()
+  time.sleep(10)
+
+
