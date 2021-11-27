@@ -5,6 +5,8 @@
 
 <a href="http://forthebadge.com/"><img src="https://forthebadge.com/images/badges/built-with-swag.svg"></a>
 
+There's a gene called [RERE](https://en.wikipedia.org/wiki/RERE)
+
 ## Usage
 
 Find out what port master ((rx) with feather m0) station is on.
@@ -48,3 +50,6 @@ Browse to `http://localhost:5000`.
   * about us page
   * ~~frogs walking on website~~ NOT HAPPENING
     
+
+
+[Great song about RERE](https://www.youtube.com/watch?v=HAgdfTsCmSI)
