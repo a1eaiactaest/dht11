@@ -1,13 +1,20 @@
 #!/bin/bash
 
 if [ `uname` == "Darwin" ]; then
-  SERIAL=`ls -f /dev/tty.usb*`
-  if ls /dev/tty.usb* 1> /dev/null 2>&1; then
-    echo $SERIAL
+  if ls /dev/tty.usbmodem* 1> /dev/null 2>&1; then
+    SERIAL=`ls -f /dev/tty.usbmodem*`
+  elif ls /tmp/ttyRERETX 1> /dev/null 2>&1; then
+    SERIAL=`ls -f /tmp/ttyRERERX` 
   else 
     echo "no serial ports detected"
   fi
 elif [ `uname` == "Linux" ]; then
-  SERIAL=`readlink -f /dev/serial/by-id/*`
-  echo $SERIAL
+  if ls /dev/ttyACM? 1> /dev/null 2>&1; then
+    SERIAL=`ls -f /dev/ttyACM?`
+  elif ls /dev/ttyUSB? 1> /dev/null 2>&1; then
+    SERIAL=`ls -f /dev/ttyUSB?`
+  else 
+    echo "no serial ports detected"
+  fi
 fi
+echo $SERIAL

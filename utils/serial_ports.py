@@ -27,6 +27,8 @@ class VirtualSerial:
   This creates a pseudo-terminal with serial port open.
   See https://en.wikipedia.org/wiki/Pseudoterminal
   Created terminal won't be visible for `find_serial_port` function above.
+
+  Socat command creates two ports with symlinks to /tmp/ttyRERETX and /tmp/ttyRERERX
   """
 
   def __init__(self):
@@ -39,7 +41,8 @@ class VirtualSerial:
     if self.is_installed("socat"):
       # suppres socat output
       try:
-        socat_ptys = Popen("socat -d -d pty,raw,echo=0 pty,raw,echo=0".split(" "), stdout=self.DEVNULL, stderr=STDOUT)
+        socat_ptys = Popen("socat -d -d pty,raw,echo=0,link=/tmp/ttyRERETX pty,raw,echo=0,link=/tmp/ttyRERERX".split(" "), 
+                            stdout=self.DEVNULL, stderr=STDOUT)
         # save pid, kill later
         self.socat_ptys_pid = socat_ptys.pid
         print(f"pty's PID: {self.socat_ptys_pid}")
@@ -73,6 +76,7 @@ if __name__ == "__main__":
   #print(find_serial_port())
   import time
   vs = VirtualSerial()
-  time.sleep(10)
+  while (1):
+    time.sleep(10000)
 
 
