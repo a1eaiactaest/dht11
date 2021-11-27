@@ -11,7 +11,7 @@ There's a gene called [RERE](https://en.wikipedia.org/wiki/RERE)
 
 Find out what port master ((rx) with feather m0) station is on.
 ```
-./tools/find_port.sh
+tools/find_port.sh
 ```
 It should return `/dev/tty*` on linux nad `/dev/tty.usb*` on mac.
 
@@ -30,25 +30,10 @@ Browse to `http://localhost:5000`.
 
 ## Goals
 
-* ~~every station has it's own table.~~ 
+* QA
 * dashboard (plots etc.)
-* cleaner db and connection. 
-* unit tests
-* ~~interprate config.py from environment variables in db and serve~~
-* 4.11
-  * ~~install npm, try this https://www.npmjs.com/package/chartjs-plugin-downsample~~
-  * ~~refuse adding duplicates to the table~~
-  * front end
-    * ~~home page -> green, some stock pictures~~
-    * ~~table looks~~
-  * ~~station sites~~
-    * show station number instead of `RERE`.
-  * ~~charts~~
-    * home page
-    * station's pages
-  * ~~index page~~
-  * about us page
-  * ~~frogs walking on website~~ NOT HAPPENING
+* [Issues](https://github.com/a1eaiactaest/rere-api/issues)
+
     
 
 
