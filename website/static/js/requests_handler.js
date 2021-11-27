@@ -23,7 +23,6 @@ export function init_data(station){
  var rowAmount = select.options[select.selectedIndex].value;
  $.get('/init/' + station + '/' + rowAmount, function(data){
    for (const value_set of data){
-     add_data(myChart, parse_unix_time(value_set[0]), value_set[4]);
      write_to_table(value_set);
      recent = value_set;
    }

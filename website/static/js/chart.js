@@ -22,13 +22,13 @@ const decimation = {
 
 const actions = [
   {
-  name: 'lttb',
-  handler(chart) {
-    chart.options.plugins.decimation.algorithm = 'lttb',
-    chart.options.plugins.decimation.enabled = true,  
-    chart.options.plugins.decimation.samples = 50,  
-    chart.update()
-  }
+    name: 'lttb',
+    handler(chart) {
+      chart.options.plugins.decimation.algorithm = 'lttb',
+      chart.options.plugins.decimation.enabled = true,  
+      chart.options.plugins.decimation.samples = 50,  
+      chart.update()
+    }
   }
 ];
 
