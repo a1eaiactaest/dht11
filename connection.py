@@ -4,17 +4,22 @@
 # [1.0, 1000.3, 124.23, 24.34, 61.57, 15.12, 71.3]
 
 import os
-DEBUG = os.getenv("DEBUG", None) is not None
 import serial
 import time
 import sys
 import datetime
 import json
 
+DEBUG = os.getenv("DEBUG", None) is not None
+
 class Connection:
   def __init__(self, port=None):
     if port == None:
-      self.port = os.environ['RERE_PORT']
+      try:
+        self.port = os.environ['RERE_PORT']
+      except KeyError:
+        print('Set RERE_PORT environmental variable')
+        exit
     else:
       self.port = port #/dev/tty*
     self.s = serial.Serial(self.port, 9600)

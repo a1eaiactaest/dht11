@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-
 import os
 import sys
-import json
-import threading
-import time
-from flask import Flask, render_template, jsonify, request
-from db import Database
 
-d = Database()
+from flask import Flask, render_template, jsonify, request
+
+from utils.network import init_db
+
+d = init_db()
 website_src = os.path.abspath('website')
 app = Flask(__name__, root_path=website_src)
 
