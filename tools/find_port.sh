@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# doesnt search /dev/cu.usbserial-A50285BI - chinese arduino uno
+
 if [ `uname` == "Darwin" ]; then
   if ls /dev/tty.usbmodem* 1> /dev/null 2>&1; then
     SERIAL=`ls -f /dev/tty.usbmodem*`
