@@ -14,8 +14,8 @@ app = Flask(__name__, root_path=website_src)
 def hello():
   return render_template('index.html')
 
-@app.route('/init/<int:station>', methods=['GET', 'POST'])
-def init_values(station):
+@app.route('/init/<int:station>/<int:rowAmount>', methods=['GET', 'POST'])
+def init_values(station,rowAmount):
   rowAmount = 100
   if station == 0:
     sql = """
