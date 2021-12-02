@@ -5,7 +5,6 @@ from shutil import which
 import atexit
 import signal
 
-
 def find_serial_port():
   """
   Search for serial port in /dev, works on Mac and Linux.

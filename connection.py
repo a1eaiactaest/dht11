@@ -10,6 +10,8 @@ import sys
 import datetime
 import json
 
+from utils import serial_ports
+
 DEBUG = os.getenv("DEBUG", None) is not None
 
 class Connection:
@@ -18,8 +20,9 @@ class Connection:
       try:
         self.port = os.environ['RERE_PORT']
       except KeyError:
-        print('Set RERE_PORT environmental variable')
-        exit
+        #print('Set RERE_PORT environmental variable')
+        #exit
+        self.port = serial_ports.find_serial_port()
     else:
       self.port = port #/dev/tty*
     self.s = serial.Serial(self.port, 9600)

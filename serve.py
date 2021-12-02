@@ -7,7 +7,7 @@ from flask import Flask, render_template, jsonify, request
 from utils.network import init_db
 
 d = init_db()
-website_src = os.path.abspath('website')
+website_src = os.path.abspath('rere-website')
 app = Flask(__name__, root_path=website_src)
 
 @app.route('/')
