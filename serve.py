@@ -66,8 +66,12 @@ def data():
   return str(d.execute("SELECT * FROM serial_data"))
 
 # only for external use in `test/` directory
-def test_main():
-  app.run(debug=True) 
+def test_method():
+  # this will suppress output
+  import logging
+  log = logging.getLogger('werkzeug')
+  log.setLevel(logging.ERROR)
+  app.run(debug=False) 
 
 if __name__ == "__main__":
   app.run(debug=True)
