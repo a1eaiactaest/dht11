@@ -5,13 +5,20 @@
 
 <a href="http://forthebadge.com/"><img src="https://forthebadge.com/images/badges/built-with-swag.svg"></a>
 
-There's a gene called [RERE](https://en.wikipedia.org/wiki/RERE)
 -------------------------------------------------------------
 
 ## Cloning
 ```sh
 git clone --recurse-submodules https://github.com/a1eaiactaest/rere-api
 ```
+
+Then run
+
+```sh
+./install.sh
+```
+
+to satisfy dependencies (mainly Python).
 
 ## Usage
 
