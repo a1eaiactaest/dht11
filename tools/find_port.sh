@@ -9,6 +9,7 @@ if [ `uname` == "Darwin" ]; then
     SERIAL=`ls -f /tmp/ttyRERERX` 
   else 
     echo "no serial ports detected"
+    exit 1
   fi
 elif [ `uname` == "Linux" ]; then
   if ls /dev/ttyACM? 1> /dev/null 2>&1; then
@@ -17,6 +18,7 @@ elif [ `uname` == "Linux" ]; then
     SERIAL=`ls -f /dev/ttyUSB?`
   else 
     echo "no serial ports detected"
+    exit 1
   fi
 fi
 echo $SERIAL
