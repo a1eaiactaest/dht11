@@ -4,6 +4,7 @@ from subprocess import Popen, check_call, STDOUT
 from shutil import which
 import atexit
 import signal
+import serial
 
 def find_serial_port():
   """
@@ -21,7 +22,7 @@ def find_serial_port():
     return
   else: return ports[0]
 
-class VirtualSerial:
+class ArtificialSerial:
   """
   This creates a pseudo-terminal with serial port open.
   See https://en.wikipedia.org/wiki/Pseudoterminal
@@ -33,6 +34,7 @@ class VirtualSerial:
   def __init__(self):
     self.create_pty()
     atexit.register(self.kill_process, self.socat_ptys_pid) # function, functions paramter
+    signal.signal(signal.SIGTERM, self.kill_process)
 
   def create_pty(self):
     self.DEVNULL = open(os.devnull, "wb")
@@ -40,11 +42,15 @@ class VirtualSerial:
     if self.is_installed("socat"):
       # suppres socat output
       try:
-        socat_ptys = Popen("socat -d -d pty,raw,echo=0,link=/tmp/ttyRERETX pty,raw,echo=0,link=/tmp/ttyRERERX".split(" "), 
+        read_port = '/tmp/RERETX'
+        write_port = '/tmp/RERERX'
+        socat_ptys = Popen(f"socat -d -d pty,raw,echo=0,link={read_port} pty,raw,echo=0,link={write_port}".split(" "), 
                             stdout=self.DEVNULL, stderr=STDOUT)
         # save pid, kill later
         self.socat_ptys_pid = socat_ptys.pid
         print(f"pty's PID: {self.socat_ptys_pid}")
+        print('read: ', read_port)
+        print('write:', write_port)
       finally:
         self.DEVNULL.close()
     else:
@@ -56,7 +62,7 @@ class VirtualSerial:
     """
     return which(programs_name) is not None
 
-  def kill_process(self, pid):
+  def kill_process(self, pid=None):
     """
     Takes process PID as a paramter.
     Terminates program under PID with SIGKILL, SIGTERM can be handled.
@@ -67,6 +73,8 @@ class VirtualSerial:
 
     https://docs.python.org/3/library/atexit.html#module-atexit
     """
+    if not pid:
+      pid = self.socat_ptys_pid
     os.kill(pid, signal.SIGKILL)
     print(f"SIGKILL {pid}")
   
@@ -74,8 +82,10 @@ class VirtualSerial:
 if __name__ == "__main__":
   #print(find_serial_port())
   import time
-  vs = VirtualSerial()
+  a = ArtificialSerial()
+  i = 0
+  #s = serial.Serial('/tmp/RERERX')
   while (1):
-    time.sleep(10000)
-
+    #print(s.readline())
+    pass
 
