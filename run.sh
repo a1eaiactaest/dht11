@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 function ctrl_c() {
-  echo "*** stopping all started jobs ***"
+  echo "*** Stopping all started jobs ***"
   kill $db_pid
   exit 
 }
@@ -9,21 +9,21 @@ function ctrl_c() {
 trap ctrl_c 2 # 2 for SIGINT
 
 if [ -z "$1" ]; then
-  echo "searching for open serial port..."
+  echo "Searching for open serial port..."
   PORT=`./tools/find_port.sh`
   FIND_PORT_RETURNCO=$?
   if [ $FIND_PORT_RETURNCO -ne 0 ]; then
-    echo "port couldn't be found"
-    read -p "do you want to create artificial serial port? type [yes/no]: " -n 1 -r
+    echo "Port couldn't be found"
+    read -p "Do you want to create artificial serial port? [Y/n]: " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then 
-      echo "creating the artificial serial port..."
+      echo "Creating the artificial serial port..."
       # execute python serial port class here
       echo "NotImplementedYetError"
       exit 1
     fi
   fi
-  echo "port found -> $PORT"
+  echo "Port found -> $PORT"
   exit 1
 else
   PORT=$1
@@ -34,14 +34,14 @@ export RERE_PORT=$PORT # check if this works later
 # required on linux
 if [ `uname` == "Linux" ]; then
   if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
-    echo changing permissions of $PORT to 660
+    echo "Changing permissions of $PORT to 660"
     sudo chmod a+rw $PORT
   fi
 fi
 
-echo "starting db.py in WRITE mode"
+echo "Starting db.py in WRITE mode"
 WRITE=1 ./db.py & 
 db_pid=$!
-echo "starting flask server"
+echo "Starting flask server"
 ./serve.py 
 
