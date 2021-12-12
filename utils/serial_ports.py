@@ -1,10 +1,11 @@
 import os
+from random import randrange, choice 
 import platform
-from subprocess import Popen, check_call, STDOUT
 from shutil import which
 import atexit
 import signal
 import serial
+import pty
 
 def find_serial_port():
   """
@@ -22,70 +23,77 @@ def find_serial_port():
     return
   else: return ports[0]
 
+
+def generate_dd():
+  """
+  Return pseudo random array of dummy data. 
+  See `../dummy/dummy.ino`
+  """
+  station = choice([3,5,11])
+  pres = randrange(900, 1000)
+  gas_res = randrange(0,255)
+  a_temp = randrange(15,25)
+  a_hum = randrange(40,60)
+  gd_temp = randrange(0,10)
+  gd_hum = randrange(60,100)
+
+  return [station, pres, gas_res, a_temp, a_hum, gd_temp, gd_hum]
+
 class ArtificialSerial:
   """
   This creates a pseudo-terminal with serial port open.
   See https://en.wikipedia.org/wiki/Pseudoterminal
   Created terminal won't be visible for `find_serial_port` function above.
 
-  Socat command creates two ports with symlinks to /tmp/ttyRERETX and /tmp/ttyRERERX
+  Creates two file descriptors (master, slave). They are for reading and wrting data, respectively.
+
+  Names of master and slavee are `/dev/pty{x_i}{y_i}` for i in x and y, 
+
+  x: 'pqrstuvwxyzPQRST'
+  y: '0123456789abcdef'
+
   """
 
   def __init__(self):
-    self.create_pty()
-    atexit.register(self.kill_process, self.socat_ptys_pid) # function, functions paramter
-    signal.signal(signal.SIGTERM, self.kill_process)
+    self.master, slave = pty.openpty()
+    self.slave_name = os.ttyname(slave)
+    self.ser = serial.Serial(self.slave_name)
+
+    print(f'Write to {self.slave_name}')
 
   def create_pty(self):
-    self.DEVNULL = open(os.devnull, "wb")
-    # Run background socat
-    if self.is_installed("socat"):
-      # suppres socat output
-      try:
-        read_port = '/tmp/RERETX'
-        write_port = '/tmp/RERERX'
-        socat_ptys = Popen(f"socat -d -d pty,raw,echo=0,link={read_port} pty,raw,echo=0,link={write_port}".split(" "), 
-                            stdout=self.DEVNULL, stderr=STDOUT)
-        # save pid, kill later
-        self.socat_ptys_pid = socat_ptys.pid
-        print(f"pty's PID: {self.socat_ptys_pid}")
-        print('read: ', read_port)
-        print('write:', write_port)
-      finally:
-        self.DEVNULL.close()
-    else:
-      print("please install socat")
-  
-  def is_installed(self, programs_name):
     """
-    Check whether given program is installed and added to $PATH
-    """
-    return which(programs_name) is not None
+    > Open a new pseudo-terminal pair, using os.openpty() if possible, or emulation code for generic Unix systems. 
+    > Return a pair of file descriptors (master, slave), for the master and the slave end, respectively.
 
-  def kill_process(self, pid=None):
-    """
-    Takes process PID as a paramter.
-    Terminates program under PID with SIGKILL, SIGTERM can be handled.
+    From https://docs.python.org/3/library/pty.html
 
-    Note: The functions registered via this module are not called when 
-    the program is killed by a signal not handled by Python, 
-    when a Python fatal internal error is detected, or when os._exit() is called.
 
-    https://docs.python.org/3/library/atexit.html#module-atexit
+    Returns slave file descriptor and slave pty name.
     """
-    if not pid:
-      pid = self.socat_ptys_pid
-    os.kill(pid, signal.SIGKILL)
-    print(f"SIGKILL {pid}")
-  
+    master, slave = pty.openpty()
+    return master, slave
+
+  def write_line(line):
+    self.ser.write(bytes(line+'\n'), 'utf-8')
+    
+    
+  #@atexit.register
+  def cleanup(self):
+    """
+    This is a trap for termnation signalls.
+    When such a signal is recieved processes started by this class are killed and cleaned.
+    Read: https://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html
+    """
+    self.kill_process()
+    signal.signal(signal.SIGTERM, self.kill_process)
 
 if __name__ == "__main__":
-  #print(find_serial_port())
   import time
   a = ArtificialSerial()
   i = 0
-  #s = serial.Serial('/tmp/RERERX')
   while (1):
-    #print(s.readline())
-    pass
-
+    #dummy_data = generate_dd()
+    print(os.read(a.master, 256).decode('utf-8'))
+    
+     
