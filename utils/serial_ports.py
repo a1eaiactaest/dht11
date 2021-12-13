@@ -37,7 +37,7 @@ def generate_dd():
   gd_temp = randrange(0,10)
   gd_hum = randrange(60,100)
 
-  return [station, pres, gas_res, a_temp, a_hum, gd_temp, gd_hum]
+  return ' '.join(list(map(str, [station, pres, gas_res, a_temp, a_hum, gd_temp, gd_hum])))
 
 class ArtificialSerial:
   """
@@ -74,8 +74,8 @@ class ArtificialSerial:
     master, slave = pty.openpty()
     return master, slave
 
-  def write_line(line):
-    self.ser.write(bytes(line+'\n'), 'utf-8')
+  def write_line(self, line):
+    self.ser.write(bytes(line, 'utf-8'))
     
     
   #@atexit.register
@@ -90,10 +90,13 @@ class ArtificialSerial:
 
 if __name__ == "__main__":
   import time
-  a = ArtificialSerial()
+  atty = ArtificialSerial()
   i = 0
   while (1):
-    #dummy_data = generate_dd()
-    print(os.read(a.master, 256).decode('utf-8'))
+    dummy_data = generate_dd()
+    print('dummy: ', dummy_data)
+    atty.write_line(dummy_data)
+    print(os.read(atty.master, 256).decode('utf-8'))
+    time.sleep(1)
     
      
