@@ -68,7 +68,7 @@ class Connection:
 
 if __name__ == "__main__":
   if len(sys.argv) < 2:
-    c = Connection('/dev/ttyACM0')
+    c = Connection()
   else:
     c = Connection(sys.argv[1])
   while(1):
