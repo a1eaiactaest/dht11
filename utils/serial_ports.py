@@ -16,12 +16,14 @@ def find_serial_port():
   if platform.system() == "Darwin":
     ports = [f"/dev/{port}" for port in devices if "tty.usb" in port]
   elif platform.system() == "Linux":
-    ports = [f"/dev/{port}" for port in devices if "ttyACM" or "ttyUSB" in port]
+    ports = [f"/dev/{port}" for port in devices if "ttyACM" in port or "ttyUSB" in port]
 
   if len(ports) > 1:
     print("more than one serial port has been found")
     return
-  else: return ports[0]
+  else: 
+    print(ports)
+    return ports[0]
 
 
 def generate_dd():
@@ -89,6 +91,7 @@ class ArtificialSerial:
     signal.signal(signal.SIGTERM, self.kill_process)
 
 if __name__ == "__main__":
+  """
   import time
   atty = ArtificialSerial()
   i = 0
@@ -99,4 +102,5 @@ if __name__ == "__main__":
     print(os.read(atty.master, 256).decode('utf-8'))
     time.sleep(1)
     
-     
+  """ 
+  print(find_serial_port())
