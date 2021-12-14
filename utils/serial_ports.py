@@ -19,12 +19,11 @@ def find_serial_port():
     ports = [f"/dev/{port}" for port in devices if "ttyACM" in port or "ttyUSB" in port]
 
   if len(ports) > 1:
-    print("more than one serial port has been found")
-    return
-  else: 
-    print(ports)
+    raise Exception("more than one serial port has been found")
+  elif len(ports) == 1: 
     return ports[0]
-
+  else:
+    raise Exception("no serial ports has been found")
 
 def generate_dd():
   """
