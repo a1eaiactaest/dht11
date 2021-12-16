@@ -56,11 +56,11 @@ class ArtificialSerial:
   """
 
   def __init__(self):
-    self.master, slave = pty.openpty()
-    self.slave_name = os.ttyname(slave)
+    self.master_fd, self.slave_fd = pty.openpty()
+    self.slave_name = os.ttyname(self.slave_fd)
     self.ser = serial.Serial(self.slave_name)
 
-    print(f'Write to {self.slave_name}')
+    #print(f'Write to {self.slave_name}')
 
   def create_pty(self):
     """
@@ -77,7 +77,10 @@ class ArtificialSerial:
 
   def write_line(self, line):
     self.ser.write(bytes(line, 'utf-8'))
-    
+
+  def close_pty(self, master_fd, slave_fd):
+    os.close(master_fd)
+    os.close(slave_fd)
     
   #@atexit.register
   def cleanup(self):
@@ -90,16 +93,14 @@ class ArtificialSerial:
     signal.signal(signal.SIGTERM, self.kill_process)
 
 if __name__ == "__main__":
-  """
   import time
   atty = ArtificialSerial()
   i = 0
+  print(f"write to {atty.slave_name}")
   while (1):
     dummy_data = generate_dd()
     print('dummy: ', dummy_data)
     atty.write_line(dummy_data)
-    print(os.read(atty.master, 256).decode('utf-8'))
+    print(os.read(atty.master_fd, 256).decode('utf-8'))
     time.sleep(1)
     
-  """ 
-  print(find_serial_port())
