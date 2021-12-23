@@ -41,13 +41,20 @@ or if you want to specify the port:
 
 Browse to `http://localhost:5000`.
 
-## Goals
 
+## Development
+
+In order to deploy the app on the apache run:
+
+```bash
+pipenv install
+```
+
+## TODO
+ 
 * QA
 * dashboard (plots etc.)
 * [Issues](https://github.com/a1eaiactaest/rere-api/issues)
 
     
-
-
 [Great song about RERE](https://www.youtube.com/watch?v=HAgdfTsCmSI)

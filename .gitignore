@@ -8,3 +8,4 @@ databases
 .DS_store
 *.conf
 .pytest_cache
+*.lock
