@@ -2,7 +2,7 @@
 int stations[3] = {3,5,11};
 
 // send error message once in while ~every 10th line
-String error_msg = "Error: Unexpected value inside of message. Data has been dropped."
+String error_msg = "Error: Unexpected value inside of message. Data has been dropped.";
 
 void setup(){
   Serial.begin(9600);
