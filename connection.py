@@ -9,6 +9,7 @@ import time
 import sys
 import datetime
 import json
+import logging
 
 from utils import serial_ports
 
@@ -28,8 +29,11 @@ class Connection:
     self.s = serial.Serial(self.port, 9600)
     self.s.reset_input_buffer()
 
+    logging.basicConfig(filename='connection.log', encoding='utf-8', level=logging.ERROR)
+
     time.sleep(2) # sleep 2 seconds before reading, otherwise it bugs
     self.reset()
+
 
   def reset(self):
     self.x = []
@@ -37,17 +41,18 @@ class Connection:
   def serialize(self, d):
     self.x.append(d)
     packed = json.dumps(self.x)
-    #print(packed)
     return packed 
 
   def read(self, DEBUG=False):
     s_bytes = self.s.readline()
     try:
       bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
+      if "Error" in s_bytes.decode("utf-8"):
+        logging.error(s_bytes.decode("utf-8").strip())
       val = [float(v) for v in bytes_decoded.split(" ")]
     except ValueError as e:
-      print(e)
-    #ct = str(datetime.datetime.now())[:-7]
+      logging.error(f"ValueError: {s_bytes.decode('utf-8')}")
+      return self.read()
     ct = int(time.time())
     try:
       ret = {"time": ct,
@@ -61,8 +66,9 @@ class Connection:
       if DEBUG:
         print(ret)
     except Exception as e:
-      print(e)
+      logging.error("ValueError: when trying to create dict")
       return self.read()
+
     self.reset()
     return ret
 

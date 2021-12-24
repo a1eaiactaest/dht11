@@ -9,3 +9,4 @@ databases
 *.conf
 .pytest_cache
 *.lock
+*.log
