@@ -29,11 +29,10 @@ class Connection:
     self.s = serial.Serial(self.port, 9600)
     self.s.reset_input_buffer()
 
-    logging.basicConfig(filename='connection.log', encoding='utf-8', level=logging.ERROR)
+    logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", filename='connection.log', encoding='utf-8', level=logging.ERROR)
 
     time.sleep(2) # sleep 2 seconds before reading, otherwise it bugs
     self.reset()
-
 
   def reset(self):
     self.x = []
@@ -44,14 +43,14 @@ class Connection:
     return packed 
 
   def read(self, DEBUG=False):
-    s_bytes = self.s.readline()
+    s_bytes = self.s.readline().strip()
     try:
       bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
       if "Error" in s_bytes.decode("utf-8"):
         logging.error(s_bytes.decode("utf-8").strip())
+        return self.read()
       val = [float(v) for v in bytes_decoded.split(" ")]
     except ValueError as e:
-      logging.error(f"ValueError: {s_bytes.decode('utf-8')}")
       return self.read()
     ct = int(time.time())
     try:
