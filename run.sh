@@ -24,7 +24,6 @@ if [ -z "$1" ]; then
     fi
   fi
   echo "Port found -> $PORT"
-  exit 1
 else
   PORT=$1
 fi

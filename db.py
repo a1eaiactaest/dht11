@@ -17,6 +17,8 @@ class Database:
     if name == None:
       name = 'serial_archive.db' 
     self.conn = sqlite3.connect(name, check_same_thread=False)
+    self.stations_db = sqlite3.connect('stations.db', check_same_thread=False)
+
     self.cur = self.conn.cursor() 
     self.init_db()
 
@@ -27,6 +29,7 @@ class Database:
       pass
 
   def init_db(self): 
+    stations_exec = """CREATE TABLE IF NOT EXISTS stations (id integer);"""
     data_table = """CREATE TABLE IF NOT EXISTS serial_data (
                     time      integer,
                     id        integer, 
@@ -38,6 +41,7 @@ class Database:
                     gd_hum    real);"""
 
     self.create_table(data_table)
+    self.create_table(stations_exec)
 
   def append_td(self, data: dict):
     x = [v for k,v in data.items()]
