@@ -41,15 +41,6 @@ or if you want to specify the port:
 
 Browse to `http://localhost:5000`.
 
-
-## Development
-
-In order to deploy the app on the apache run:
-
-```bash
-pipenv install
-```
-
 ## TODO
  
 * QA
