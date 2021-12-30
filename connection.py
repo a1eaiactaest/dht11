@@ -29,7 +29,7 @@ class Connection:
     self.s = serial.Serial(self.port, 9600)
     self.s.reset_input_buffer()
 
-    logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", filename='connection.log', level=logging.ERROR)
+    logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", filename='error.log', level=logging.ERROR)
 
     time.sleep(2) # sleep 2 seconds before reading, otherwise it bugs
     self.reset()
