@@ -20,6 +20,8 @@ class Database:
     self.cur = self.conn.cursor() 
     self.init_db()
 
+    self.stations = set(self.execute("SELECT * FROM stations"))
+
   def create_table(self, table):
     try:
       self.cur.execute(table)
@@ -38,7 +40,7 @@ class Database:
                     gd_hum    real);
                     
                     CREATE TABLE IF NOT EXISTS stations (
-                    id        integer,
+                    id        integer primary key,
                     UNIQUE(id));
                     """
 
@@ -46,6 +48,16 @@ class Database:
 
   def append_td(self, data: dict):
     x = [v for k,v in data.items()]
+
+    station = x[1]
+    if station not in self.stations:
+      try:
+        self.stations.add(station)
+        self.execute("INSERT INTO stations VALUES (%d)"%station)
+        print("added station %d to the database"%station)
+      except sqlite3.IntegrityError:
+        print("station %d already is in the database"%station)
+    
     sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
     try:
       self.cur.execute(sql, x)
@@ -54,6 +66,7 @@ class Database:
       sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
       sql_data = (x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7])
       self.cur.execute(sql, sql_data)
+
     self.conn.commit()
     print('commited: ', x)
 
