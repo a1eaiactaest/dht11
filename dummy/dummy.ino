@@ -1,5 +1,5 @@
 // send dummy data
-int stations[3] = {3,5,11};
+int stations[4] = {3,5,11,103};
 
 // send error message once in while ~every 10th line
 String error_msg = "Error: Unexpected value inside of message. Data has been dropped.";
@@ -11,7 +11,7 @@ void setup(){
 void loop(){
   delay(1000);
 
-  int random_index = random(3);
+  int random_index = random(4);
   int id = stations[random_index];
 
   float pres = random(900, 1100);

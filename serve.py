@@ -10,9 +10,11 @@ d = init_db()
 website_src = os.path.abspath('rere-website')
 app = Flask(__name__, root_path=website_src)
 
+parse_stations = lambda x: int(x[0])
+
 @app.route('/')
 def hello():
-  return render_template('index.html')
+  return render_template('index.html', stations=list(map(parse_stations, d.stations)))
 
 @app.route('/init/<int:station>/<int:rowAmount>', methods=['GET', 'POST'])
 def init_values(station,rowAmount):
@@ -54,7 +56,7 @@ def info(station):
 
 @app.route('/stations')
 def hello_stations():
-  return render_template('index.html')
+  return render_template('index.html', stations=list(map(parse_stations, d.stations)))
 
 @app.route('/stations/<int:station>')
 def station_table(station):

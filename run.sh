@@ -21,7 +21,10 @@ if [ -z "$1" ]; then
       # execute python serial port class here
       echo "NotImplementedYetError"
       exit 1
-    fi
+    else
+      echo "NotImplementedYetError"
+      exit 1
+    fi 
   fi
   echo "Port found -> $PORT"
 else
