@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 from random import randrange, choice 
 import platform
@@ -6,6 +7,8 @@ import atexit
 import signal
 import serial
 import pty
+
+DEBUG = os.getenv("DEBUG") is not None
 
 def find_serial_port():
   """
@@ -30,7 +33,7 @@ def generate_dd():
   Return pseudo random array of dummy data. 
   See `../dummy/dummy.ino`
   """
-  station = choice([3,5,11])
+  station = choice([3,5,11,103,69,420,1337])
   pres = randrange(900, 1000)
   gas_res = randrange(0,255)
   a_temp = randrange(15,25)
@@ -59,6 +62,7 @@ class ArtificialSerial:
     self.master_fd, self.slave_fd = pty.openpty()
     self.slave_name = os.ttyname(self.slave_fd)
     self.ser = serial.Serial(self.slave_name)
+    os.environ["RERE_ARTF"] = self.slave_name
 
     #print(f'Write to {self.slave_name}')
 
@@ -76,7 +80,8 @@ class ArtificialSerial:
     return master, slave
 
   def write_line(self, line):
-    self.ser.write(bytes(line, 'utf-8'))
+    self.ser.write(line.encode())
+    self.ser.reset_output_buffer()
 
   def close_pty(self, master_fd, slave_fd):
     os.close(master_fd)
@@ -95,12 +100,33 @@ class ArtificialSerial:
 if __name__ == "__main__":
   import time
   atty = ArtificialSerial()
-  i = 0
+
   print(f"write to {atty.slave_name}")
-  while (1):
-    dummy_data = generate_dd()
-    print('dummy: ', dummy_data)
-    atty.write_line(dummy_data)
-    print(os.read(atty.master_fd, 256).decode('utf-8'))
-    time.sleep(1)
-    
+
+  if DEBUG:
+    i = 0
+    buf_taken = 0
+    # debug loop
+    while (1):
+      print()
+      dummy_data = generate_dd()
+      print(i, 'dummy: ', dummy_data)
+      buf_taken += len(bytes(dummy_data, 'utf-8'))
+      print('bytes sent: ', buf_taken)
+      atty.write_line(dummy_data)
+      #print(os.read(atty.master_fd, 256).decode('utf-8'))
+      #time.sleep(2)
+      i+=1
+      print()
+
+  # production loop
+  else:
+    while (1):
+      dd = generate_dd() # dummy
+      print('dummy: ', dd)
+      atty.write_line(dd)
+      time.sleep(2)
+
+
+
+      
