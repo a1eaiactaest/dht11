@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os
+import os 
 from random import randrange, choice 
 import platform
 from shutil import which
@@ -7,8 +7,10 @@ import atexit
 import signal
 import serial
 import pty
+import threading
+import time
 
-DEBUG = os.getenv("DEBUG") is not None
+#DEBUG = os.getenv("DEBUG") is not None
 
 def find_serial_port():
   """
@@ -43,28 +45,12 @@ def generate_dd():
 
   return ' '.join(list(map(str, [station, pres, gas_res, a_temp, a_hum, gd_temp, gd_hum])))
 
+# TODO: Write doc strings
 class ArtificialSerial:
-  """
-  This creates a pseudo-terminal with serial port open.
-  See https://en.wikipedia.org/wiki/Pseudoterminal
-  Created terminal won't be visible for `find_serial_port` function above.
-
-  Creates two file descriptors (master, slave). They are for reading and wrting data, respectively.
-
-  Names of master and slavee are `/dev/pty{x_i}{y_i}` for i in x and y, 
-
-  x: 'pqrstuvwxyzPQRST'
-  y: '0123456789abcdef'
-
-  """
-
   def __init__(self):
-    self.master_fd, self.slave_fd = pty.openpty()
-    self.slave_name = os.ttyname(self.slave_fd)
-    self.ser = serial.Serial(self.slave_name)
-    os.environ["RERE_ARTF"] = self.slave_name
-
-    #print(f'Write to {self.slave_name}')
+    self.master_fd, self.slave_fd = pty.openpty() # set file descriptors
+    self.slave_name = os.ttyname(self.slave_fd) # fd's name
+    self.ser = serial.Serial(self.slave_name) 
 
   def create_pty(self):
     """
@@ -87,46 +73,30 @@ class ArtificialSerial:
     os.close(master_fd)
     os.close(slave_fd)
     
-  #@atexit.register
-  def cleanup(self):
-    """
-    This is a trap for termnation signalls.
-    When such a signal is recieved processes started by this class are killed and cleaned.
-    Read: https://www.gnu.org/software/libc/manual/html_node/Termination-Signals.html
-    """
-    self.kill_process()
-    signal.signal(signal.SIGTERM, self.kill_process)
-
-if __name__ == "__main__":
-  import time
+def serial_daemon(DEBUG=False):
   atty = ArtificialSerial()
 
-  print(f"write to {atty.slave_name}")
+  # that's how we get fd later, when we wan't to read from pseudo serial
+  os.environ["RERE_FD"] = str(atty.master_fd) 
 
-  if DEBUG:
-    i = 0
-    buf_taken = 0
-    # debug loop
-    while (1):
-      print()
-      dummy_data = generate_dd()
-      print(i, 'dummy: ', dummy_data)
-      buf_taken += len(bytes(dummy_data, 'utf-8'))
-      print('bytes sent: ', buf_taken)
-      atty.write_line(dummy_data)
-      #print(os.read(atty.master_fd, 256).decode('utf-8'))
-      #time.sleep(2)
-      i+=1
-      print()
+  # write dummy data every second
+  while True:
+    dd = generate_dd() # dummy
+    atty.write_line(dd)
 
-  # production loop
-  else:
-    while (1):
-      dd = generate_dd() # dummy
-      print('dummy: ', dd)
-      atty.write_line(dd)
-      time.sleep(2)
+    time.sleep(1)
 
+if __name__ == "__main__":
+  t = threading.Thread(target=serial_daemon)
+  t.start()
+  time.sleep(.1) # wait for thread to setup
 
+  while True:
+    data_recv = os.read(int(os.getenv("RERE_FD")), 32).decode("utf-8")
 
-      
+    # how many bytes message is, message it self
+    print("%d: %s"%(len(bytes(data_recv, 'utf-8')), data_recv))
+
+    time.sleep(2)
+    
+
