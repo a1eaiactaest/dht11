@@ -73,26 +73,35 @@ class ArtificialSerial:
     os.close(master_fd)
     os.close(slave_fd)
     
-def serial_daemon(DEBUG=False):
-  atty = ArtificialSerial()
 
-  # that's how we get fd later, when we wan't to read from pseudo serial
-  os.environ["RERE_FD"] = str(atty.master_fd) 
+class Seriald:
+  def __init__(self):
+    thread = threading.Thread(target=self.serial_daemon)
+    thread.start()
+    time.sleep(.1) # wait for thread to setup
 
-  # write dummy data every second
-  while True:
-    dd = generate_dd() # dummy
-    atty.write_line(dd)
+  def serial_daemon(self):
+    atty = ArtificialSerial()
 
-    time.sleep(1)
+    # that's how we get fd later, when we wan't to read from pseudo serial
+    os.environ["RERE_FD"] = str(atty.master_fd) 
+
+    # write dummy data every second
+    while True:
+      dd = generate_dd() # dummy
+      atty.write_line(dd)
+
+      time.sleep(1)
+    
+
+  def read(self, buf=32):
+    return os.read(int(os.getenv("RERE_FD")), buf).decode("utf-8")
 
 if __name__ == "__main__":
-  t = threading.Thread(target=serial_daemon)
-  t.start()
-  time.sleep(.1) # wait for thread to setup
+  s = Seriald()
 
   while True:
-    data_recv = os.read(int(os.getenv("RERE_FD")), 32).decode("utf-8")
+    data_recv = s.read()
 
     # how many bytes message is, message it self
     print("%d: %s"%(len(bytes(data_recv, 'utf-8')), data_recv))
