@@ -22,6 +22,9 @@ class Database:
 
     self.stations = set(self.execute("SELECT * FROM stations"))
 
+  def get_stations(self):
+    return set(self.execute("SELECT * FROM stations"))
+
   def create_table(self, table):
     try:
       self.cur.execute(table)
@@ -55,6 +58,7 @@ class Database:
         self.stations.add(station)
         self.execute("INSERT INTO stations VALUES (%d)"%station)
         print("added station %d to the database"%station)
+        print(self.get_stations())
       except sqlite3.IntegrityError:
         print("station %d already is in the database"%station)
     

@@ -14,7 +14,9 @@ parse_stations = lambda x: int(x[0])
 
 @app.route('/')
 def hello():
-  return render_template('index.html', stations=list(map(parse_stations, d.stations)))
+  stations = sorted(list(map(parse_stations, d.get_stations())))
+  print(stations)
+  return render_template('index.html', stations=stations)
 
 @app.route('/init/<int:station>/<int:rowAmount>', methods=['GET', 'POST'])
 def init_values(station,rowAmount):
@@ -48,7 +50,6 @@ def init_values(station,rowAmount):
 def info(station):
   try: 
     values = d.read_db(station, 1)
-    #print('from db:', values)
     return jsonify(values)
   except Exception as e:
     print(e)
@@ -56,11 +57,12 @@ def info(station):
 
 @app.route('/stations')
 def hello_stations():
-  return render_template('index.html', stations=list(map(parse_stations, d.stations)))
+  stations = sorted(list(map(parse_stations, d.get_stations())))
+  print(stations)
+  return render_template('index.html', stations=stations)
 
 @app.route('/stations/<int:station>')
 def station_table(station):
-  #print('station %d' % station)
   return render_template('station.html', station=station)
 
 @app.route('/data')

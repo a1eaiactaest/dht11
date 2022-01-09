@@ -5,7 +5,6 @@ import time
 import sys
 import datetime
 import json
-import logging
 
 from utils import Seriald
 
@@ -30,7 +29,6 @@ class Connection:
     else:
       self.port = port #/dev/tty*
 
-    logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", filename='error.log', level=logging.ERROR)
 
     time.sleep(2) # sleep 2 seconds before reading, otherwise it bugs
     self.reset()
@@ -50,7 +48,7 @@ class Connection:
       s_bytes = self.s.readline().strip()
       bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
       if "Error" in s_bytes.decode("utf-8"):
-        logging.error(s_bytes.decode("utf-8").strip())
+        print("ERROR", s_bytes.decode("utf-8"))
         return self.read()
     try:
       val = [float(v) for v in bytes_decoded.split(" ")]
@@ -68,7 +66,7 @@ class Connection:
       if DEBUG:
         print(ret)
     except Exception as e:
-      logging.error("ValueError: when trying to create dict")
+      print("ValueError: when trying to create dict")
       return self.read()
 
     self.reset()
