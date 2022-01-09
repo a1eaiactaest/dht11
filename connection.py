@@ -11,23 +11,28 @@ import datetime
 import json
 import logging
 
-from utils import serial_ports
 
 DEBUG = os.getenv("DEBUG", None) is not None
+PTY = os.getenv("ART", None) is not None
 
 class Connection:
   def __init__(self, port=None):
-    if port == None:
-      try:
-        self.port = os.environ['RERE_PORT']
-      except KeyError:
-        #print('Set RERE_PORT environmental variable')
-        #exit
-        self.port = serial_ports.find_serial_port()
+    if not PTY:
+      if port == None:
+        try:
+          self.port = os.environ['RERE_PORT']
+        except KeyError:
+          #print('Set RERE_PORT environmental variable')
+          #exit
+          self.port = serial_ports.find_serial_port()
+      else:
+        self.port = port #/dev/tty*
+      self.s = serial.Serial(self.port, 9600)
+      self.s.reset_input_buffer()
+
     else:
-      self.port = port #/dev/tty*
-    self.s = serial.Serial(self.port, 9600)
-    self.s.reset_input_buffer()
+      from utils import Seriald
+      self.s  = Seriald()
 
     logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", filename='error.log', level=logging.ERROR)
 
@@ -43,12 +48,15 @@ class Connection:
     return packed 
 
   def read(self, DEBUG=False):
-    s_bytes = self.s.readline().strip()
-    try:
+    if PTY:
+      bytes_decoded = self.s.read().strip()
+    else:
+      s_bytes = self.s.readline().strip()
       bytes_decoded = s_bytes[0:len(s_bytes)-3].decode("utf-8")
       if "Error" in s_bytes.decode("utf-8"):
         logging.error(s_bytes.decode("utf-8").strip())
         return self.read()
+    try:
       val = [float(v) for v in bytes_decoded.split(" ")]
     except ValueError as e:
       return self.read()
@@ -58,8 +66,7 @@ class Connection:
              "id": int(val[0]),
              "pres": val[1],
              "gas_res": val[2],
-             "a_temp": val[3],
-             "a_hum": val[4],
+             "a_temp": val[3], "a_hum": val[4],
              "gd_temp": val[5],
              "gd_hum": val[6]}
       if DEBUG:
@@ -77,7 +84,7 @@ if __name__ == "__main__":
   else:
     c = Connection(sys.argv[1])
   while(1):
-    time.sleep(1)
+    time.sleep(2)
     c.read(True) 
     c.s.reset_output_buffer()
 

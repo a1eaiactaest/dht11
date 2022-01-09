@@ -3,6 +3,7 @@
 function ctrl_c() {
   echo "*** Stopping all started jobs ***"
   kill $db_pid
+  kill $pty_pid
   exit 
 }
 
@@ -14,25 +15,23 @@ if [ -z "$1" ]; then
   FIND_PORT_RETURNCO=$?
   if [ $FIND_PORT_RETURNCO -ne 0 ]; then
     echo "Port couldn't be found"
-    read -p "Do you want to create artificial serial port? [Y/n]: " -n 1 -r
+    read -p "Create artificial serial port? [Y/n]: " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then 
-      echo "Creating the artificial serial port..."
-      # execute python serial port class here
-      echo "NotImplementedYetError"
-      exit 1
+      echo "Creating a pseudo terminal..." 
+      ART=1
     else
-      echo "NotImplementedYetError"
       exit 1
     fi 
   fi
-  echo "Port found -> $PORT"
+  echo "Selected port -> $PORT"
 else
   PORT=$1
 fi
 
 export RERE_PORT=$PORT # check if this works later
 
+exit
 # required on linux
 if [ `uname` == "Linux" ]; then
   if  [ "`stat -c '%a' $PORT`" == "660" ] ; then

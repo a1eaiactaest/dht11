@@ -92,10 +92,12 @@ class Seriald:
       atty.write_line(dd)
 
       time.sleep(1)
-    
 
   def read(self, buf=32):
     return os.read(int(os.getenv("RERE_FD")), buf).decode("utf-8")
+
+  def reset_output_buffer(self):
+    pass
 
 if __name__ == "__main__":
   s = Seriald()
