@@ -104,10 +104,7 @@ if __name__ == "__main__":
 
   while True:
     data_recv = s.read()
-
     # how many bytes message is, message it self
     print("%d: %s"%(len(bytes(data_recv, 'utf-8')), data_recv))
-
     time.sleep(2)
-    
 

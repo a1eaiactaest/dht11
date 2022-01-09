@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-
-# example:
-# [1.0, 1000.3, 124.23, 24.34, 61.57, 15.12, 71.3]
-
 import os
 import serial
 import time
@@ -11,28 +7,28 @@ import datetime
 import json
 import logging
 
+from utils import Seriald
 
 DEBUG = os.getenv("DEBUG", None) is not None
-PTY = os.getenv("ART", None) is not None
 
 class Connection:
   def __init__(self, port=None):
-    if not PTY:
-      if port == None:
-        try:
-          self.port = os.environ['RERE_PORT']
-        except KeyError:
-          #print('Set RERE_PORT environmental variable')
-          #exit
-          self.port = serial_ports.find_serial_port()
-      else:
-        self.port = port #/dev/tty*
-      self.s = serial.Serial(self.port, 9600)
-      self.s.reset_input_buffer()
+    if port == None:
+      try:
+        self.port = os.environ['RERE_PORT']
+        if self.port == "PTY":
+          self.PTY = True
+          self.s = Seriald()
+
+        else:
+          self.s = serial.Serial(self.port, 9600)
+          self.s.reset_input_buffer()
+
+      except KeyError:
+        self.port = serial_ports.find_serial_port()
 
     else:
-      from utils import Seriald
-      self.s  = Seriald()
+      self.port = port #/dev/tty*
 
     logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s", filename='error.log', level=logging.ERROR)
 
@@ -48,7 +44,7 @@ class Connection:
     return packed 
 
   def read(self, DEBUG=False):
-    if PTY:
+    if self.PTY:
       bytes_decoded = self.s.read().strip()
     else:
       s_bytes = self.s.readline().strip()

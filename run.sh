@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 function ctrl_c() {
   echo "*** Stopping all started jobs ***"
@@ -20,6 +20,7 @@ if [ -z "$1" ]; then
     if [[ $REPLY =~ ^[Yy]$ ]]; then 
       echo "Creating a pseudo terminal..." 
       ART=1
+      PORT="PTY"
     else
       exit 1
     fi 
@@ -27,16 +28,19 @@ if [ -z "$1" ]; then
   echo "Selected port -> $PORT"
 else
   PORT=$1
+  echo "HERE"
+  exit
 fi
 
 export RERE_PORT=$PORT # check if this works later
 
-exit
 # required on linux
-if [ `uname` == "Linux" ]; then
-  if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
-    echo "Changing permissions of $PORT to 660"
-    sudo chmod a+rw $PORT
+if [ $ART -ne 1 ]; then
+  if [ `uname` == "Linux" ]; then
+    if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
+      echo "Changing permissions of $PORT to 660"
+      sudo chmod a+rw $PORT
+    fi
   fi
 fi
 
