@@ -3,7 +3,6 @@
 function ctrl_c() {
   echo "*** Stopping all started jobs ***"
   kill $db_pid
-  kill $pty_pid
   exit 
 }
 
