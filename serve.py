@@ -59,7 +59,15 @@ def info(station):
 def hello_stations():
   stations = sorted(list(map(parse_stations, d.get_stations())))
   print(stations)
-  return render_template('index.html', stations=stations)
+  return render_template('stations.html', stations=stations)
+
+@app.route('/info')
+def hello_info():
+  return 'Endpoint /info not implemented yet'
+
+@app.route('/learn')
+def hello_learn():
+  return 'Endpoint /learn not implemented yet'
 
 @app.route('/stations/<int:station>')
 def station_table(station):
