@@ -67,7 +67,11 @@ def hello_info():
 
 @app.route('/learn')
 def hello_learn():
-  return 'Endpoint /learn not implemented yet'
+  return render_template('learn/index.html')
+
+@app.route('/learn/traszka-zwyczajna')
+def hello_traszka():
+  return render_template('learn/traszka-zwyczajna.html')
 
 @app.route('/stations/<int:station>')
 def station_table(station):
