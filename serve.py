@@ -73,6 +73,10 @@ def hello_learn():
 def hello_traszka():
   return render_template('learn/traszka-zwyczajna.html')
 
+@app.route('/learn/ropucha-zielona')
+def hello_ropucha():
+  return render_template('learn/ropucha-zielona.html')
+
 @app.route('/stations/<int:station>')
 def station_table(station):
   return render_template('station.html', station=station)
