@@ -12,7 +12,7 @@ if [ -z "$1" ]; then
   echo "Searching for open serial port..."
   PORT=`./tools/find_port.sh`
   FIND_PORT_RETURNCO=$?
-  if [ $FIND_PORT_RETURNCO -ne 0 ]; then
+  if [ $FIND_PORT_RETURNCO -eq 1 ]; then
     echo "Port couldn't be found"
     read -p "Create artificial serial port? [Y/n]: " -n 1 -r
     echo ""
@@ -21,8 +21,10 @@ if [ -z "$1" ]; then
       ART=1
       PORT="PTY"
     else
-      exit 1
+      ART=0
     fi 
+  else
+    ART=0
   fi
   echo "Selected port -> $PORT"
 else
@@ -34,7 +36,8 @@ fi
 export RERE_PORT=$PORT # check if this works later
 
 # required on linux
-if [ $ART -ne 1 ]; then
+echo $ART
+if [ $ART == 1 ]; then
   if [ `uname` == "Linux" ]; then
     if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
       echo "Changing permissions of $PORT to 660"

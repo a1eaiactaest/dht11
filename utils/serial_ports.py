@@ -100,11 +100,12 @@ class Seriald:
     pass
 
 if __name__ == "__main__":
-  s = Seriald()
-
+  #s = Seriald()
+  print(generate_dd())
+  """
   while True:
     data_recv = s.read()
     # how many bytes message is, message it self
     print("%d: %s"%(len(bytes(data_recv, 'utf-8')), data_recv))
     time.sleep(2)
-
+  """

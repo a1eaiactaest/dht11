@@ -20,6 +20,7 @@ class Connection:
           self.s = Seriald()
 
         else:
+          self.PTY = False
           self.s = serial.Serial(self.port, 9600)
           self.s.reset_input_buffer()
 
