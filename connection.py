@@ -71,6 +71,7 @@ class Connection:
       return self.read()
 
     self.reset()
+    print(ret)
     return ret
 
 if __name__ == "__main__":
