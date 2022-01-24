@@ -30,7 +30,6 @@ class Connection:
     else:
       self.port = port #/dev/tty*
 
-
     time.sleep(2) # sleep 2 seconds before reading, otherwise it bugs
     self.reset()
 
@@ -61,7 +60,8 @@ class Connection:
              "id": int(val[0]),
              "pres": val[1],
              "gas_res": val[2],
-             "a_temp": val[3], "a_hum": val[4],
+             "a_temp": val[3], 
+             "a_hum": val[4],
              "gd_temp": val[5],
              "gd_hum": val[6]}
       if DEBUG:
