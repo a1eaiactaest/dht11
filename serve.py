@@ -81,6 +81,10 @@ def hello_ropucha():
 def station_table(station):
   return render_template('station.html', station=station)
 
+@app.route('/api')
+def hello_api():
+  return 'Endpoint /api not implemented yet'
+
 @app.route('/data')
 def data():
   return str(d.execute("SELECT * FROM serial_data"))
