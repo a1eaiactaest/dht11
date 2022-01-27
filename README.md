@@ -43,7 +43,8 @@ Browse to `http://localhost:5000`.
 
 ## TODO
  
-* QA
+* API
+* "did you know" frogs on the sides
 * dashboard (plots etc.)
 * [Issues](https://github.com/a1eaiactaest/rere-api/issues)
 
