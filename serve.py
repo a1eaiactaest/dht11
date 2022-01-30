@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 import os
-import sys
 
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify
 
 from utils.network import init_db
 

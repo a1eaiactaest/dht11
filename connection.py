@@ -6,7 +6,7 @@ import sys
 import datetime
 import json
 
-from utils import Seriald
+from utils import Seriald, find_serial_port
 
 DEBUG = os.getenv("DEBUG", None) is not None
 
@@ -25,7 +25,7 @@ class Connection:
           self.s.reset_input_buffer()
 
       except KeyError:
-        self.port = serial_ports.find_serial_port()
+        self.port = find_serial_port()
 
     else:
       self.port = port #/dev/tty*
