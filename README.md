@@ -1,4 +1,4 @@
-# rere-api
+# rere-system
 -------------------------------------------------------------
 
 <img src='docs/frog.jpg'>
@@ -9,7 +9,11 @@
 
 ## Cloning
 ```sh
-git clone --recurse-submodules https://github.com/a1eaiactaest/rere-api
+git clone https://github.com/a1eaiactaest/rere-system
+
+cd rere-system/
+
+git submodule update --init
 ```
 
 Then run
@@ -46,7 +50,7 @@ Browse to `http://localhost:5000`.
 * API
 * "did you know" frogs on the sides
 * dashboard (plots etc.)
-* [Issues](https://github.com/a1eaiactaest/rere-api/issues)
+* [Issues](https://github.com/a1eaiactaest/rere-system/issues)
 
     
 [Great song about RERE](https://www.youtube.com/watch?v=HAgdfTsCmSI)
