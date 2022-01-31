@@ -36,8 +36,8 @@ fi
 export RERE_PORT=$PORT # check if this works later
 
 # required on linux
-echo $ART
-if [ $ART == 1 ]; then
+echo ART $ART
+if [ $ART == 0 ]; then
   if [ `uname` == "Linux" ]; then
     if  [ "`stat -c '%a' $PORT`" == "660" ] ; then
       echo "Changing permissions of $PORT to 660"
