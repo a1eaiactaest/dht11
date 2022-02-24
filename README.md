@@ -1,7 +1,7 @@
 # rere-system
 -------------------------------------------------------------
 
-This branch is for port from Flask to React.
+**This branch is for port from Flask to React.**
 
 -------------------------------------------------------------
 
