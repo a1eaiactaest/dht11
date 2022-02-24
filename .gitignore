@@ -10,3 +10,5 @@ databases
 .pytest_cache
 *.lock
 *.log
+.npm
+node_modules
