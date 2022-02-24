@@ -49,6 +49,7 @@ Browse to `http://localhost:5000`.
  
 * API
 * "did you know" frogs on the sides
+  * center it
 * dashboard (plots etc.)
 * [Issues](https://github.com/a1eaiactaest/rere-system/issues)
 
