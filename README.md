@@ -1,9 +1,7 @@
 # rere-system
 -------------------------------------------------------------
 
-<img src='docs/frog.jpg'>
-
-<a href="http://forthebadge.com/"><img src="https://forthebadge.com/images/badges/built-with-swag.svg"></a>
+This branch is for port from Flask to React.
 
 -------------------------------------------------------------
 
@@ -47,11 +45,6 @@ Browse to `http://localhost:5000`.
 
 ## TODO
  
-* API
-* "did you know" frogs on the sides
-  * center it
-* dashboard (plots etc.)
-* [Issues](https://github.com/a1eaiactaest/rere-system/issues)
+ * Port Flask -> React.
+  * Flask will be used for API (endpoints) only.
 
-    
-[Great song about RERE](https://www.youtube.com/watch?v=HAgdfTsCmSI)
