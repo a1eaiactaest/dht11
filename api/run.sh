@@ -10,7 +10,7 @@ trap ctrl_c 2 # 2 for SIGINT
 
 if [ -z "$1" ]; then
   echo "Searching for open serial port..."
-  PORT=`./tools/find_port.sh`
+  PORT=`../tools/find_port.sh`
   FIND_PORT_RETURNCO=$?
   if [ $FIND_PORT_RETURNCO -eq 1 ]; then
     echo "Port couldn't be found"
