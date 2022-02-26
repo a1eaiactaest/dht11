@@ -38,7 +38,7 @@ def init_values(station,rowAmount):
     archive_data = d.execute(sql)[::-1] # reverse
   return jsonify(archive_data)
 
-@app.route('/info/<int:station>', methods=['GET', 'POST'])
+@app.route('/api/info/<int:station>', methods=['GET', 'POST'])
 def info(station):
   try: 
     values = d.read_db(station, 1)
