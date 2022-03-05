@@ -1,14 +1,12 @@
 __pycache__
 .*.swp
 .*.swo
-*.json
 *.csv
 databases
 *.db
 .DS_store
 *.conf
 .pytest_cache
-*.lock
 *.log
 .npm
 node_modules
