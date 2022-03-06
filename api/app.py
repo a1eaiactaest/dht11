@@ -5,11 +5,17 @@ import time
 from flask import Flask, jsonify
 from flask_cors import CORS
 from utils.serial_ports import generate_dd
+from waitress import serve
+import logging
 import json
 
+DEBUG = os.getenv("DEBUG", None) is not None
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+logger = logging.getLogger('waitress')
+logger.setLevel(logging.DEBUG)
 
 @app.route('/api/info')
 def info():
@@ -29,4 +35,10 @@ def info():
     return json.dumps(formatted_data)
 
 if __name__ == "__main__":
-  app.run(debug=True, port=1337)
+  if DEBUG:
+    # flask 
+    app.run(debug=True, port=1337)
+  else:
+    # wsgi production server
+    serve(app, host="0.0.0.0", port=1337)
+
