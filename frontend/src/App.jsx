@@ -17,7 +17,7 @@ export default function App(){
 
   return (
     <>
-      {error ? <p>Cant fetch from the API!</p> : 
+      {error ? <p>Can't fetch from the API!</p> : 
         <>
           <p>time: {resp.time}</p>
           <p>stations: {resp.id}</p>
