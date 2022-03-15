@@ -1,0 +1,18 @@
+.menu-elem{
+  display: block;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a.visited {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: rgba(126, 165, 116, 0.5);
+}
