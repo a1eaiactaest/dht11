@@ -45,6 +45,7 @@ Browse to `http://localhost:5000`.
 
 ## TODO
  
- * Port Flask -> React.
-  * Flask will be used for API (endpoints) only.
-
+1. write serial port data grabber
+2. write data to the database
+3. grab and post data to the website using tables, later charts (REACT)
+4. improve website structure - edu, public api, site per station.
