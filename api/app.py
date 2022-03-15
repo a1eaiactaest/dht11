@@ -36,9 +36,9 @@ def info():
 
 if __name__ == "__main__":
   if DEBUG:
-    # flask 
-    app.run(debug=True, port=1337)
+    # flask, dev server
+    app.run(debug=True, host="0.0.0.0", port=1337)
   else:
-    # wsgi production server
+    # wsgi, production server
     serve(app, host="0.0.0.0", port=1337)
 
