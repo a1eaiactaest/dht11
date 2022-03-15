@@ -1,8 +1,12 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect} from "react";
 
-export default function App(){
-  const [resp, setResp] = useState({})
-  const [error, setError] = useState(false)
+import Homepage from "./homepage/Homepage";
+
+function App(){
+
+  const [resp, setResp] = useState({});
+  const [error, setError] = useState(false);
+
   useEffect(() => {
     fetch("http://localhost:1337/api/info")
       .then(res => res.json())
@@ -13,7 +17,7 @@ export default function App(){
         console.log("cant fetch api!")
         setError(true)
       })
-  },[])
+  },[]);
 
   return (
     <>
@@ -27,8 +31,9 @@ export default function App(){
           <p>humidity: {resp.hum}</p>
         </>
       }
+      <Homepage />
     </>
-  )
-}
+  );
+};
 
-
+export default App;
