@@ -72,7 +72,10 @@ class ArtificialSerial:
     os.close(slave_fd)
     
 
-class Seriald:
+class ASeriald:
+  """
+  artificial serial port daemon
+  """
   def __init__(self):
     thread = threading.Thread(target=self.serial_daemon)
     thread.start()
@@ -97,9 +100,28 @@ class Seriald:
   def reset_output_buffer(self):
     pass
 
+class Serial:
+  """
+  connect to phisical serial port and scrape data
+  
+  -- example data samples:
+    -- normal
+
+      "103 1009.00 120.00 20.00 52.00 2.00 87.00\n"
+
+      
+    -- error message
+  """
+  def __init__(port_name=None):
+    if port_name == None:
+      port = find_serial_port()     
+    else:
+      pass
+
 if __name__ == "__main__":
   #s = Seriald()
-  print(generate_dd())
+  #print(generate_dd())
+  print(find_serial_port())
   """
   while True:
     data_recv = s.read()
