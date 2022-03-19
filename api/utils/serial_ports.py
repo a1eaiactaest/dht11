@@ -112,16 +112,33 @@ class Serial:
       
     -- error message
   """
-  def __init__(port_name=None):
-    if port_name == None:
-      port = find_serial_port()     
+  def __init__(self, port_name=None, baud=9600):
+    if os.getenv("PORT", None) is None:
+      if port_name is None:
+        port_name = find_serial_port()     
     else:
-      pass
+      port_name = os.getenv("PORT")
+
+    self.port_name = port_name
+    self.baud = baud
+    self.connection = self.connect()
+
+    
+
+  def connect(self):
+    connection  = serial.Serial(self.port_name, self.baud) 
+    connection.reset_input_buffer()
+
+    return connection
+
+  def integrity_check(self):
+    assert self.port_name == self.connection.name, "var:port_name and var:connection.name are mismatched"
 
 if __name__ == "__main__":
+  S = Serial()
   #s = Seriald()
   #print(generate_dd())
-  print(find_serial_port())
+  #print(find_serial_port())
   """
   while True:
     data_recv = s.read()
