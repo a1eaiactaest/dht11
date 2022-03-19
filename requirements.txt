@@ -2,3 +2,6 @@ flask
 pyserial
 pytest
 requests
+waitress
+flask-cors
+
