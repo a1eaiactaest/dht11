@@ -25,7 +25,6 @@ void loop(){
   int is_error = random (0, 10);
 
   if (is_error == 5){
-    Serial.println(error_msg);
   } else {
     float val_array[] = {pres, gas_res, a_temp, a_hum, gd_temp, gd_hum};
     int n = sizeof(val_array)/sizeof(float);

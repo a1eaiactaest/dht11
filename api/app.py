@@ -4,7 +4,7 @@ import os
 import time
 from flask import Flask, jsonify
 from flask_cors import CORS
-from utils.serial_ports import generate_dd
+from utils.serial_ports import generate_dd, Serial
 from waitress import serve
 import logging
 import json
@@ -17,20 +17,24 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 logger = logging.getLogger('waitress')
 logger.setLevel(logging.DEBUG)
 
+serial_conn = Serial()
+
 @app.route('/api/info')
 def info():
-  recv = str(generate_dd())
-  if "Error" in recv:
+  # dummy
+  #recv = str(generate_dd())
+
+  recv = serial_conn.read() # this later should be in database worker
+  if recv is None:
     return 500
   else:
-    data = recv.split(' ')
     formatted_data = {
       'time': int(time.time()),
-      'id': data[0],
-      'pres': data[1],
-      'gas_res': data[2],
-      'temp': data[3],
-      'hum': data[4],
+      'id': recv[0],
+      'pres': recv[1],
+      'gas_res': recv[2],
+      'temp': recv[3],
+      'hum': recv[4],
     }
     return json.dumps(formatted_data)
 
