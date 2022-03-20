@@ -8,7 +8,7 @@ import pty
 import threading
 import time
 
-#DEBUG = os.getenv("DEBUG") is not None
+DEBUG = os.getenv("DEBUG") is not None
 
 def find_serial_port():
   """
@@ -123,6 +123,8 @@ class Serial:
     self.baud = baud
     self.connection = self.connect()
 
+    print(self.port_name)
+
   def connect(self):
     connection  = serial.Serial(self.port_name, self.baud) 
     connection.reset_input_buffer()
@@ -130,8 +132,11 @@ class Serial:
 
   def read(self):
     bline = self.connection.readline()
-    print(bline)
-    print(self.parse(bline))
+    line = self.parse(bline)
+    if "Error:" in line:
+      print(int(time.time()), ' '.join(line)) 
+      return 
+    return line
 
   def decode(self, bytes_object):
     """
@@ -151,14 +156,8 @@ class Serial:
 
 if __name__ == "__main__":
   S = Serial()
-  S.read()
-  #s = Seriald()
-  #print(generate_dd())
-  #print(find_serial_port())
-  """
   while True:
-    data_recv = s.read()
-    # how many bytes message is, message it self
-    print("%d: %s"%(len(bytes(data_recv, 'utf-8')), data_recv))
+    data_recv = S.read()
+    if data_recv:
+      print(data_recv)
     time.sleep(2)
-  """
