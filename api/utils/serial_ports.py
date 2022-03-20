@@ -22,11 +22,11 @@ def find_serial_port():
     ports = [f"/dev/{port}" for port in devices if "ttyACM" in port or "ttyUSB" in port]
 
   if len(ports) > 1:
-    raise Exception("more than one serial port has been found")
+    raise Exception("More than one serial port has been found")
   elif len(ports) == 1: 
     return ports[0]
   else:
-    raise Exception("no serial ports has been found")
+    raise Exception("No serial ports found")
 
 def generate_dd():
   """
@@ -123,19 +123,35 @@ class Serial:
     self.baud = baud
     self.connection = self.connect()
 
-    
-
   def connect(self):
     connection  = serial.Serial(self.port_name, self.baud) 
     connection.reset_input_buffer()
-
     return connection
+
+  def read(self):
+    bline = self.connection.readline()
+    print(bline)
+    print(self.parse(bline))
+
+  def decode(self, bytes_object):
+    """
+    Takes bytes object as a argument.
+    Returns UTF-8 string
+    """
+    return bytes_object.decode("utf-8")
+
+  def parse(self, line):
+    # take bytes object as argument 
+    # strip and split line into separate values, return array
+    line_decoded = self.decode(line)
+    return line_decoded.strip().split(' ')
 
   def integrity_check(self):
     assert self.port_name == self.connection.name, "var:port_name and var:connection.name are mismatched"
 
 if __name__ == "__main__":
   S = Serial()
+  S.read()
   #s = Seriald()
   #print(generate_dd())
   #print(find_serial_port())
