@@ -8,6 +8,7 @@ from utils.serial_ports import generate_dd, Serial
 from waitress import serve
 import logging
 import json
+from typing import Union
 
 DEBUG = os.getenv("DEBUG", None) is not None
 
@@ -20,7 +21,7 @@ logger.setLevel(logging.DEBUG)
 serial_conn = Serial()
 
 @app.route('/api/info')
-def info():
+def info() -> Union[json.dumps, int]:
   # dummy
   #recv = str(generate_dd())
 

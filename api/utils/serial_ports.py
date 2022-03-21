@@ -7,10 +7,11 @@ import serial
 import pty
 import threading
 import time
+from typing import Union
 
 DEBUG = os.getenv("DEBUG") is not None
 
-def find_serial_port():
+def find_serial_port() -> str:
   """
   Search for serial port in /dev, works on Mac and Linux.
   Returns absolute path as a string.
@@ -28,7 +29,7 @@ def find_serial_port():
   else:
     raise Exception("No serial ports found")
 
-def generate_dd():
+def generate_dd() -> str:
   """
   Return pseudo random array of dummy data. 
   See `../dummy/dummy.ino`
@@ -70,12 +71,12 @@ class Serial:
 
     print(self.port_name)
 
-  def connect(self):
-    connection  = serial.Serial(self.port_name, self.baud) 
+  def connect(self) -> serial.Serial:
+    connection = serial.Serial(self.port_name, self.baud) 
     connection.reset_input_buffer()
     return connection
 
-  def read(self):
+  def read(self) -> Union[list, None]:
     bline = self.connection.readline()
     line = self.parse(bline)
     if "Error:" in line:
@@ -83,21 +84,25 @@ class Serial:
       return 
     return line
 
-  def decode(self, bytes_object):
+  def decode(self, bytes_object: bytes) -> str:
     """
     Takes bytes object as a argument.
     Returns UTF-8 string
     """
     return bytes_object.decode("utf-8")
 
-  def parse(self, line):
+  def parse(self, line: bytes) -> list:
     # take bytes object as argument 
     # strip and split line into separate values, return array
     line_decoded = self.decode(line)
     return line_decoded.strip().split(' ')
 
+  def validate(line: list) -> bool:
+    raise NotImplementedError
+
   def integrity_check(self):
     assert self.port_name == self.connection.name, "var:port_name and var:connection.name are mismatched"
+
 
 if __name__ == "__main__":
   S = Serial()
