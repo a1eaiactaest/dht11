@@ -4,11 +4,13 @@ import os
 import time
 from flask import Flask, jsonify
 from flask_cors import CORS
-from utils.serial_ports import generate_dd, Serial
 from waitress import serve
 import logging
 import json
 from typing import Union
+
+from utils.serial_ports import generate_dd, Serial
+from utils.cache import cache
 
 DEBUG = os.getenv("DEBUG", None) is not None
 
@@ -20,6 +22,7 @@ logger.setLevel(logging.DEBUG)
 
 serial_conn = Serial()
 
+@cache
 @app.route('/api/info')
 def info() -> Union[json.dumps, int]:
   # dummy

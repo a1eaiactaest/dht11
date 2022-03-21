@@ -9,8 +9,11 @@ import threading
 import time
 from typing import Union
 
+from utils.cache import cache
+
 DEBUG = os.getenv("DEBUG") is not None
 
+@cache
 def find_serial_port() -> str:
   """
   Search for serial port in /dev, works on Mac and Linux.
@@ -29,6 +32,7 @@ def find_serial_port() -> str:
   else:
     raise Exception("No serial ports found")
 
+@cache
 def generate_dd() -> str:
   """
   Return pseudo random array of dummy data. 
@@ -76,6 +80,7 @@ class Serial:
     connection.reset_input_buffer()
     return connection
 
+  @cache
   def read(self) -> Union[list, None]:
     bline = self.connection.readline()
     line = self.parse(bline)
