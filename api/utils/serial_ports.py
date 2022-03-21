@@ -43,63 +43,6 @@ def generate_dd():
 
   return ' '.join(list(map(str, [station, pres, gas_res, a_temp, a_hum, gd_temp, gd_hum])))
 
-# TODO: Write doc strings
-class ArtificialSerial:
-  def __init__(self):
-    self.master_fd, self.slave_fd = pty.openpty() # set file descriptors
-    self.slave_name = os.ttyname(self.slave_fd) # fd's name
-    self.ser = serial.Serial(self.slave_name) 
-
-  def create_pty(self):
-    """
-    > Open a new pseudo-terminal pair, using os.openpty() if possible, or emulation code for generic Unix systems. 
-    > Return a pair of file descriptors (master, slave), for the master and the slave end, respectively.
-
-    From https://docs.python.org/3/library/pty.html
-
-
-    Returns slave file descriptor and slave pty name.
-    """
-    master, slave = pty.openpty()
-    return master, slave
-
-  def write_line(self, line):
-    self.ser.write(line.encode())
-    self.ser.reset_output_buffer()
-
-  def close_pty(self, master_fd, slave_fd):
-    os.close(master_fd)
-    os.close(slave_fd)
-    
-
-class ASeriald:
-  """
-  artificial serial port daemon
-  """
-  def __init__(self):
-    thread = threading.Thread(target=self.serial_daemon)
-    thread.start()
-    time.sleep(.1) # wait for thread to setup
-
-  def serial_daemon(self):
-    atty = ArtificialSerial()
-
-    # that's how we get fd later, when we wan't to read from pseudo serial
-    os.environ["RERE_FD"] = str(atty.master_fd) 
-
-    # write dummy data every second
-    while True:
-      dd = generate_dd() # dummy
-      atty.write_line(dd)
-
-      time.sleep(1)
-
-  def read(self, buf=32):
-    return os.read(int(os.getenv("RERE_FD")), buf).decode("utf-8")
-
-  def reset_output_buffer(self):
-    pass
-
 class Serial:
   """
   connect to phisical serial port and scrape data
@@ -111,8 +54,10 @@ class Serial:
 
       
     -- error message
+  type hint for constructor:
+    https://peps.python.org/pep-0484/#the-meaning-of-annotations
   """
-  def __init__(self, port_name=None, baud=9600):
+  def __init__(self, port_name=None, baud=9600) -> None:
     if os.getenv("PORT", None) is None:
       if port_name is None:
         port_name = find_serial_port()     
