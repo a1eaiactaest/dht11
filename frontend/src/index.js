@@ -1,5 +1,5 @@
 import {render} from "react-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import App from "./App";
 
@@ -46,6 +46,9 @@ render(
           <About />
         }>
       </Route>
+
+      <Route path='*' element={<Navigate to='/' />} />
+
     </Routes>
   </BrowserRouter>,
   rootElement
