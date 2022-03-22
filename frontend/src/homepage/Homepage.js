@@ -4,12 +4,11 @@ import MenuElement from './components/MenuElement.js';
 const Homepage = (props) => {
   return (
     <React.Fragment>
-      <MenuElement href='menu1' name='menu1'/>
-      <MenuElement href='menu2' name='menu2'/>
-      <MenuElement href='menu3' name='menu3'/>
-      <MenuElement href='menu4' name='menu4'/>
+      <MenuElement href='/stations' name='Stations'/>
+      <MenuElement href='/data' name='Data'/>
+      <MenuElement href='/edu' name='Education'/>
+      <MenuElement href='/about' name='About the Project'/>
     </React.Fragment>
-
   );
 };
 

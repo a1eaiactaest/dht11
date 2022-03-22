@@ -1,8 +1,52 @@
-import {render} from "react-dom"
-import App from "./App"
+import {render} from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const rootElement = document.getElementById("root")
+import App from "./App";
+
+import Stations from "./routes/stations";
+import Education from "./routes/education";
+import About from "./routes/about";
+import Data from "./routes/data";
+
+const rootElement = document.getElementById("root");
 render(
-  <App />,
+  <BrowserRouter>
+    <Routes>
+      <Route 
+        path="/" 
+        element={
+          <App />
+        }>
+      </Route>
+
+      <Route 
+        path="/stations" 
+        element={
+          <Stations />
+        }>
+      </Route>
+
+      <Route 
+        path="/data" 
+        element={
+          <Data />
+        }>
+      </Route>
+
+      <Route 
+        path="/edu" 
+        element={
+          <Education />
+        }>
+      </Route>
+
+      <Route 
+        path="/about" 
+        element={
+          <About />
+        }>
+      </Route>
+    </Routes>
+  </BrowserRouter>,
   rootElement
-)
+);
