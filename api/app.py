@@ -2,12 +2,12 @@
 
 import os
 import time
-from flask import Flask, jsonify
-from flask_cors import CORS
-from waitress import serve
 import logging
 import json
 from typing import Union
+from flask import Flask, jsonify
+from flask_cors import CORS
+from waitress import serve
 
 from utils.serial_ports import generate_dd, Serial
 from utils.cache import cache
