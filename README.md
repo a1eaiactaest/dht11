@@ -7,6 +7,9 @@
 
 -------------------------------------------------------------
 
+## Branches
+Checkout the [react](https://github.com/a1eaiactaest/rere-system/tree/react) branch.
+
 ## Cloning
 ```sh
 git clone https://github.com/a1eaiactaest/rere-system
