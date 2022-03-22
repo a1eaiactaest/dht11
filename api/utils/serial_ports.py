@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 import os 
-from random import randrange, choice 
 import platform
-from shutil import which
 import serial
 import pty
 import threading
 import time
 from typing import Union
+from random import randrange, choice 
+from shutil import which
 
 from utils.cache import cache
 
@@ -97,8 +97,6 @@ class Serial:
     return bytes_object.decode("utf-8")
 
   def parse(self, line: bytes) -> list:
-    # take bytes object as argument 
-    # strip and split line into separate values, return array
     line_decoded = self.decode(line)
     return line_decoded.strip().split(' ')
 
