@@ -7,7 +7,6 @@ import threading
 import time
 from typing import Union
 from random import randrange, choice 
-from shutil import which
 
 from utils.cache import cache
 
