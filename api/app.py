@@ -9,8 +9,8 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from waitress import serve
 
-from utils.serial_ports import generate_dd, Serial
-from utils.cache import cache
+from common.serial_ports import generate_dd, Serial
+from common.cache import cache
 
 DEBUG = os.getenv("DEBUG", None) is not None
 
