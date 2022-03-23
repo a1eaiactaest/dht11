@@ -2,6 +2,7 @@
 import os 
 from random import randrange, choice 
 import platform
+from shutil import which
 import serial
 import pty
 import threading
