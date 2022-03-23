@@ -6,7 +6,7 @@ import time
 import sqlite3
 from typing import Union, Optional
 
-from utils.basedir import BASEDIR, DATABASES
+from common.basedir import BASEDIR, DATABASES
 
 class Database:
   def __init__(self, name: str) -> None:
