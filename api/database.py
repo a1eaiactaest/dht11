@@ -6,7 +6,7 @@ import time
 import sqlite3
 from typing import Union, Optional
 
-from common.basedir import BASEDIR, DATABASES
+from basedir import BASEDIR, DATABASES
 
 class Database:
   def __init__(self, name: str) -> None:
@@ -23,14 +23,14 @@ class Database:
 
     sql = """
       CREATE TABLE IF NOT EXISTS serial_data (
-        time    integer,
-        id      integer, 
-        pres    real,
-        gas_res real,
-        air_te  real, 
-        air_hu  real,
-        gnd_te  real,
-        gnd_hu  real
+        time      integer,
+        id        integer, 
+        air_pres  real,
+        gas_res   real,
+        air_temp  real, 
+        air_hum   real,
+        gnd_temp  real,
+        gnd_hum   real
       );
 
       CREATE TABLE IF NOT EXISTS stations_index (
