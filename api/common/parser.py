@@ -8,7 +8,7 @@ def parse(input_data: List[str]) -> str:
     'time': int(time.time()), # unix time
     'id': input_data[0],
     'air_pres': input_data[1],
-    'gas_res': input_data[2],
+    'voc': input_data[2], # it's volatile organic compound
     'air_temp': input_data[3],
     'air_hum': input_data[4],
     'gnd_temp': input_data[5],
@@ -16,11 +16,9 @@ def parse(input_data: List[str]) -> str:
   } 
   return json.dumps(parsed_data)
 
-
-def format_json(parsed_str: str) -> None:
+def pretty_json(parsed_str: str) -> None:
   print(json.dumps(json.loads(parsed_str), indent=4, sort_keys=False))
-
 
 if __name__ == "__main__":
   example_data = ['103', '949.00', '158.00', '23.00', '50.00', '2.00', '84.00']
-  format_json(parse(example_data))
+  pretty_json(parse(example_data))
