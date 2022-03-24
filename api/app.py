@@ -35,10 +35,12 @@ def info() -> Union[json.dumps, int]:
     formatted_data = {
       'time': int(time.time()),
       'id': recv[0],
-      'pres': recv[1],
+      'air_pres': recv[1],
       'gas_res': recv[2],
-      'temp': recv[3],
-      'hum': recv[4],
+      'air_temp': recv[3],
+      'air_hum': recv[4],
+      'gnd_temp': recv[5],
+      'gnd_hum': recv[6],
     }
     return json.dumps(formatted_data)
 

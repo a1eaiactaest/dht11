@@ -8,7 +8,7 @@ import time
 from typing import Union
 from random import randrange, choice 
 
-from utils.cache import cache
+from cache import cache
 
 DEBUG = os.getenv("DEBUG") is not None
 
