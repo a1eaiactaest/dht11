@@ -25,7 +25,7 @@ serial_conn = Serial()
 
 @cache
 @app.route('/api/info')
-def info() -> Union[json.dumps, int]:
+def info() -> Union[str, int]:
   recv = serial_conn.read() # this later should be in database worker
   if recv is None:
     return 500
