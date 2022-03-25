@@ -9,8 +9,9 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from waitress import serve
 
-from common.serial_ports import generate_dd, Serial
 from common.cache import cache
+from common.parser import parse
+from common.serial_ports import generate_dd, Serial
 
 DEBUG = os.getenv("DEBUG", None) is not None
 
@@ -25,24 +26,12 @@ serial_conn = Serial()
 @cache
 @app.route('/api/info')
 def info() -> Union[json.dumps, int]:
-  # dummy
-  #recv = str(generate_dd())
-
   recv = serial_conn.read() # this later should be in database worker
   if recv is None:
     return 500
   else:
-    formatted_data = {
-      'time': int(time.time()),
-      'id': recv[0],
-      'air_pres': recv[1],
-      'gas_res': recv[2],
-      'air_temp': recv[3],
-      'air_hum': recv[4],
-      'gnd_temp': recv[5],
-      'gnd_hum': recv[6],
-    }
-    return json.dumps(formatted_data)
+    json_data = parse(recv)
+    return json_data
 
 if __name__ == "__main__":
   if DEBUG:

@@ -4,8 +4,9 @@ import os
 import sys
 import time
 import sqlite3
-from typing import Union, Optional
+from typing import Union, Optional, List
 
+from utils import cache
 from basedir import BASEDIR, DATABASES
 
 class Database:
@@ -26,7 +27,7 @@ class Database:
         time      integer,
         id        integer, 
         air_pres  real,
-        gas_res   real,
+        voc       real,
         air_temp  real, 
         air_hum   real,
         gnd_temp  real,
