@@ -100,11 +100,11 @@ class Serial:
     return line_decoded.strip().split(' ')
 
   def validate(line: list) -> bool:
+    # is it worth validating?
     raise NotImplementedError
 
   def integrity_check(self):
     assert self.port_name == self.connection.name, "var:port_name and var:connection.name are mismatched"
-
 
 if __name__ == "__main__":
   S = Serial()
