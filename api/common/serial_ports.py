@@ -8,11 +8,15 @@ import time
 from typing import Union
 from random import randrange, choice 
 
-from .cache import cache
+print(__name__)
+if __name__ == "common.serial_ports":
+  from common.cache import cache
+else:
+  from cache import cache # in case of __main__
+
 
 DEBUG = os.getenv("DEBUG") is not None
 
-@cache
 def find_serial_port() -> str:
   """
   Search for serial port in /dev, works on Mac and Linux.
