@@ -25,10 +25,12 @@ function App(){
         <>
           <p>time: {resp.time}</p>
           <p>stations: {resp.id}</p>
-          <p>gas pressure: {resp.pres}</p>
-          <p>gas resistance: {resp.gas_res}</p>
-          <p>temperature: {resp.temp}</p>
-          <p>humidity: {resp.hum}</p>
+          <p>gas pressure: {resp.air_pres}</p>
+          <p>voc: {resp.voc}</p>
+          <p>air temperature: {resp.air_temp}</p>
+          <p>air humidity: {resp.air_hum}</p>
+          <p>soil temperature: {resp.gnd_temp}</p>
+          <p>soil humidity: {resp.gnd_hum}</p>
         </>
       }
       <Homepage />
