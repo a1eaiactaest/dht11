@@ -6,6 +6,7 @@ String error_msg = "Error: Unexpected value inside of message. Data has been dro
 
 void setup(){
   Serial.begin(9600);
+  randomSeed(analogRead(0));
 }
 
 void loop(){
