@@ -4,10 +4,12 @@ import os
 import sys
 import time
 import sqlite3
-from typing import Union, Optional, List
+from typing import Union, Optional, List, Any
 
 from common.cache import cache
 from common.basedir import BASEDIR, DATABASES
+from common.serial_ports import Serial
+from common.parser import parse_to_list, pretty_db_dump
 
 class Database:
   def __init__(self, name: str, DEBUG: Optional[bool] = False) -> None:
@@ -52,6 +54,7 @@ class Database:
   
   def add_row(self, data: list) -> None:
     if len(data) != 8:
+      print('length error')
       return 
 
     station = data[1]
@@ -82,25 +85,67 @@ class Database:
     #raise NotImplementedError
     if table == None:
       if station == None:
-        sql = f"SELECT * FROM serial_data LIMIT {rows};"
+        sql = f"SELECT * FROM serial_data ORDER BY time DESC LIMIT {rows};"
       else:
-        sql = f"SELECT * FROM serial_data WHERE id = {station} LIMIT {rows};"
+        sql = f"SELECT * FROM serial_data WHERE id = {station} ORDER BY time DESC LIMIT {rows};"
     else:
       if station == None:
-        sql = f"SELECT * FROM {table} LIMIT {rows};"
+        sql = f"SELECT * FROM {table} ORDER BY time DESC LIMIT {rows};"
       else:
-        sql = f"SELECT * FROM {table} WHERE id = {station} LIMIT {rows};"
+        sql = f"SELECT * FROM {table} WHERE id = {station} ORDER BY time DESC LIMIT {rows};"
 
-    ret = []
-    for row in self.db_cur.execute(sql):
-      ret.append(row)
+    db_dump = self.db_cur.execute(sql).fetchall()
+    if len(db_dump) > 1:
+      ret = []
+      for row in db_dump:
+        ret.append(row)
+      return ret
+    else:
+      return list(db_dump[0])
 
-    return ret
 
   def close(self, delay: Optional[int] = None) -> None:
     if delay is not None:
       time.sleep(delay)
     self.db_conn.close()
 
+
+def background_worker(database_object: Database, WRITE: bool = False, READ: bool = False, **kwargs: dict[str, Any]) -> None:
+  if kwargs:
+    for arg in zip(kwargs, kwargs.values()):
+      print(arg)
+      if arg[0] == 'table':
+        table = arg[1]
+      else:
+        table = None
+
+      if arg[0] == 'station':
+        station = arg[1]
+      else:
+        station = None
+
+      if arg[0] == 'rows':
+        rows = arg[1]
+      else:
+        rows = -1
+
+  print(table, station, rows)
+
+  if READ:
+    # call database_object.read() or smth
+    db_dump = database_object.read(rows, station, table)
+    pretty_db_dump(db_dump)
+
+  if WRITE:
+    # read serial data, call database_object.write()
+    serial_connection = Serial()
+    while True:
+      serial_data = serial_connection.read()
+      parsed_line = parse_to_list(serial_data)
+      print(parsed_line)
+      database_object.write(parsed_line)
+
 if __name__ == "__main__":
   database = Database('test')
+  #background_worker(database, table='serial_data', READ=True, rows=1) 
+  background_worker(database, table='serial_data', WRITE=True)

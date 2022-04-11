@@ -8,9 +8,10 @@ function App(){
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/info")
+    fetch("http://localhost:1337/api/info/0")
       .then(res => res.json())
       .then((res) => {
+        console.log(res)
         setResp(res)
       })
       .catch(error => {
