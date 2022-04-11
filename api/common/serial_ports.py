@@ -8,12 +8,10 @@ import time
 from typing import Union
 from random import randrange, choice 
 
-print(__name__)
 if __name__ == "common.serial_ports":
   from common.cache import cache
 else:
   from cache import cache # in case of __main__
-
 
 DEBUG = os.getenv("DEBUG") is not None
 
@@ -76,20 +74,20 @@ class Serial:
     self.baud = baud
     self.connection = self.connect()
 
-    print(self.port_name)
+    print('device: ', self.port_name)
 
   def connect(self) -> serial.Serial:
     connection = serial.Serial(self.port_name, self.baud) 
     connection.reset_input_buffer()
+    connection.reset_output_buffer()
     return connection
 
-  @cache
   def read(self) -> Union[list, None]:
     bline = self.connection.readline()
     line = self.parse(bline)
     if "Error:" in line:
       print(int(time.time()), ' '.join(line)) 
-      return 
+      return
     return line
 
   def decode(self, bytes_object: bytes) -> str:
@@ -114,6 +112,4 @@ if __name__ == "__main__":
   S = Serial()
   while True:
     data_recv = S.read()
-    if data_recv:
-      print(data_recv)
-    time.sleep(2)
+    print(data_recv)

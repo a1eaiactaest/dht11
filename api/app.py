@@ -11,7 +11,8 @@ from waitress import serve
 
 from common.cache import cache
 from common.parser import parse_to_dict
-from common.serial_ports import generate_dd, Serial
+
+from database import Database
 
 DEBUG = os.getenv("DEBUG", None) is not None
 
@@ -21,17 +22,26 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 logger = logging.getLogger('waitress')
 logger.setLevel(logging.DEBUG)
 
-serial_conn = Serial()
+if DEBUG:
+  db_name = 'test'
+else:
+  db_name = 'archive_serial'
+
+db = Database(db_name)
 
 @cache
-@app.route('/api/info')
-def info() -> Union[str, int]:
-  recv = serial_conn.read() # this later should be in database worker
-  if recv is None:
+@app.route('/api/info/<int:station>')
+def info(station: int) -> Union[str, int]:
+  if station != 0:
+    db_dump = db.read(station=station)
+  else:
+    db_dump = db.read(rows=1)
+    print(db_dump)
+  if db_dump is None:
     return 500
   else:
-    json_data = parse(recv)
-    return json_data
+    jsoned_data = parse_to_dict(db_dump)
+    return jsoned_data
 
 if __name__ == "__main__":
   if DEBUG:
