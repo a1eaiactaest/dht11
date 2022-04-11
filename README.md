@@ -39,7 +39,5 @@ It should return `/dev/tty*` on linux and `/dev/tty.usb*` on mac.
 
 ## TODO
  
-1. write serial port data grabber
-2. write data to the database
 3. grab and post data to the website using tables, later charts (REACT)
 4. improve website structure - edu, public api, site per station.
