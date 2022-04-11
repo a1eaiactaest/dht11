@@ -10,7 +10,7 @@ from flask_cors import CORS
 from waitress import serve
 
 from common.cache import cache
-from common.parser import parse
+from common.parser import parse_to_dict
 from common.serial_ports import generate_dd, Serial
 
 DEBUG = os.getenv("DEBUG", None) is not None
