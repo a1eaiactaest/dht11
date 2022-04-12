@@ -90,7 +90,7 @@ class Database:
       else:
         sql = f"SELECT * FROM serial_data WHERE id = {station} ORDER BY time DESC LIMIT {rows};"
     elif table == 'stations_index':
-      sql = f"SELECt * FROM stations_index"
+      sql = f"SELECT * FROM stations_index"
     else:
       if station == None:
         sql = f"SELECT * FROM {table} ORDER BY time DESC LIMIT {rows};"
