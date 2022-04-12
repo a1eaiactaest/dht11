@@ -16,6 +16,12 @@ def parse_to_dict(input_data: List[str]) -> str:
   } 
   return json.dumps(parsed_data)
 
+# [(3,), (5,), (11,), (103,)]
+def parse_stations(input_data: List[tuple]) -> tuple:
+  ret = []
+  for station in input_data:
+    ret.append(station[0])
+  return str(ret)
 
 def parse_to_list(input_data: List[str]) -> List[str]:
   parsed_data = [str(int(time.time()))] + input_data

@@ -16,6 +16,7 @@ class Database:
     self.name = name 
     self.db_conn, self.db_cur = self.connect_db()
     self.stations = list(set(self.execute("SELECT * FROM stations_index")))
+    print(self.stations)
 
   def connect_db(self) -> Union[sqlite3.Connection, sqlite3.Cursor]:
     if not os.path.exists(DATABASES):
@@ -58,15 +59,15 @@ class Database:
       return 
 
     station = data[1]
+    print('station:', station)
     if station not in self.stations:
       try:
-        if type(station) == int:
-          self.stations.add(station)
-          self.execute(f"INSERT INTO stations_index VALUES ({station})")
-          print(f"({station}) added to the station_index database: ")
-          print(self.stations)
+        self.stations.append(station)
+        self.execute(f"INSERT INTO stations_index VALUES ({station})")
+        print(f"({station}) added to the stations_index database: ")
+        print(self.stations)
       except sqlite3.IntegrityError:
-        print(f"({station}) alread is in station_index database.")
+        print(f"({station}) already is in stations_index database.")
     
     try: 
       sql = "INSERT INTO serial_data VALUES (?,?,?,?,?,?,?,?)"
@@ -88,6 +89,8 @@ class Database:
         sql = f"SELECT * FROM serial_data ORDER BY time DESC LIMIT {rows};"
       else:
         sql = f"SELECT * FROM serial_data WHERE id = {station} ORDER BY time DESC LIMIT {rows};"
+    elif table == 'stations_index':
+      sql = f"SELECt * FROM stations_index"
     else:
       if station == None:
         sql = f"SELECT * FROM {table} ORDER BY time DESC LIMIT {rows};"
@@ -101,14 +104,12 @@ class Database:
         ret.append(row)
       return ret
     else:
-      return list(db_dump[0])
-
+      return list(db_dump)
 
   def close(self, delay: Optional[int] = None) -> None:
     if delay is not None:
       time.sleep(delay)
     self.db_conn.close()
-
 
 def background_worker(database_object: Database, WRITE: bool = False, READ: bool = False, **kwargs: dict[str, Any]) -> None:
   if kwargs:
