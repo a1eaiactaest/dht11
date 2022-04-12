@@ -5,12 +5,12 @@ import time
 import logging
 import json
 from typing import Union
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from waitress import serve
 
 from common.cache import cache
-from common.parser import parse_to_dict
+from common.parser import parse_to_dict, parse_stations
 
 from database import Database
 
@@ -30,18 +30,46 @@ else:
 db = Database(db_name)
 
 @cache
-@app.route('/api/info/<int:station>')
-def info(station: int) -> Union[str, int]:
-  if station != 0:
-    db_dump = db.read(station=station)
+@app.route('/api/<string:table>', methods=['GET', 'POST'])
+def api_call(table: str) -> Union[str, int]:
+  args = request.args
+  print('reguest args:', args)
+
+  if table == 'serial_data': 
+    station = args.get('station')
+    rows = args.get('rows')
+
+    # read one row by default
+    if rows is None:
+      rows = 1
+
+    if station != 0:
+      db_dump = db.read(station=int(station), table=table, rows=int(rows))
+    else:
+      db_dump = db.read(rows=rows)
+
+  elif table == 'stations_index':
+    db_dump = db.read(table=table, rows=-1)
+      
   else:
-    db_dump = db.read(rows=1)
-    print(db_dump)
+    print(f"Table ({table}) doesn't exist. Returning 400")
+    return 'Error 400' # Bad Request
+
+  print(db_dump)
   if db_dump is None:
-    return 500
+    return 'Error 500'
   else:
-    jsoned_data = parse_to_dict(db_dump)
-    return jsoned_data
+    if table == 'serial_data':
+      print(len(db_dump))
+      if len(db_dump) == 1:
+        return parse_to_dict(db_dump[0])
+      else:
+        ret = []
+        for dp in db_dump:
+          ret.append(parse_to_dict(dp))
+        return str(ret)
+    elif table == 'stations_index':
+      return parse_stations(db_dump)
 
 if __name__ == "__main__":
   if DEBUG:
