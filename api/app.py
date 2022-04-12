@@ -39,6 +39,8 @@ def api_call(table: str) -> Union[str, int]:
     station = args.get('station')
     rows = args.get('rows')
 
+    if station is None:
+      station = 0
     # read one row by default
     if rows is None:
       rows = 1
@@ -46,7 +48,7 @@ def api_call(table: str) -> Union[str, int]:
     if station != 0:
       db_dump = db.read(station=int(station), table=table, rows=int(rows))
     else:
-      db_dump = db.read(rows=rows)
+      db_dump = db.read(rows=int(rows))
 
   elif table == 'stations_index':
     db_dump = db.read(table=table, rows=-1)
