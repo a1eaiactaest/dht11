@@ -8,6 +8,7 @@ import Education from "./routes/education";
 import About from "./routes/about";
 import Data from "./routes/data";
 
+
 const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
