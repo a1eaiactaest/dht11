@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Header from "../shared/components/Header";
+
+import StationHomepage from "../station_homepage/StationHomepage";
 
 function StationList(props) {
   const stations = props.stations;
 
   const listStations = stations?.map((station) => 
-      <li key={station}><Link to={`/stations/${station}`}>Station <b>{station}</b></Link></li>
+      <li key={station}>
+        <Link to={`/stations/${station}`}>
+          Station <b>{station}</b>
+        </Link>
+      </li>
   );
 
   return(
