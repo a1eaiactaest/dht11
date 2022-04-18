@@ -7,8 +7,8 @@ function StationHomepage(){
   const { station } = useParams();
   const [allStations, setAllStations] = useState(false);
 
-  useEffect((station) => {
-    if (station === 0){
+  useEffect(() => {
+    if (station == "0"){
       setAllStations(true);
     };
   },[]);
