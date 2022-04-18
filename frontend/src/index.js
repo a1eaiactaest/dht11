@@ -1,4 +1,4 @@
-import {render} from "react-dom";
+import { render } from "react-dom";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import App from "./App";
@@ -7,6 +7,7 @@ import Stations from "./routes/stations";
 import Education from "./routes/education";
 import About from "./routes/about";
 import Data from "./routes/data";
+import StationHomepage from "./station_homepage/StationHomepage";
 
 
 const rootElement = document.getElementById("root");
@@ -21,9 +22,16 @@ render(
       </Route>
 
       <Route 
-        path="/stations" 
+        path="/station_index" 
         element={
           <Stations />
+        }>
+      </Route>
+
+      <Route 
+        path="/stations/:station" 
+        element={
+          <StationHomepage />
         }>
       </Route>
 
