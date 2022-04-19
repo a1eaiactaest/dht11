@@ -1,56 +1,47 @@
 import React, { useState,useEffect } from "react";
-
-import { 
-  Chart, 
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
-  Legend
-} from "chart.js";
-import { Line } from "react-chartjs-2";
+  Legend, 
+} from "recharts";
 
-Chart.register(
-  CategoryScale,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
-export const DefaultChartOptions = {
-  responsive: true,
-  plugins: {
-    title: {
-      display: true,
-      text: 'RERE Chart',
-    },
-  },
-}
-
-const LineChart = (props) => {
-  const [noption, setNoption] = useState(false);
+const MyChart= (props) => {
+  const [noData, setNoData] = useState(false);
 
   useEffect(() => {
-    if (props.options == null){
-      setNoption(true);
+    if (props.data == null){
+      setNoData(false);
+      throw new Error("No data property supplied.");
     }
   },[]);
 
+  {/* Chart Parameters */}
+
   return (
-    <Line 
-      options={noption ? DefaultChartOptions : props.options}
-      data={{
-        labels: ["asfd","asdf"],
-        datasets: [props.data]
+    <LineChart
+      width={500}
+      height={500}
+      data={props.data}
+      margin={{
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 5,
       }}
-    />
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey=""/>
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="air_temp" />
+    </LineChart>
   );
 };
 
-export default LineChart;
+export default MyChart;

@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Header from "../shared/components/Header";
-
-import StationHomepage from "../station_homepage/StationHomepage";
 
 function StationList(props) {
   const stations = props.stations;
@@ -39,7 +36,6 @@ function Stations() {
       })
   }, []);
 
-  console.log(stations);
   return(
     <main>
       <Header className="text-3xl font-bold " label="Stations"/>

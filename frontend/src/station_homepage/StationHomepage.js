@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Header from '../shared/components/Header';
+import Dashboard from './components/Dashboard';
 
 function StationHomepage(){
   const { station } = useParams();
@@ -15,10 +16,14 @@ function StationHomepage(){
 
   return (
     <main>
+      <>
       <Header label={
         allStations ? "All stations dashboard."
         : `Station ${station} dashboard.`
       } />
+      </>
+      {/*Dashboard component here */}
+      <Dashboard />
     </main>
   );
 };
