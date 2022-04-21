@@ -5,16 +5,16 @@ from typing import List, Iterable
 def parse_to_dict(input_data: List[str]) -> str:
   # check if input_data is VALID here or before calling this function
   parsed_data = {
-    'time': input_data[0],
-    'id': input_data[1],
-    'air_pres': input_data[2],
-    'voc': input_data[3], # it's volatile organic compound
-    'air_temp': input_data[4],
-    'air_hum': input_data[5],
-    'gnd_temp': input_data[6],
-    'gnd_hum': input_data[7],
+    "time": input_data[0],
+    "id": input_data[1],
+    "air_pres": input_data[2],
+    "voc": input_data[3], # it's volatile organic compound
+    "air_temp": input_data[4],
+    "air_hum": input_data[5],
+    "gnd_temp": input_data[6],
+    "gnd_hum": input_data[7],
   } 
-  return json.dumps(parsed_data)
+  return parsed_data
 
 # [(3,), (5,), (11,), (103,)]
 def parse_stations(input_data: List[tuple]) -> tuple:
