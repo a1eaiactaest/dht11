@@ -57,19 +57,19 @@ def api_call(table: str) -> Union[str, int]:
     print(f"Table ({table}) doesn't exist. Returning 400")
     return 'Error 400' # Bad Request
 
-  print(db_dump)
+  print('db_dump:', db_dump)
   if db_dump is None:
     return 'Error 500'
   else:
     if table == 'serial_data':
-      print(len(db_dump))
       if len(db_dump) == 1:
         return parse_to_dict(db_dump[0])
       else:
         ret = []
         for dp in db_dump:
           ret.append(parse_to_dict(dp))
-        return str(ret)
+        return jsonify(ret)
+
     elif table == 'stations_index':
       return parse_stations(db_dump)
 

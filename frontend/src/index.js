@@ -11,6 +11,7 @@ import StationHomepage from "./station_homepage/StationHomepage";
 
 
 const rootElement = document.getElementById("root");
+
 render(
   <BrowserRouter>
     <Routes>

@@ -7,10 +7,12 @@ import {
   CartesianGrid,
   Tooltip,
   Legend, 
+  ResponsiveContainer,
 } from "recharts";
 
+import { extractDictItems, extractAirTemp } from "../utils/Array";
 
-const MyChart= (props) => {
+const MyChart = (props) => {
   const [noData, setNoData] = useState(false);
 
   useEffect(() => {
@@ -20,11 +22,11 @@ const MyChart= (props) => {
     }
   },[]);
 
-  {/* Chart Parameters */}
-
+  //console.log(extractDictItems(props.data, 'air_temp'));
+  {/* place this in respnsive container, doesn't work now */}
   return (
     <LineChart
-      width={500}
+      width={800}
       height={500}
       data={props.data}
       margin={{
@@ -36,7 +38,7 @@ const MyChart= (props) => {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey=""/>
-        <YAxis />
+        <YAxis key={Math.random()}/>
         <Tooltip />
         <Legend />
         <Line type="monotone" dataKey="air_temp" />
