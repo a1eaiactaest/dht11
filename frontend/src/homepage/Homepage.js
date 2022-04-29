@@ -1,14 +1,20 @@
 import React from 'react';
 import MenuElement from './components/MenuElement.js';
+import Navbar from '../shared/components/Navbar.js';
 
 const Homepage = (props) => {
+  const dirs = [
+    ['Home', '/'],
+    ['Stations', '/station_index'],
+    ['Data', '/data'],
+    ['Learn', '/edu'],
+    ['About the Project', '/about'],
+  ];
+
   return (
-    <React.Fragment>
-      <MenuElement href='/station_index' name='Stations'/>
-      <MenuElement href='/data' name='Data'/>
-      <MenuElement href='/edu' name='Learn'/>
-      <MenuElement href='/about' name='About the Project'/>
-    </React.Fragment>
+    <>
+      <Navbar elements={dirs}/>
+    </>
   );
 };
 
