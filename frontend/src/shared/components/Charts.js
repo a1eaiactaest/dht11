@@ -8,9 +8,13 @@ import {
   Tooltip,
   Legend, 
   ResponsiveContainer,
+  BarChart,
+  Bar,
+  Brush,
 } from "recharts";
 
 import { extractDictItems, extractAirTemp } from "../utils/Array";
+import { parseEpoch } from "../utils/Parse";
 
 const MyChart = (props) => {
   const [noData, setNoData] = useState(false);
@@ -22,12 +26,12 @@ const MyChart = (props) => {
     }
   },[]);
 
-  //console.log(extractDictItems(props.data, 'air_temp'));
-  {/* place this in respnsive container, doesn't work now */}
+  // unix time formatting: https://github.com/recharts/recharts/issues/956
+  // place this in respnsive container, doesn't work now 
   return (
     <LineChart
-      width={800}
-      height={500}
+      width={1000}
+      height={300}
       data={props.data}
       margin={{
         top: 5,
@@ -37,11 +41,15 @@ const MyChart = (props) => {
       }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey=""/>
-        <YAxis key={Math.random()}/>
+        <XAxis 
+          dataKey="time" 
+          tickFormatter={timestamp => parseEpoch(timestamp)}
+        />
+        <YAxis padding={{ top: 30 }} />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="air_temp" />
+        <Brush dataKey="time" height={40} stroke="#7ea57480" />
+        <Line type="monotone" dataKey="air_temp" dot={false} />
     </LineChart>
   );
 };

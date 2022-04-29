@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import MyChart from "../../shared/components/Charts";
 
 function Dashboard(){
+  // dummy
   const data_frame = [
     {
       name: 'a',
@@ -27,7 +28,7 @@ function Dashboard(){
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/serial_data?rows=5", {
+    fetch("http://localhost:1337/api/serial_data?rows=-1", {
       headers : {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -36,7 +37,11 @@ function Dashboard(){
       .then(res => res.json())
       .then((res) => {
         console.log(res);
-        setData(res);
+        if (res.length > 1){
+          setData(res);
+        } else{
+          setData([res]);
+        }
       })
       .catch(error => {
         setError(true);
