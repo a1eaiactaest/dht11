@@ -6,7 +6,7 @@ const Homepage = (props) => {
     <React.Fragment>
       <MenuElement href='/station_index' name='Stations'/>
       <MenuElement href='/data' name='Data'/>
-      <MenuElement href='/edu' name='Education'/>
+      <MenuElement href='/edu' name='Learn'/>
       <MenuElement href='/about' name='About the Project'/>
     </React.Fragment>
   );

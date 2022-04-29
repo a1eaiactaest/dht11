@@ -1,7 +1,9 @@
+import Header from "../shared/components/Header";
+
 function About(){
   return(
     <main>
-      <h1>About the Project</h1>
+      <Header className="text-3xl font-bold " label="About the Project"/>
     </main>
   );
 };
