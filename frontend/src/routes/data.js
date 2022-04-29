@@ -1,7 +1,9 @@
+import Header from "../shared/components/Header";
+
 function Data(){
   return(
     <main>
-      <h1>Data</h1>
+      <Header className="text-3xl font-bold " label="Data"/>
     </main>
   );
 };

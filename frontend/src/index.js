@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import App from "./App";
 
 import Stations from "./routes/stations";
-import Education from "./routes/education";
+import Learn from "./routes/learn";
 import About from "./routes/about";
 import Data from "./routes/data";
 import StationHomepage from "./station_homepage/StationHomepage";
@@ -46,7 +46,7 @@ render(
       <Route 
         path="/edu" 
         element={
-          <Education />
+          <Learn />
         }>
       </Route>
 
