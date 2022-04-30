@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 import Homepage from "./homepage/Homepage";
 
 import "./index.css";
@@ -25,9 +23,7 @@ function App(){
   */
 
   return (
-    <>
-      <Homepage />
-    </>
+    <Homepage />
   );
 };
 
