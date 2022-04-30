@@ -31,7 +31,7 @@ db = Database(db_name)
 
 @cache
 @app.route('/api/<string:table>', methods=['GET', 'POST'])
-def api_call(table: str) -> Union[str, int]:
+def api_call(table: str) -> str:
   args = request.args
   print('reguest args:', args)
 
