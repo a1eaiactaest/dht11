@@ -3,7 +3,7 @@ import Header from "../shared/components/Header";
 function About(){
   return(
     <main>
-      <Header className="text-3xl font-bold " label="About the Project"/>
+      <Header styleName="text-7xl" label="About the Project"/>
     </main>
   );
 };

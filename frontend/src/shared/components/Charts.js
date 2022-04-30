@@ -47,9 +47,9 @@ const MyChart = (props) => {
         />
         <YAxis padding={{ top: 30 }} />
         <Tooltip />
-        <Legend />
-        <Brush dataKey="time" height={40} stroke="#7ea57480" />
-        <Line type="monotone" dataKey="air_temp" dot={false} />
+        <Legend stroke="#00000"/>
+        <Brush dataKey="time" height={40} stroke="#16a34a" />
+        <Line type="monotone" dataKey="air_temp" dot={false} stroke="#16a34a"/>
     </LineChart>
   );
 };

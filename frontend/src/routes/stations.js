@@ -38,7 +38,7 @@ function Stations() {
 
   return(
     <main>
-      <Header className="text-3xl font-bold " label="Stations"/>
+      <Header styleName="text-7xl" label="Stations"/>
       <StationList stations={stations} />
     </main>
   );
