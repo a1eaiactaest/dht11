@@ -5,7 +5,6 @@ import App from "./App";
 
 import Stations from "./routes/stations";
 import Learn from "./routes/learn";
-import About from "./routes/about";
 import Data from "./routes/data";
 import StationHomepage from "./station_homepage/StationHomepage";
 
@@ -47,13 +46,6 @@ render(
         path="/edu" 
         element={
           <Learn />
-        }>
-      </Route>
-
-      <Route 
-        path="/about" 
-        element={
-          <About />
         }>
       </Route>
 
