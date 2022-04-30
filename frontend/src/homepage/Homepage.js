@@ -10,7 +10,6 @@ const Homepage = (props) => {
     ['Stations', '/station_index'],
     ['Data', '/data'],
     ['Learn', '/edu'],
-    ['About the Project', '/about'],
   ];
 
   return (
