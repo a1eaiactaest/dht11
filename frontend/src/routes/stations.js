@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Header from "../shared/components/Header";
+import Hero from "../shared/components/Hero";
 
 function StationList(props) {
   const stations = props.stations;
@@ -38,7 +39,7 @@ function Stations() {
 
   return(
     <main>
-      <Header styleName="text-7xl" label="Stations"/>
+      <Hero header="Stations"/>
       <StationList stations={stations} />
     </main>
   );

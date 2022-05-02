@@ -1,9 +1,10 @@
 import Header from "../shared/components/Header";
+import Hero from "../shared/components/Hero";
 
 function Learn(){
   return(
     <main>
-      <Header styleName="text-7xl" label="Learn"/>
+      <Hero header="Learn"/>
     </main>
   );
 };
