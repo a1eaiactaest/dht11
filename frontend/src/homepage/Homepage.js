@@ -1,27 +1,14 @@
-import React from 'react';
-import Navbar from '../shared/components/Navbar';
+import React, { useState } from 'react';
 import Header from '../shared/components/Header';
+import Hero from '../shared/components/Hero';
 import { Paragraph } from '../shared/components/Paragraph';
 import { Blob1, Blob2, Blob3 } from '../shared/UI/Blobs';
 
 const Homepage = (props) => {
-  const dirs = [
-    ['Home', '/'],
-    ['Stations', '/station_index'],
-    ['Data', '/data'],
-    ['Learn', '/edu'],
-  ];
 
   return (
     <div className='flex flex-col'>
-      <div className='mx-auto relative mt-5'>
-        <Navbar elements={dirs}/>
-      </div>
-
-      <div className='my-40 mb-96 blob-header'>
-        <Header label="RERE" styleName='text-9xl'/>
-        <Blob2 />
-      </div>
+      <Hero header="RERE" blob={true}/>
 
       <div>
         <Header label="About" styleName="text-6xl my-20"></Header>

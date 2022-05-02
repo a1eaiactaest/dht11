@@ -1,6 +1,6 @@
 import Header from "../shared/components/Header";
 
-function Learn(){
+const Learn = () => { 
   return(
     <main>
       <Header styleName="text-7xl" label="Learn"/>

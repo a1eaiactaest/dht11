@@ -1,4 +1,4 @@
-function Paragraph(props){
+const Paragraph = (props) => {
   return (
     <p className={`${props.styleName}`}>
       {props.children}

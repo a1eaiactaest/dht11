@@ -1,4 +1,4 @@
-function Navbar(props) {
+const Navbar = (props) => {
   /*
     Takes props.elements as main prop.
 
@@ -11,7 +11,14 @@ function Navbar(props) {
     ]
   */
 
-  var NavBarElements = props.elements.map(([title, url]) => (
+  const dirs = [
+    ['Home', '/'],
+    ['Stations', '/station_index'],
+    ['Data', '/data'],
+    ['Learn', '/edu'],
+  ];
+
+  var NavBarElements = dirs.map(([title, url]) => (
     <a key={url} href={url} className="rounded-lg px-3 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400">{title}</a>
   ));
 
