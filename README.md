@@ -1,18 +1,11 @@
-# rere-system
+# RERE
 -------------------------------------------------------------
-
-**This branch is a port from Flask to React.js.**
-
--------------------------------------------------------------
-
-## Branches
-Checkout the [react](https://github.com/a1eaiactaest/rere-system/tree/react) branch.
 
 ## Cloning
 ```sh
-git clone https://github.com/a1eaiactaest/rere-system
+git clone https://github.com/a1eaiactaest/rere
 
-cd rere-system/
+cd rere/
 
 git submodule update --init
 ```
@@ -26,14 +19,22 @@ pip install -r requirements.txt
 to satisfy python dependencies.
 
 
-
 ## Usage
 
-Find out what port master ((rx) with feather m0) station is on.
-```
-tools/serial/find_port.sh
-```
-It should return `/dev/tty*` on linux and `/dev/tty.usb*` on mac.
+Start backend server: 
 
-**TDB**
+```
+python3 api/app.py
+```
+Read more about [API](api/README.md) 
 
+
+
+
+Then start node.js running frontend:
+
+```
+cd frontend/ && npm start
+```
+
+Now you can browse to `http://localhost:5000` to open the website.
