@@ -37,7 +37,3 @@ It should return `/dev/tty*` on linux and `/dev/tty.usb*` on mac.
 
 **TDB**
 
-## TODO
- 
-3. grab and post data to the website using tables, later charts (REACT)
-4. improve website structure - edu, public api, site per station.
