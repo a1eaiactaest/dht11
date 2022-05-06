@@ -13,7 +13,6 @@ import {
   Brush,
 } from "recharts";
 
-import { extractDictItems, extractAirTemp } from "../utils/Array";
 import { parseEpoch } from "../utils/Parse";
 
 const MyChart = (props) => {

@@ -1,4 +1,3 @@
-import Header from "../shared/components/Header";
 import Hero from "../shared/components/Hero";
 
 function Learn(){

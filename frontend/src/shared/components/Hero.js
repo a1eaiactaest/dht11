@@ -25,7 +25,7 @@ const Hero = (props) => {
         </div>
         : 
         <div className='my-20 blob-header'>
-          <Header label={props.header} styleName='text-9xl'/>
+          <Header label={props.header} styleName='text-7xl'/>
         </div>
       }
     </>

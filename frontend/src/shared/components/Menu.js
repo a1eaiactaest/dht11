@@ -1,11 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
-import "./menu.css";
 
 const Menu = (props) => {
+  const Elements = props.elements.map((x) => (
+    <ul key={x}>{x}</ul>
+  ));
+
   return (
-    <ul></ul>
+    <>
+      <nav>
+        {Elements}
+      </nav>
+    </>
   );
 };
 

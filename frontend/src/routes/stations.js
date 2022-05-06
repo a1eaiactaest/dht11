@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import Header from "../shared/components/Header";
 import Hero from "../shared/components/Hero";
+import Menu from "../shared/components/Menu";
 
-function StationList(props) {
+const StationList = (props) => {
   const stations = props.stations;
 
   const listStations = stations?.map((station) => 
@@ -16,14 +16,14 @@ function StationList(props) {
   );
 
   return(
-    <ul>
+    <ul className="flex sm:just space-x-4">
       <li key={0}><Link to={'/stations/0'}>All Stations</Link></li>
       {listStations}
     </ul>
   );
 };
 
-function Stations() {
+const Stations = () => {
   const [stations, setStations] = useState();
 
   useEffect(() => {
@@ -38,10 +38,12 @@ function Stations() {
   }, []);
 
   return(
-    <main>
+    <>
       <Hero header="Stations"/>
       <StationList stations={stations} />
-    </main>
+      <br />
+      <Menu elements={["test", "test1"]}/>
+    </>
   );
 };
 
