@@ -19,7 +19,7 @@ const Hero = (props) => {
       </div>
 
       { showBlob ?
-        <div className='my-40 mb-96 blob-header'>
+        <div className='my-40 mb-96 blob-header fade'>
           <Header label={props.header} styleName='text-9xl'/>
           <Blob2 /> 
         </div>

@@ -6,10 +6,10 @@ import { Paragraph } from '../shared/components/Paragraph';
 const Homepage = (props) => {
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col fade'>
       <Hero header="RERE" blob={true}/>
 
-      <div className="max-w-screen-md mx-auto ">
+      <div className="max-w-screen-md mx-auto">
         <div className="relative aspect-video">
           <iframe className="absolute w-full h-full inset-0" src="https://www.youtube.com/embed/u0sql4bx4PI"></iframe>
 
@@ -25,6 +25,7 @@ const Homepage = (props) => {
           </Paragraph>
         </div>
       </div>
+      <div className="flex-inline my-[10%]"></div>
     </div>
   );
 };
