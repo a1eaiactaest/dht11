@@ -99,7 +99,6 @@ class Database:
 
     db_dump = self.db_cur.execute(sql).fetchall()
     if len(db_dump) > 1:
-      print("**** HERE *****")
       ret = []
       for row in db_dump:
         ret.append(row)
