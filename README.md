@@ -12,7 +12,7 @@ cd rere/
 git submodule update --init
 ```
 
-Then run
+Then run:
 
 ```sh
 pip install -r requirements.txt
