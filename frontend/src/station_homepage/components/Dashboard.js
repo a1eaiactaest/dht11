@@ -3,32 +3,24 @@ import React, { useEffect, useState } from 'react';
 //import { extractDictItems } from "../../shared/utils/Array";
 import MyChart from "../../shared/components/Charts";
 
-function Dashboard(){
-  // dummy
-  const data_frame = [
-    {
-      name: 'a',
-      air_temp: 16,
-    },
-    {
-      air_temp: 17,
-    },
-    {
-      'air_temp': 18,
-    },
-    {
-      'air_temp': 15,
-    },
-    {
-      'air_temp': 12,
-    },
-  ];
-
+const Dashboard = (props) => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
 
+  // This urls fetch ALL POSSIBLe data for certain stations.
+
   useEffect(() => {
-    fetch("http://localhost:1337/api/serial_data?rows=-1", {
+    let fetchURL = '';
+    let station = props.station;
+
+    if (station == 0){
+      fetchURL = 'http://localhost:1337/api/serial_data?rows=-1';
+    } else {
+      fetchURL = `http://localhost:1337/api/serial_data?rows=-1&station=${props.station}`;
+    }
+
+    console.log(fetchURL);
+    fetch(fetchURL, {
       headers : {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

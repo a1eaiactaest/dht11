@@ -8,14 +8,14 @@ const StationList = (props) => {
   const stations = props.stations;
 
   const listStations = stations?.map((station) => 
-      <a href={`/stations/${station}`} className="rounded-lg px-5 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400">
+      <a key={station} href={`/stations/${station}`} className="rounded-lg px-5 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400">
         Station <b>{station}</b>
       </a>
   );
 
   return(
     <nav className="flex sm:justify-center space-x-10">
-      <a href={'/stations/0'} className="rounded-lg px-5 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400">
+      <a key={0} href={'/stations/0'} className="rounded-lg px-5 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400">
         All Stations
       </a>
       {listStations}
@@ -41,8 +41,6 @@ const Stations = () => {
     <>
       <Hero header="Stations"/>
       <StationList stations={stations} />
-      <br />
-      <Menu elements={["test", "test1"]}/>
     </>
   );
 };

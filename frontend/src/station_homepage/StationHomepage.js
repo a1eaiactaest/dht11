@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Header from '../shared/components/Header';
+import Hero from '../shared/components/Hero';
 import Dashboard from './components/Dashboard';
 
 function StationHomepage(){
@@ -14,15 +14,16 @@ function StationHomepage(){
     };
   },[]);
 
+  console.log(typeof(station));
   return (
     <main>
       <>
-      <Header label={
+      <Hero header={
         allStations ? "All stations dashboard."
         : `Station ${station} dashboard.`
       } />
       </>
-      <Dashboard />
+      <Dashboard station={station}/>
     </main>
   );
 };
