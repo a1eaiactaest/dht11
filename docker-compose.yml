@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: ./api
+    ports:
+      - "1337:1337"
+    environment:
+      - DEBUG=1
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "5001:5000"
+    depends_on:
+      - api
