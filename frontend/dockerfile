@@ -1,0 +1,5 @@
+FROM node:16
+ADD . /src
+WORKDIR /src
+RUN npm install
+CMD [ "npm","start" ]
