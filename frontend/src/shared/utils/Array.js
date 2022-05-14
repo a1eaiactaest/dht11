@@ -1,8 +1,8 @@
-function extractDictItems(dict, key){
+const extractDictItems = (dict, key) => {
   let ret = [];
   dict.forEach(subdict => {
     for (const [k,v] of Object.entries(subdict)){
-      if (k ===key){
+      if (k === key){
         ret.push(v);
       }
     }
@@ -10,7 +10,7 @@ function extractDictItems(dict, key){
   return ret;
 }
 
-function extractAirTemp(dict){
+const extractAirTemp = (dict) => {
   let ret = [];
   dict.forEach(subdict => {
     for (const [k,v] of Object.entries(subdict)){
