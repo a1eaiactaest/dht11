@@ -12,7 +12,6 @@ const Homepage = (props) => {
       <div className="max-w-screen-md mx-auto">
         <div className="relative aspect-video">
           <iframe className="absolute w-full h-full inset-0" src="https://www.youtube.com/embed/u0sql4bx4PI"></iframe>
-
         </div>
 
         <div>

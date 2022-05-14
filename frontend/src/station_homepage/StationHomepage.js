@@ -22,7 +22,6 @@ function StationHomepage(){
         : `Station ${station} dashboard.`
       } />
       </>
-      {/*Dashboard component here */}
       <Dashboard />
     </main>
   );
