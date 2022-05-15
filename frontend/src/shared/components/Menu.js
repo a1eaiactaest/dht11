@@ -1,15 +1,11 @@
 import React from "react";
 
 const Menu = (props) => {
-  const Elements = props.elements.map((x) => (
-    <ul key={x}>{x}</ul>
-  ));
+  const Elements = props.elements.map((x) => <ul key={x}>{x}</ul>);
 
   return (
     <>
-      <nav>
-        {Elements}
-      </nav>
+      <nav>{Elements}</nav>
     </>
   );
 };

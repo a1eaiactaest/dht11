@@ -7,15 +7,23 @@ import Menu from "../shared/components/Menu";
 const StationList = (props) => {
   const stations = props.stations;
 
-  const listStations = stations?.map((station) => 
-      <a key={station} href={`/stations/${station}`} className="rounded-lg px-5 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400">
-        Station <b>{station}</b>
-      </a>
-  );
+  const listStations = stations?.map((station) => (
+    <a
+      key={station}
+      href={`/stations/${station}`}
+      className="rounded-lg px-5 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400"
+    >
+      Station <b>{station}</b>
+    </a>
+  ));
 
-  return(
+  return (
     <nav className="flex sm:justify-center space-x-10">
-      <a key={0} href={'/stations/0'} className="rounded-lg px-5 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400">
+      <a
+        key={0}
+        href={"/stations/0"}
+        className="rounded-lg px-5 py-2 text-slate-900 font-medium hover:bg-slate-900 hover:text-green-400"
+      >
         All Stations
       </a>
       {listStations}
@@ -27,19 +35,21 @@ const Stations = () => {
   const [stations, setStations] = useState();
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/stations_index") 
-      .then(res => res.json())
+    fetch("http://localhost:1337/api/stations_index")
+      .then((res) => res.json())
       .then((res) => {
-        setStations(res)
+        setStations(res);
       })
-      .catch(error => {
-        console.log('Request to http://localhost:1337/api/stations_index failed.')
-      })
+      .catch((error) => {
+        console.log(
+          "Request to http://localhost:1337/api/stations_index failed."
+        );
+      });
   }, []);
 
-  return(
+  return (
     <>
-      <Hero header="Stations"/>
+      <Hero header="Stations" />
       <StationList stations={stations} />
     </>
   );
