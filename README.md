@@ -1,5 +1,7 @@
 # RERE
 
+RERE's purpose is to present issues of urban flora and fauna by creating a network of sensors which monitor environmental conditions.
+
 ---
 
 ## Cloning
