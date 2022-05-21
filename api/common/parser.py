@@ -1,6 +1,6 @@
 import time
 import json
-from typing import List, Iterable
+from typing import List
 
 
 def parse_to_dict(input_data: List[str]) -> str:
@@ -16,8 +16,6 @@ def parse_to_dict(input_data: List[str]) -> str:
         "gnd_hum": input_data[7],
     }
     return parsed_data
-
-# [(3,), (5,), (11,), (103,)]
 
 
 def parse_stations(input_data: List[tuple]) -> tuple:

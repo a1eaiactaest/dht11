@@ -1,5 +1,5 @@
 import time
-from typing import List, TypeVar
+from typing import TypeVar
 
 WOItem = TypeVar('WOItem', int, float, str)
 

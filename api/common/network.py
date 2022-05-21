@@ -23,6 +23,5 @@ def api_get(endpoint: str, method="GET", timeout=None, **params) -> requests.req
 
 
 if __name__ == "__main__":
-    #print(is_up("http://localhost:5000/", "RERE"))
     ret = api_get("api/info", timeout=2)
     print(ret, ret.text)

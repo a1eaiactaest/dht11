@@ -2,8 +2,6 @@
 import os
 import platform
 import serial
-import pty
-import threading
 import time
 from typing import Union
 from random import randrange, choice
@@ -39,7 +37,7 @@ def find_serial_port() -> str:
 @cache
 def generate_dd() -> str:
     """
-    Return pseudo random array of dummy data. 
+    Return pseudo random array of dummy data.xw
     See `../dummy/dummy.ino`
     """
     station = choice([3, 5, 11, 103, 69, 420, 1337])
@@ -59,10 +57,7 @@ class Serial:
 
     -- example data samples:
       -- normal
-
-        "103 1009.00 120.00 20.00 52.00 2.00 87.00\n"
-
-
+        "103 1009.00 120.00 20.00 52.00 2.00 87.00"
       -- error message
     type hint for constructor:
       https://peps.python.org/pep-0484/#the-meaning-of-annotations

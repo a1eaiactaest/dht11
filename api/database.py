@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import sys
 import time
 import sqlite3
-from typing import Union, Optional, List, Any
+from typing import Union, Optional, Any
 
-from common.cache import cache
-from common.basedir import BASEDIR, DATABASES
+from common.basedir import DATABASES
 from common.serial_ports import Serial
 from common.parser import parse_to_list, pretty_db_dump
 
@@ -30,10 +28,10 @@ class Database:
         sql = """
       CREATE TABLE IF NOT EXISTS serial_data (
         time      integer,
-        id        integer, 
+        id        integer,
         air_pres  real,
         voc       real,
-        air_temp  real, 
+        air_temp  real,
         air_hum   real,
         gnd_temp  real,
         gnd_hum   real
@@ -86,7 +84,6 @@ class Database:
             time.sleep(delay)
 
     def read(self, rows: int = -1, station: Optional[int] = None, table: Optional[str] = None) -> list:
-        #raise NotImplementedError
         if table == None:
             if station == None:
                 sql = f"SELECT * FROM serial_data ORDER BY time DESC LIMIT {rows};"
@@ -153,5 +150,4 @@ def background_worker(database_object: Database, WRITE: bool = False, READ: bool
 
 if __name__ == "__main__":
     database = Database('test')
-    #background_worker(database, table='serial_data', READ=True, rows=1)
     background_worker(database, table='serial_data', WRITE=True)
