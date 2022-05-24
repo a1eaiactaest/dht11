@@ -7,5 +7,5 @@ Before submitting a commit make sure the code follows RERE's style guide:
 * Use snake case for Python files.
 * Don't leave more than 2 break lines between code or at the end of the file.
 
-Overall style concept is partly contained in (.editorconfig)[../.editorconfig] file.
-In doubt or if not mentioned above reffer to (PEP 8)[https://peps.python.org/pep-0008/].
+Overall style concept is partly contained in [.editorconfig](../.editorconfig) file.
+In doubt or if not mentioned above reffer to [PEP 8](https://peps.python.org/pep-0008/).
