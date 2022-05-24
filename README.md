@@ -1,4 +1,7 @@
-![](docs/logo.png)
+<p align="center" style="width:25%;">
+  <img src="docs/logo.png"> 
+</p>
+
 Table of Contents
 =======================
 
