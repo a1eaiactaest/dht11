@@ -1,7 +1,15 @@
-# RERE
+![](docs/logo.png)
+Table of Contents
+=======================
 
+* [What is RERE?](#what-is-rere)
+* [Cloning](#cloning)
+* [Usage](#usage)
+* [Community and Contributing](#community-and-contributing)
+---
+
+## What is RERE?
 RERE's purpose is to present issues of urban flora and fauna by creating a network of sensors which monitor environmental conditions.
-
 ---
 
 ## Cloning
@@ -55,3 +63,11 @@ docker-compose down
 ```
 
 Now you can browse to `http://localhost:5000` to open the website.
+
+## Community and Contributing
+
+RERE's codebase is developed by [a1eaiactaest](https://a1eaiactaest.github.io) and users like you. We welcome both pull requests and issues on GitHub. Check out [the contributing docs](docs/CONTRIBUTING.md).
+
+Our [Code of Conduct](docs/CODE_OF_CONDUCT.md).
+
+And [follow me on Twitter](https://twitter.com/a1eaiactaest).
