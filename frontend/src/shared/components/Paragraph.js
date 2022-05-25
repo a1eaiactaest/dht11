@@ -1,9 +1,5 @@
-function Paragraph(props){
-  return (
-    <p className={`${props.styleName}`}>
-      {props.children}
-    </p>
-  );
+function Paragraph(props) {
+	return <p className={`${props.styleName}`}>{props.children}</p>;
 }
 
 export { Paragraph };

@@ -52,16 +52,21 @@ cd frontend/ && npm start
 ```
 
 ### Docker:
+
 Build and compose docker images:
 
 ```
 docker-compose build -d
 ```
+
 To stop them:
+
 ```
 docker-compose stop
 ```
+
 To remove:
+
 ```
 docker-compose down
 ```

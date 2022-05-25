@@ -8,50 +8,26 @@ import Learn from "./routes/learn";
 import Data from "./routes/data";
 import StationHomepage from "./station_homepage/StationHomepage";
 
-
 const rootElement = document.getElementById("root");
 
 render(
-  <BrowserRouter>
-    <Routes>
-      <Route 
-        path="/" 
-        element={
-          <App />
-        }>
-      </Route>
+	<BrowserRouter>
+		<Routes>
+			<Route path="/" element={<App />}></Route>
 
-      <Route 
-        path="/station_index" 
-        element={
-          <Stations />
-        }>
-      </Route>
+			<Route path="/station_index" element={<Stations />}></Route>
 
-      <Route 
-        path="/stations/:station" 
-        element={
-          <StationHomepage />
-        }>
-      </Route>
+			<Route
+				path="/stations/:station"
+				element={<StationHomepage />}
+			></Route>
 
-      <Route 
-        path="/data" 
-        element={
-          <Data />
-        }>
-      </Route>
+			<Route path="/data" element={<Data />}></Route>
 
-      <Route 
-        path="/edu" 
-        element={
-          <Learn />
-        }>
-      </Route>
+			<Route path="/edu" element={<Learn />}></Route>
 
-      <Route path='*' element={<Navigate to='/' />} />
-
-    </Routes>
-  </BrowserRouter>,
-  rootElement
+			<Route path="*" element={<Navigate to="/" />} />
+		</Routes>
+	</BrowserRouter>,
+	rootElement
 );
