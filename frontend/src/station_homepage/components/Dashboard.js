@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 //import { extractDictItems } from "../../shared/utils/Array";
-import MyChart from "../../shared/components/Charts";
 import NewChart from "../../shared/components/NewCharts";
 
 const Dashboard = (props) => {
@@ -44,7 +43,6 @@ const Dashboard = (props) => {
 
   return(
     <>
-      <MyChart data={data} />
       <NewChart data={data} />
     </>
   );

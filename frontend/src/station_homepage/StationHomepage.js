@@ -16,15 +16,17 @@ function StationHomepage(){
 
   console.log(typeof(station));
   return (
-    <main>
+    <div className='flex flex-col justify-center mx-auto'>
       <>
       <Hero header={
         allStations ? "All stations dashboard."
         : `Station ${station} dashboard.`
       } />
       </>
-      <Dashboard station={station}/>
-    </main>
+      <div className='relative mx-[20%]'>
+        <Dashboard station={station}/>
+      </div>
+    </div>
   );
 };
 

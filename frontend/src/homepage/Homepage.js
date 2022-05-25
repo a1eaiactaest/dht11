@@ -20,7 +20,7 @@ const Homepage = (props) => {
 
         <div>
           <Paragraph styleName="font-sans text-slate-700 text-base text-center w-fit">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          RERE's purpose is to present issues of urban flora and fauna by creating a network of sensors which monitor environmental conditions.
           </Paragraph>
         </div>
       </div>

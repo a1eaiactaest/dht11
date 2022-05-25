@@ -31,7 +31,7 @@ db = Database(db_name)
 
 @cache
 @app.route('/api/<string:table>', methods=['GET', 'POST'])
-def api_call(table: str) -> Union[str, int]:
+def api_call(table: str) -> Union[str, dict]:
   args = request.args
   print('reguest args:', args)
 
@@ -80,4 +80,3 @@ if __name__ == "__main__":
   else:
     # wsgi, production server
     serve(app, host="0.0.0.0", port=1337)
-

@@ -34,10 +34,11 @@ const NewChart = (props) => {
         },
       },
     },
+    colors: ['#4ade80'],
   };
 
   return (
-    <ReactApexChart options={options} series={series} height={350} width="80%"/>
+    <ReactApexChart options={options} series={series} height={350} width="100%"/>
   );
 }
 
